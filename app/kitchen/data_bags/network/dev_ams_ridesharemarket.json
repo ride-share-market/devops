@@ -1,0 +1,63 @@
+{
+  "id": "dev_ams_ridesharemarket",
+  "defaults": {
+    "digitalOcean": {
+      "image": "ubuntu-14-04-x64",
+      "size": "1gb",
+      "location": "ams3",
+      "sshKeys": [
+        "698297"
+      ],
+      "booleans": [
+        "private_networking"
+      ]
+    }
+  },
+  "hosts": [
+    {
+      "id": "redline",
+      "description": "NOC Server",
+      "roles": [
+        "noc01",
+        "rmq01",
+        "els01",
+        "log01",
+        "met01",
+        "www01",
+        "api01",
+        "rpc01"
+      ],
+      "cnames": [
+        "noc.dev.ridesharemarket.com"
+      ],
+      "digitalOcean": {
+        "id": "4722800",
+        "ip": {
+          "eth0": "178.62.202.20",
+          "eth1": "10.133.190.73"
+        },
+        "size": "1gb"
+      },
+      "chefBootstrap": {
+        "runList": [
+          "recipe[common]",
+          "recipe[relk]"
+        ],
+        "jsonAttributes": {
+          "set_fqdn": "redline.ridesharemarket.com",
+          "postfix": {
+            "main": {
+              "hostname": "redline",
+              "mydomain": "ridesharemarket.com",
+              "smtpd_use_tls": "no"
+            },
+            "aliases": {
+              "root": "systemsadmin@ridesharemarket.com"
+            }
+          }
+        }
+
+      }
+    }
+  ]
+}

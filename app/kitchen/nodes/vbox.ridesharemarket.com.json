@@ -1,0 +1,42 @@
+{
+  "name": "vbox",
+  "set_fqdn": "vbox.ridesharemarket.com",
+  "postfix": {
+    "main": {
+      "hostname": "vbox",
+      "mydomain": "ridesharemarket.com",
+      "smtpd_use_tls": "no"
+    },
+    "aliases": {
+      "root": "systemsadmin@ridesharemarket.com"
+    }
+  },
+  "firehol": {
+    "virtual_box_hosts": "10.0.0.0/8"
+  },
+  "users": [
+    "rsm-data"
+  ],
+  "ssh-config": {
+    "users": [
+      "vagrant"
+    ]
+  },
+  "tmux": {
+    "users": [
+      {
+        "user": "vagrant",
+        "home": "/home/vagrant"
+      }
+    ]
+  },
+  "run_list": [
+//    "recipe[common]",
+//    "recipe[relk]",
+//    "recipe[metrics]",
+//    "recipe[mongodb]",
+//    "recipe[docker-wrapper]",
+//    "recipe[git-repos]",
+    "recipe[docker-containers::deploy]"
+  ]
+}

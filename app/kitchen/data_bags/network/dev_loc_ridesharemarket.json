@@ -1,0 +1,23 @@
+{
+  "id": "dev_loc_ridesharemarket",
+  "hosts": [
+    {
+      "id": "local",
+      "description": "Local Developer Server",
+      "roles": [
+        "www01",
+        "api01"
+      ],
+      "cnames": [
+        "www.dev.loc.ridesharemarket.com",
+        "api.dev.loc.ridesharemarket.com"
+      ],
+      "digitalOcean": {
+        "id": "xxxxxx",
+        "ip": {
+          "eth0": "127.0.0.1"
+        }
+      }
+    }
+  ]
+}
