@@ -37,6 +37,6 @@
     "recipe[mongodb]",
     "recipe[docker-wrapper]",
     "recipe[git-repos]",
-    "recipe[docker-containers::deploy]"
+    "recipe[docker-containers]"
   ]
 }
