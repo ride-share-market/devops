@@ -24,7 +24,7 @@
 
 ## Docker
 
-[Docker Install](../app/docker/README.md)
+[Docker Install](../docs/docker/README.md)
 
 ## Deployment
 
