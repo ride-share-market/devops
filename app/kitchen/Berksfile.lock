@@ -5,6 +5,7 @@ DEPENDENCIES
   graphite
   hostname
   hostsfile
+  jenkins
   postfix
   rabbitmq
   ssh_known_hosts
@@ -69,6 +70,10 @@ GRAPH
   hostsfile (2.4.5)
   iptables (1.0.0)
   iptables-ng (2.2.6)
+  jenkins (2.3.1)
+    apt (~> 2.0)
+    runit (~> 1.5)
+    yum (~> 3.0)
   logrotate (1.9.1)
   lxc (2.0.0)
     dpkg_autostart (>= 0.1.10)

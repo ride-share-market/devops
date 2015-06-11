@@ -37,6 +37,7 @@
     "recipe[mongodb]",
     "recipe[docker-wrapper]",
     "recipe[git-repos]",
-    "recipe[docker-containers]"
+    "recipe[docker-containers]",
+    "recipe[jenkins-cookbook]"
   ]
 }
