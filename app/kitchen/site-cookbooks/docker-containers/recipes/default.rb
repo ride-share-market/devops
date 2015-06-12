@@ -8,4 +8,4 @@
 #
 include_recipe "docker-containers::rsm_deploy_scripts"
 include_recipe "docker-containers::rsm_registry"
-include_recipe "docker-containers::rsm_registry_frontend"
+include_recipe "docker-containers::rsm_registry_ui"

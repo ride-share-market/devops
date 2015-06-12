@@ -11,6 +11,8 @@ docker_container "rsm-registry-ui" do
   restart "always"
   init_type false
   port "9001:80"
-  env "ENV_DOCKER_REGISTRY_HOST=192.168.33.10"
-  env "ENV_DOCKER_REGISTRY_HOST=192.168.33.10 ENV_DOCKER_REGISTRY_PORT=5000"
+  env [
+          "ENV_DOCKER_REGISTRY_HOST=192.168.33.10",
+          "ENV_DOCKER_REGISTRY_PORT=5000"
+      ]
 end
