@@ -59,11 +59,11 @@ docker_registry = DockerRegistry.new({
                                          :registry_port => docker_registry_port
                                      })
 
-rsm_logstash_forwarder_image = "#{docker_registry_host}:#{docker_registry_port}/rudijs/rsm-logstash-forwarder:#{docker_registry.get_image_current_version("rudijs/rsm-logstash-forwarder")}"
-rsm_data_image = "#{docker_registry_host}:#{docker_registry_port}/rudijs/rsm-data:#{docker_registry.get_image_current_version("rudijs/rsm-data")}"
-rsm_api_image = "#{docker_registry_host}:#{docker_registry_port}/rudijs/rsm-api:#{docker_registry.get_image_current_version("rudijs/rsm-api")}"
-rsm_app_image = "#{docker_registry_host}:#{docker_registry_port}/rudijs/rsm-app:#{docker_registry.get_image_current_version("rudijs/rsm-app")}"
-rsm_nginx_image = "#{docker_registry_host}:#{docker_registry_port}/rudijs/rsm-nginx:#{docker_registry.get_image_current_version("rudijs/rsm-nginx")}"
+rsm_logstash_forwarder_image = "#{docker_registry_host}:#{docker_registry_port}/ride-share-market/rsm-logstash-forwarder:#{docker_registry.get_image_current_version("ride-share-market/rsm-logstash-forwarder")}"
+rsm_data_image = "#{docker_registry_host}:#{docker_registry_port}/ride-share-market/rsm-data:#{docker_registry.get_image_current_version("ride-share-market/rsm-data")}"
+rsm_api_image = "#{docker_registry_host}:#{docker_registry_port}/ride-share-market/rsm-api:#{docker_registry.get_image_current_version("ride-share-market/rsm-api")}"
+rsm_app_image = "#{docker_registry_host}:#{docker_registry_port}/ride-share-market/rsm-app:#{docker_registry.get_image_current_version("ride-share-market/rsm-app")}"
+rsm_nginx_image = "#{docker_registry_host}:#{docker_registry_port}/ride-share-market/rsm-nginx:#{docker_registry.get_image_current_version("ride-share-market/rsm-nginx")}"
 
 def run_command(dry_run, cmd)
   puts "==> #{cmd}"
