@@ -10,6 +10,7 @@
 - `vagrant plugin install vagrant-vbguest`
 - `vagrant up`
 - `./devops.rb sshcopyid`
+- `./devops.rb update_ubuntu_account`
 - `./devops.rb upgrade`
 - `./devops.rb reboot`
 - `./devops.rb bootstrap`

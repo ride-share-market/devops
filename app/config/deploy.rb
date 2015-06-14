@@ -50,65 +50,6 @@ namespace :deploy do
 
 end
 
-set :rsm_web_app_repos, fetch(:rsm_web_app_repos, []).push(
-                          {
-                              name: "ride-share-market-data",
-                              git: "git@github.com:rudijs/ride-share-market-data.git",
-                              config_src: File.join(File.dirname(__FILE__), "/../../../ride-share-market-data/config/env/#{fetch(:stage)}.json"),
-                              config_dst: "ride-share-market-data/config/env"
-                          },
-                          {
-                              name: "ride-share-market-api",
-                              git: "git@github.com:rudijs/ride-share-market-api.git",
-                              config_src: File.join(File.dirname(__FILE__), "/../../../ride-share-market-api/config/env/#{fetch(:stage)}.json"),
-                              config_dst: "ride-share-market-api/config/env"
-                          },
-                          {
-                              name: "ride-share-market-app",
-                              git: "git@github.com:rudijs/ride-share-market-app.git",
-                              config_src: File.join(File.dirname(__FILE__), "/../../../ride-share-market-app/config/env/#{fetch(:stage)}.json"),
-                              config_dst: "ride-share-market-app/config/env"
-                          }
-                      )
-
-set :docker_repos, fetch(:rsm_docker_repos, []).push(
-                     "docker/iojs",
-                     "docker/logstash-forwarder",
-                     "docker/nginx"
-                 )
-
-desc "Docker Repos"
-task :docker_repos do
-  on roles(:app) do |host|
-    fetch(:docker_repos, []).each do |repo|
-      if test "[ ! -d docker ]"
-        execute :mkdir, "docker"
-      end
-      upload! repo, repo, recursive: true
-    end
-  end
-end
-
-
-desc "RSM Repos"
-task :rsm_repos do
-  on roles(:app) do |host|
-    puts "Host: #{host} ==> #{fetch(:stage)}"
-    fetch(:rsm_web_app_repos, []).each do |repo|
-      # Git clone or pull repo
-      if test "[ -d #{repo[:name]} ]"
-        within repo[:name] do
-          execute :git, :pull
-        end
-      else
-        execute :git, :clone, "-b", fetch(:branch), repo[:git]
-      end
-      # Upload non-repo configs
-      upload! repo[:config_src], repo[:config_dst]
-    end
-  end
-end
-
 desc "Report Uptimes"
 task :uptime do
   on roles(:all) do |host|
@@ -117,7 +58,55 @@ task :uptime do
   end
 end
 
-desc "Deploy Docker App"
+set :rsm_configs, fetch(:rsm_configs, []).push(
+                    {
+                        name: "data",
+                        config_src: Dir.glob(File.join(File.dirname(__FILE__), "/../../../data/config/env/*.json")),
+                        config_dst: "config/data/config/env"
+                    },
+                    {
+                        name: "api",
+                        config_src: Dir.glob(File.join(File.dirname(__FILE__), "/../../../api/config/env/*.json")),
+                        config_dst: "config/api/config/env"
+                    },
+                    {
+                        name: "app",
+                        config_src: Dir.glob(File.join(File.dirname(__FILE__), "/../../../app/config/env/*.json")),
+                        config_dst: "config/app/config/env"
+                    },
+                    {
+                        name: "nginx",
+                        config_src: Dir.glob(File.join(File.dirname(__FILE__), "/../../../nginx/ssl/*")),
+                        config_dst: "config/nginx/ssl"
+                    }
+
+                )
+
+desc "Upload App Config"
+task :upload_app_config do
+  on roles(:app) do |host|
+    puts "Host: #{host} ==> #{fetch(:stage)}"
+    as "ubuntu" do
+      within "/home/ubuntu" do
+        fetch(:rsm_configs, []).each do |rsm_config|
+          if test "[ ! -d #{rsm_config[:config_dst]} ]"
+            execute :mkdir, "-p", rsm_config[:config_dst]
+          end
+          rsm_config[:config_src].each do |file|
+            # The upload!() method doesn't honor the values of within(), as() etc, this will be improved
+            # as the library matures, but we're not there yet.
+            # upload! file, rsm_config[:config_dst]
+            on(:local) do
+              execute :scp, "#{file} ubuntu@#{host}:#{rsm_config[:config_dst]}"
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+desc "Docker Deploy"
 task :docker_deploy do
   on roles(:all) do |host|
     upload! "kitchen/data_bags/docker/rsm.json", "rsm.json"

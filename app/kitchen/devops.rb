@@ -33,9 +33,19 @@ class MyCLI < Thor
   option :user, :default => default[:user]
   option :hostname, :default => default[:hostname]
 
-  def sshcopyid()
+  def sshcopyid
     puts "==> Copying ssh public key to #{options[:hostname]}..."
     cmd = "ssh-copy-id #{options[:user]}@#{options[:hostname]}"
+    puts "==> #{cmd}"; system cmd
+  end
+
+  desc "update_ubuntu_account", "Updates ubuntu user account ssh authorized_keys"
+  option :user, :default => default[:user]
+  option :hostname, :default => default[:hostname]
+
+  def update_ubuntu_account
+    puts "==> Updating ubuntu .ssh/authorized_keys on #{options[:hostname]}..."
+    cmd = "ssh #{options[:user]}@#{options[:hostname]} 'sudo cat ~/.ssh/authorized_keys | sudo tee -a /home/ubuntu/.ssh/authorized_keys'"
     puts "==> #{cmd}"; system cmd
   end
 
