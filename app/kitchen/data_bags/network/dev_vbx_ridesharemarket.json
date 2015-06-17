@@ -12,7 +12,8 @@
         "met01",
         "www01",
         "api01",
-        "rpc01"
+        "rpc01",
+        "reg01"
       ],
       "cnames": [
         "www.dev.vbx.ridesharemarket.com",

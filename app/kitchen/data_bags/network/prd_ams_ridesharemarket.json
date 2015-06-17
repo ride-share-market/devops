@@ -1,5 +1,5 @@
 {
-  "id": "dev_ams_ridesharemarket",
+  "id": "prd_ams_ridesharemarket",
   "defaults": {
     "digitalOcean": {
       "image": "ubuntu-14-04-x64",
@@ -25,10 +25,11 @@
         "met01",
         "www01",
         "api01",
-        "rpc01"
+        "rpc01",
+        "reg01"
       ],
       "cnames": [
-        "noc.dev.ridesharemarket.com"
+        "noc.prd.ridesharemarket.com"
       ],
       "digitalOcean": {
         "id": "4722800",
@@ -40,6 +41,7 @@
       },
       "chefBootstrap": {
         "runList": [
+          "recipe[network-hosts-prd]",
           "recipe[common]",
           "recipe[relk]"
         ],
@@ -56,7 +58,6 @@
             }
           }
         }
-
       }
     }
   ]

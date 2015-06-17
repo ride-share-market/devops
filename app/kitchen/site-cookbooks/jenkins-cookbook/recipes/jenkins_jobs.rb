@@ -12,7 +12,7 @@ node['jenkins-cookbook']['jobs'].each do |docker|
     source "config.xml.erb"
     variables({
                   :repo => docker[:repo],
-                  :branch => docker.fetch(:branch, "develop")
+                  :branch => docker.fetch(:branch, "master")
               })
   end
 

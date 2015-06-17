@@ -12,4 +12,10 @@ node["docker"]["users"].each {|user|
     group user[:user]
   end
 
+  template "#{user[:home]}/docker-build.rb" do
+    source "docker-build.rb"
+    owner user[:user]
+    group user[:user]
+  end
+
 }

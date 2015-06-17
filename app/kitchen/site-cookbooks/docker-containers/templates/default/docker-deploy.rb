@@ -12,7 +12,7 @@ Options = Struct.new(
 
 # Option Defaults
 args = Options.new(
-    "192.168.33.10",
+    "reg01.dev.vbx.ridesharemarket.com",
     5000,
     nil,
     false
