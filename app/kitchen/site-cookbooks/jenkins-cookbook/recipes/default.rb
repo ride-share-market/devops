@@ -6,13 +6,9 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-# include_recipe "jenkins::master"
-#
-# jenkins_plugin "greenballs"
-# jenkins_plugin "git"
+include_recipe "jenkins::master"
 
-# include_recipe "jenkins-cookbook::jenkins_job_app"
-# include_recipe "jenkins-cookbook::jenkins_job_data"
-# include_recipe "jenkins-cookbook::jenkins_job_docker"
+jenkins_plugin "greenballs"
+jenkins_plugin "git"
 
 include_recipe "jenkins-cookbook::jenkins_jobs"
