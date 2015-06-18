@@ -6,7 +6,7 @@ require "ipaddress"
 class NetworkHosts
   def initialize(hosts)
     @hosts = hosts
-    @path = "#{Dir.pwd}/../kitchen/data_bags/network"
+    @path = File.dirname(__FILE__) + "/../kitchen/data_bags/network"
   end
 
   def network_data_bags
