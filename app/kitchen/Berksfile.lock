@@ -3,6 +3,9 @@ DEPENDENCIES
   chef-client
   docker
   graphite
+    git: git://github.com/yticketfly/graphite.git
+    revision: d5ed9526b11ead609651a39b1ba432a3260fbeed
+    branch: patch-1
   hostname
   hostsfile
   jenkins
@@ -69,7 +72,7 @@ GRAPH
     hostsfile (>= 0.0.0)
   hostsfile (2.4.5)
   iptables (1.0.0)
-  iptables-ng (2.2.6)
+  iptables-ng (2.2.7)
   jenkins (2.3.1)
     apt (~> 2.0)
     runit (~> 1.5)
@@ -92,7 +95,7 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  rabbitmq (4.0.0)
+  rabbitmq (4.0.1)
     erlang (~> 1.5.0)
     yum-epel (>= 0.0.0)
     yum-erlang_solutions (>= 0.0.0)
@@ -100,7 +103,7 @@ GRAPH
     packagecloud (>= 0.0.0)
   ssh_known_hosts (2.0.0)
     partial_search (>= 0.0.0)
-  statsdaemon-bitly (1.0.3)
+  statsdaemon-bitly (1.0.4)
     golang (>= 0.0.0)
   sysctl (0.6.2)
     ohai (>= 0.0.0)
@@ -113,7 +116,7 @@ GRAPH
   user (0.4.2)
   windows (1.37.0)
     chef_handler (>= 0.0.0)
-  yum (3.6.0)
+  yum (3.6.1)
   yum-epel (0.6.0)
     yum (~> 3.0)
   yum-erlang_solutions (0.2.0)
