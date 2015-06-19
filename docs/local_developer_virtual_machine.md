@@ -63,12 +63,12 @@ These configurations are not kept in github, but are sync'd directly from the de
 The configuration data is kept in a keepass file (encrypted) in the repo.
 
 - `cd ride-share-market`
-- `git clone https://github.com/ride-share-market/iojs.git`
-- `git clone https://github.com/ride-share-market/nginx.git`
-- `git clone https://github.com/ride-share-market/logstash-forwarder.git`
-- `git clone https://github.com/ride-share-market/data.git`
-- `git clone https://github.com/ride-share-market/api.git`
-- `git clone https://github.com/ride-share-market/app.git`
+- `git clone git@github.com:ride-share-market/iojs.git`
+- `git clone git@github.com:ride-share-market/nginx.git`
+- `git clone git@github.com:ride-share-market/logstash-forwarder.git`
+- `git clone git@github.com:ride-share-market/data.git`
+- `git clone git@github.com:ride-share-market/api.git`
+- `git clone git@github.com:ride-share-market/app.git`
 
 Next consult each repo for it's setup details.
 
