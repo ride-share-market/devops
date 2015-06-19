@@ -54,10 +54,26 @@ From the web UI enable these three options:
 - Access Control > Security Realm > Jenkins' own user database 
 - Access Control > Authorization > Logged-in users can do anything Security Realm 
 
+## Deployment
+
+Git clone all the application repos and then update the repo configurations.
+
+These configurations are not kept in github, but are sync'd directly from the developer box to the CI server.
+
+The configuration data is kept in a keepass file (encrypted) in the repo.
+
+- `cd ride-share-market`
+- `git clone https://github.com/ride-share-market/iojs.git`
+- `git clone https://github.com/ride-share-market/nginx.git`
+- `git clone https://github.com/ride-share-market/logstash-forwarder.git`
+- `git clone https://github.com/ride-share-market/data.git`
+- `git clone https://github.com/ride-share-market/api.git`
+- `git clone https://github.com/ride-share-market/app.git`
+
+Next consult each repo for it's setup details.
+
+After each individual repo is setup locally continue to the [Deployment](deployment.md) docs.
+
 ## Docker
 
 [Docker Install](../docs/docker/README.md)
-
-## Deployment
-
-[Deployment](deployment.md)
