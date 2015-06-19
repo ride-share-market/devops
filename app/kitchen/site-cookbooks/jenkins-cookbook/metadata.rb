@@ -7,3 +7,4 @@ long_description 'Installs/Configures jenkins-cookbook'
 version          '0.1.0'
 
 depends 'jenkins'
+depends 'secrets'

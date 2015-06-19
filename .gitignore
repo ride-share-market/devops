@@ -3,4 +3,4 @@
 .vagrant
 .kitchen
 berks-cookbooks
-secrets.json
+**/.chef/secrets.json

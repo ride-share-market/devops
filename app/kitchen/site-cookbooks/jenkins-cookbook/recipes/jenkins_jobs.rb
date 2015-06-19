@@ -12,7 +12,8 @@ node['jenkins-cookbook']['jobs'].each do |docker|
     source "config.xml.erb"
     variables({
                   :repo => docker[:repo],
-                  :branch => docker.fetch(:branch, "master")
+                  :branch => docker.fetch(:branch, "master"),
+                  :build_token => node["secrets"]["data"]['jenkins']['build']['token']
               })
   end
 
