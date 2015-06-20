@@ -25,10 +25,13 @@ Build each image one by one depending one the current passing CI build version.
 - `ruby docker-build.rb --name rsm-nginx --version x.x.x --jenkinsjob nginx`
 - `ruby docker-build.rb --name rsm-logstash-forwarder --version x.x.x -j logstash-forwarder`
 - `ruby docker-build.rb --name rsm-iojs --version x.x.x -j iojs`
-
+- `ruby docker-build.rb --name rsm-data --version x.x.x -j data`
+- `ruby docker-build.rb --name rsm-api --version x.x.x -j api`
+- `ruby docker-build.rb --name rsm-app --version x.x.x -j app`
 
 Deploy from Private docker registry to vbx
 
+- `ruby docker-deploy.rb --env vbx`
 
 ## Local
 
