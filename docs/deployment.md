@@ -1,12 +1,13 @@
 # Application Deployment
 
-
-## VBX
+## Step 1
 
 Once all the repos are setup with their configs, copy those private configs to the CI server.
 
 - `cd ride-share-market/devops/app`
-- `bundle exec cap vbx upload_app_config` 
+- `cap vbx app:upload_config`
+ 
+## Step 2
 
 Build each repo on the CI server.
 
@@ -17,52 +18,37 @@ Build each repo on the CI server.
 - Next two node apps (will use the downloaded iojs from the previous build run)
 - `for JOB (api app) { curl "http://192.168.33.10:8081/job/$JOB/build?token=$CI_TOKEN" }`
 
-Create Docker Images and push to vbx private repo.
+## Step 3
 
-Build each image one by one depending one the current passing CI build version.
+Create Docker Images and push to the private docker registry.
 
-- `export PATH=/opt/chef/embedded/bin:$PATH`
-- `ruby docker-build.rb --name rsm-nginx --version x.x.x --jenkinsjob nginx`
-- `ruby docker-build.rb --name rsm-logstash-forwarder --version x.x.x -j logstash-forwarder`
-- `ruby docker-build.rb --name rsm-iojs --version x.x.x -j iojs`
-- `ruby docker-build.rb --name rsm-data --version x.x.x -j data`
-- `ruby docker-build.rb --name rsm-api --version x.x.x -j api`
-- `ruby docker-build.rb --name rsm-app --version x.x.x -j app`
+Build each image one by one, use the current passing CI build version.
 
-Deploy from Private docker registry to vbx
+Note: No spaces in capistrano command arguments.
 
-- `ruby docker-deploy.rb --env vbx`
+- `cap vbx docker:build[rsm-nginx,x.x.x,nginx]` 
+- `cap vbx docker:build[rsm-logstash-forwarder,x.x.x,logstash-forwarder]` 
+- `cap vbx docker:build[rsm-iojs,x.x.x,iojs]` 
+- `cap vbx docker:build[rsm-data,x.x.x,data]` 
+- `cap vbx docker:build[rsm-api,x.x.x,api]` 
+- `cap vbx docker:build[rsm-app,x.x.x,app]` 
 
-## Local
+## Step 4
 
-The application is build with several Docker containers that work together.
-
-- rsm-data
-- rsm-api
-- rsm-app
-- [rsm-nginx](../app/docker/nginx/README.md)
-- [rsm-logstash-forwarder](../app/docker/logstash-forwarder/README.md)
-
-### Step 1
-
-Build locally and push the application docker images to the local private registry.
-
-### Step 2
-
-### Local Developer Machine
-
-The docker images and container names to be used for deployment are stored in a JSON file.
-
-Update [rsm.json](../app/kitchen/data_bags/docker/rsm.json) to the required versions.
-
-On the Remote server:
+Deploy from Private docker registry, on the remote server(s):
  
-1. Pull down the images from the local docker registry.
+1. Pull down the images from the private docker registry.
 2. Remove any running containers in order.
 3. Start containers in order.
 
-These steps are handled using Capistrano
+- VBX environment
+- `cap vbx docker:deploy`
 
-- `cd app`
-- Virtual Machine (local)
-- `bundle exec cap vbx docker_deploy`
+### Step 2 Build Option
+
+Docker images can also be built locally (from Ubuntu workstation non-VM).
+
+Build locally and push the application docker images to the local docker private registry
+using the docker-build.sh script from within each repo.
+
+Then deploy with capistrano as detailed above.
