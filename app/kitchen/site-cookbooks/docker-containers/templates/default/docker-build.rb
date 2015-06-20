@@ -92,8 +92,7 @@ def run_command(options)
       end
       exit_status = wait_thr.value
       unless exit_status.success?
-        #abort "==> FAILED !!! #{cmd}"
-        puts "==> FAILED !!! #{options[:cmd]}"
+        abort "==> FAILED !!! #{options[:cmd]}"
       end
     }
   end
