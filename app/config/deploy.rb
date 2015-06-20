@@ -82,36 +82,50 @@ set :rsm_configs, fetch(:rsm_configs, []).push(
 
                 )
 
-desc "Upload App Config"
-task :upload_app_config do
-  on roles(:app) do |host|
-    puts "Host: #{host} ==> #{fetch(:stage)}"
-    as "ubuntu" do
-      within "/home/ubuntu" do
-        fetch(:rsm_configs, []).each do |rsm_config|
-          if test "[ ! -d #{rsm_config[:config_dst]} ]"
-            execute :mkdir, "-p", rsm_config[:config_dst]
-          end
-          rsm_config[:config_src].each do |file|
-            # The upload!() method doesn't honor the values of within(), as() etc, this will be improved
-            # as the library matures, but we're not there yet.
-            # upload! file, rsm_config[:config_dst]
-            on(:local) do
-              execute :scp, "#{file} ubuntu@#{host}:#{rsm_config[:config_dst]}"
+namespace :app do
+
+  desc "Upload App Config"
+  task :upload_config do
+    on roles(:app) do |host|
+      puts "Host: #{host} ==> #{fetch(:stage)}"
+      as "ubuntu" do
+        within "/home/ubuntu" do
+          fetch(:rsm_configs, []).each do |rsm_config|
+            if test "[ ! -d #{rsm_config[:config_dst]} ]"
+              execute :mkdir, "-p", rsm_config[:config_dst]
+            end
+            rsm_config[:config_src].each do |file|
+              # The upload!() method doesn't honor the values of within(), as() etc, this will be improved
+              # as the library matures, but we're not there yet.
+              # upload! file, rsm_config[:config_dst]
+              on(:local) do
+                execute :scp, "#{file} ubuntu@#{host}:#{rsm_config[:config_dst]}"
+              end
             end
           end
         end
       end
     end
   end
+
 end
 
-desc "Docker Deploy"
-task :docker_deploy do
-  on roles(:all) do |host|
-    upload! "kitchen/data_bags/docker/rsm.json", "rsm.json"
-    execute "~/docker.rb > ~/deploy.sh"
-    execute "sh ~/deploy.sh"
-    info "Host #{host} (#{host.roles.to_a.join(", ")}):\t#{capture(:uptime)}"
+namespace :docker do
+
+  desc "Docker Build"
+  task :build, :name, :version, :jenkins_job do |t, args|
+    on roles(:ci) do |host|
+      execute "/opt/chef/embedded/bin/ruby docker-build.rb --name #{args[:name]} --version #{args[:version]} -j #{args[:jenkins_job]}"
+      info "Host #{host} (#{host.roles.to_a.join(", ")}):\t#{capture(:uptime)}"
+    end
   end
+
+  desc "Docker Deploy"
+  task :deploy do
+    on roles(:app) do |host|
+      execute "/opt/chef/embedded/bin/ruby docker-deploy.rb --env #{fetch(:stage)}"
+      info "Host #{host} (#{host.roles.to_a.join(", ")}):\t#{capture(:uptime)}"
+    end
+  end
+
 end
