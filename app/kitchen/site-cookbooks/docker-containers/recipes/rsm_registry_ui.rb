@@ -12,7 +12,7 @@ docker_container "rsm-registry-ui" do
   init_type false
   port "9001:80"
   env [
-          "ENV_DOCKER_REGISTRY_HOST=#{node[:docker_registry_ui][:docker_registry_host]}",
+          "ENV_DOCKER_REGISTRY_HOST=#{node[:hosts][:docker_registry_ip]}",
           "ENV_DOCKER_REGISTRY_PORT=5000"
       ]
 end

@@ -108,13 +108,13 @@ end
 
 # Deploy RSM Docker containers in specific order
 run_command dry_run, "sudo docker run -d --restart always --name rsm-data --env 'NODE_ENV=#{node_application_env}' --cap-add SYS_PTRACE --security-opt apparmor:unconfined #{rsm_data_image}"
-run_command dry_run, "sudo docker run -d --restart always --name rsm-data-logstash-forwarder --add-host vbox.ridesharemarket.com:192.168.33.10 -v /etc/pki/tls:/etc/pki/tls --volumes-from rsm-data -t #{rsm_logstash_forwarder_image} '--quiet=true' '--config=/srv/ride-share-market-data/config/logstash-forwarder.json'"
+run_command dry_run, "sudo docker run -d --restart always --name rsm-data-logstash-forwarder --add-host logstash.ridesharemarket.com:<%= @logstash_ip %> -v /etc/pki/tls:/etc/pki/tls --volumes-from rsm-data -t #{rsm_logstash_forwarder_image} '--quiet=true' '--config=/srv/ride-share-market-data/config/logstash-forwarder.json'"
 
-run_command dry_run, "sudo docker run -d --restart always --name rsm-api --env 'NODE_ENV=#{node_application_env}' --add-host met01.dev.vbx.ridesharemarket.com:192.168.33.10 --cap-add SYS_PTRACE --security-opt apparmor:unconfined #{rsm_api_image}"
-run_command dry_run, "sudo docker run -d --restart always --name rsm-api-logstash-forwarder --add-host vbox.ridesharemarket.com:192.168.33.10 -v /etc/pki/tls:/etc/pki/tls --volumes-from rsm-api -t #{rsm_logstash_forwarder_image} '--quiet=true' '--config=/srv/ride-share-market-api/config/logstash-forwarder.json'"
+run_command dry_run, "sudo docker run -d --restart always --name rsm-api --env 'NODE_ENV=#{node_application_env}' --add-host metrics.ridesharemarket.com:<%= @metrics_ip %> --cap-add SYS_PTRACE --security-opt apparmor:unconfined #{rsm_api_image}"
+run_command dry_run, "sudo docker run -d --restart always --name rsm-api-logstash-forwarder --add-host logstash.ridesharemarket.com:<%= @logstash_ip %> -v /etc/pki/tls:/etc/pki/tls --volumes-from rsm-api -t #{rsm_logstash_forwarder_image} '--quiet=true' '--config=/srv/ride-share-market-api/config/logstash-forwarder.json'"
 
 run_command dry_run, "sudo docker run -d --restart always --name rsm-app --env 'NODE_ENV=#{node_application_env}' --cap-add SYS_PTRACE --security-opt apparmor:unconfined #{rsm_app_image}"
-run_command dry_run, "sudo docker run -d --restart always --name rsm-app-logstash-forwarder --add-host vbox.ridesharemarket.com:192.168.33.10 -v /etc/pki/tls:/etc/pki/tls --volumes-from rsm-app -t #{rsm_logstash_forwarder_image} '--quiet=true' '--config=/srv/ride-share-market-app/config/logstash-forwarder.json'"
+run_command dry_run, "sudo docker run -d --restart always --name rsm-app-logstash-forwarder --add-host logstash.ridesharemarket.com:<%= @logstash_ip %> -v /etc/pki/tls:/etc/pki/tls --volumes-from rsm-app -t #{rsm_logstash_forwarder_image} '--quiet=true' '--config=/srv/ride-share-market-app/config/logstash-forwarder.json'"
 
 run_command dry_run, "sudo docker run -d --restart always --name rsm-nginx --volumes-from rsm-app --link rsm-app:rsm-app --link rsm-api:rsm-api -p 80:80 -p 443:443 #{rsm_nginx_image}"
-run_command dry_run, "sudo docker run -d --restart always --name rsm-nginx-logstash-forwarder --add-host vbox.ridesharemarket.com:192.168.33.10 -v /etc/pki/tls:/etc/pki/tls --volumes-from rsm-nginx -t #{rsm_logstash_forwarder_image} '--quiet=true' '--config=/etc/nginx/logstash-forwarder.json'"
+run_command dry_run, "sudo docker run -d --restart always --name rsm-nginx-logstash-forwarder --add-host logstash.ridesharemarket.com:<%= @logstash_ip %> -v /etc/pki/tls:/etc/pki/tls --volumes-from rsm-nginx -t #{rsm_logstash_forwarder_image} '--quiet=true' '--config=/etc/nginx/logstash-forwarder.json'"
