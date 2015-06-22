@@ -14,9 +14,7 @@ Build each repo on the CI server.
 - `zsh` shell
 - `export CI_TOKEN=GET-TOKEN-FROM-KEEPASS-SECRETS`
 - Build docker containers and the first node app. The first node app will download iojs.
-- `for JOB (iojs nginx logstash-forwarder data) { curl "http://192.168.33.10:8081/job/$JOB/build?token=$CI_TOKEN" }`
-- Next two node apps (will use the downloaded iojs from the previous build run)
-- `for JOB (api app) { curl "http://192.168.33.10:8081/job/$JOB/build?token=$CI_TOKEN" }`
+- `for JOB (nginx iojs logstash-forwarder data api app) { curl "http://192.168.33.10:8081/job/$JOB/build?token=$CI_TOKEN" }`
 
 ## Step 3
 
