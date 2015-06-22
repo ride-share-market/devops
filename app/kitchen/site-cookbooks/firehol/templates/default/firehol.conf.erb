@@ -120,13 +120,18 @@ FIREHOL_LOG_BURST="5"
 #======
 
 interface "${lan_interface}" lan
-        policy accept
+    policy accept
 
 interface "${docker_interface}" docker
     policy accept
 
 interface "${docker_virtual_subnets}" veth
     policy accept
+
+# Add router for docker since Docker version 1.7 so linked container networking will work.
+router dockerlan inface docker+ outface docker+
+    server all accept
+    client all accept
 
 interface "${internet_interface}" internet src not "${newunroutable_ips}" "${internet_params[@]}"
 
