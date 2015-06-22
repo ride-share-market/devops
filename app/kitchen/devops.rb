@@ -14,7 +14,8 @@ class MyCLI < Thor
       :cookbook => {
           :maintainer => "Ride Share Market",
           :maintainer_email => "systemsadmin@ridesharemarket.com"
-      }
+      },
+      :chef_client_version => "12.3.0"
   }
 
   desc "init", "Copies configuration files from example/ into place"
@@ -105,7 +106,8 @@ class MyCLI < Thor
     cmd = "ssh #{options[:user]}@#{options[:hostname]} \"if ! [ -e /usr/bin/curl ]; then sudo apt-get install -y curl; else echo 'curl [OK]' ; fi\""
     puts "==> #{cmd}"; system cmd
 
-    cmd = "ssh #{options[:user]}@#{options[:hostname]} \"if ! [ -e /opt/chef/bin/chef-solo ]; then curl -L https://www.chef.io/chef/install.sh | sudo bash; else echo 'Chef [OK]' ; fi\""
+    #cmd = "ssh #{options[:user]}@#{options[:hostname]} \"if ! [ -e /opt/chef/bin/chef-solo ]; then curl -L https://www.chef.io/chef/install.sh | sudo bash; else echo 'Chef [OK]' ; fi\""
+    cmd = "ssh #{options[:user]}@#{options[:hostname]} \"if ! [ -e /opt/chef/bin/chef-solo ]; then curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -v #{options[:chef_client_version]}; else echo 'Chef [OK]' ; fi\""
     puts "==> #{cmd}"; system cmd
   end
 
