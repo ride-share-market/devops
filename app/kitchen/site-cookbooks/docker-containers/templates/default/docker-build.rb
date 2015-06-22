@@ -9,7 +9,8 @@ Options = Struct.new(
     :image_name,
     :image_version,
     :jenkins_job,
-    :dry_run
+    :dry_run,
+    :abort_on_error
 )
 
 # Option Defaults
@@ -20,6 +21,7 @@ args = Options.new(
     nil,
     nil,
     nil,
+    false,
     false
 )
 
@@ -55,6 +57,10 @@ OptionParser.new do |opts|
     args.dry_run = d
   end
 
+  opts.on("-a", "--abort-on-error", "Abort script execution on any error") do |a|
+    args.abort_on_error = a
+  end
+
   opts.on("-h", "--help", "Prints this help") do
     puts opts
     exit
@@ -81,18 +87,25 @@ image_name = args.image_name
 image_version = args.image_version
 jenkins_job = args.jenkins_job
 dry_run = args.dry_run
+abort_on_error = args.abort_on_error
 
 def run_command(options)
   puts "==> #{options[:cmd]}"
   if !options[:dry_run]
-    Dir.chdir "/var/lib/jenkins/jobs/#{options[:jenkins_job]}/workspace"
+    #Dir.chdir "/var/lib/jenkins/jobs/#{options[:jenkins_job]}/workspace"
+    Dir.chdir "/var/lib/jenkins/workspace/#{options[:jenkins_job]}"
     Open3.popen3(options[:cmd]) { |stdin, stdout, stderr, wait_thr|
       while line = stdout.gets
         puts line
       end
       exit_status = wait_thr.value
       unless exit_status.success?
-        abort "==> FAILED !!! #{options[:cmd]}"
+        message = "==> FAILED !!! #{options[:cmd]}"
+        if options[:abort_on_error]
+          abort message
+        else
+          puts message
+        end
       end
     }
   end
@@ -101,6 +114,7 @@ end
 # Build
 run_command({
                 :dry_run => dry_run,
+                :abort_on_error => abort_on_error,
                 :name => image_name,
                 :cmd => "sudo docker build -t #{image_owner}/#{image_name}:#{image_version} .",
                 :jenkins_job => jenkins_job
@@ -109,6 +123,7 @@ run_command({
 # Tag
 run_command({
                 :dry_run => dry_run,
+                :abort_on_error => abort_on_error,
                 :name => image_name,
                 :cmd => "sudo docker tag #{image_owner}/#{image_name}:#{image_version} #{private_registry}:#{private_registry_port}/#{image_owner}/#{image_name}:#{image_version}",
                 :jenkins_job => jenkins_job
@@ -117,6 +132,7 @@ run_command({
 # Push
 run_command({
                 :dry_run => dry_run,
+                :abort_on_error => abort_on_error,
                 :name => image_name,
                 :cmd => "sudo docker push #{private_registry}:#{private_registry_port}/#{image_owner}/#{image_name}:#{image_version}",
                 :jenkins_job => jenkins_job
