@@ -29,7 +29,13 @@ RABBITMQ_ACCESS="${ADMIN_HOSTS}"
 
 DOCKER_PRIVATE_REGISTRY_ACCESS="${ADMIN_HOSTS}"
 
+DOCKER_PRIVATE_REGISTRY_UI_ACCESS="${ADMIN_HOSTS}"
+
 KIBANA_ACCESS="${ADMIN_HOSTS}"
+
+JENKINS_ACCESS="${ADMIN_HOSTS}"
+
+GRAPHITE_ACCESS="${ADMIN_HOSTS}"
 
 ICMP_ACCESS="${ADMIN_HOSTS}"
 
@@ -57,12 +63,22 @@ client_mosh_ports="default 60000:61000"
 server_kibana_ports="tcp/5601"
 client_kibana_ports="default 5601"
 
+server_jenkins_ports="tcp/8081"
+client_jenkins_ports="default 8081"
+
+server_graphite_ports="tcp/8080"
+client_graphite_ports="default 8080"
+
 server_rabbitmq_ports="tcp/15672"
 client_rabbitmq_ports="default 15672"
 
 # Docker Private Registry
 server_dockerpr_ports="tcp/5000"
 client_dockerpr_ports="default 5000"
+
+# Docker Private Registry UI
+server_dockerpr_ui_ports="tcp/9001"
+client_dockerpr_ui_ports="default 9001"
 
 # consul.io - Health checking, service discovery, key/value store
 server_consul_ports="tcp/8300 udp/8300 tcp/8301 udp/8301 tcp/8302 udp/8302 tcp/8400 udp/8400 tcp/8500 udp/8500 tcp/8600 udp/8600"
@@ -159,8 +175,17 @@ interface "${internet_interface}" internet src not "${newunroutable_ips}" "${int
         # Docker Private Registry
         server dockerpr accept src "${DOCKER_PRIVATE_REGISTRY_ACCESS}"
 
+        # Docker Private Registry UI
+        server dockerpr_ui accept src "${DOCKER_PRIVATE_REGISTRY_UI_ACCESS}"
+
         # Kibana
         server kibana accept src "${KIBANA_ACCESS}"
+
+        # Jenkins
+        server kibana accept src "${JENKINS_ACCESS}"
+
+        # Graphite
+        server graphite accept src "${GRAPHITE_ACCESS}"
 
         # Consul
         server consul accept src "${CONSUL_ACCESS}"
