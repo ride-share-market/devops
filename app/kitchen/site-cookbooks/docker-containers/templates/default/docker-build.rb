@@ -3,6 +3,7 @@ require 'optparse'
 
 # Options
 Options = Struct.new(
+    :env,
     :private_registry,
     :private_registry_port,
     :image_owner,
@@ -15,6 +16,7 @@ Options = Struct.new(
 
 # Option Defaults
 args = Options.new(
+    nil,
     "reg01.dev.vbx.ridesharemarket.com",
     5000,
     "ride-share-market",
@@ -28,6 +30,10 @@ args = Options.new(
 # Set commandline Options
 OptionParser.new do |opts|
   opts.banner = "Usage: docker-deploy.rb [options]"
+
+  opts.on("-eENV", "--env=ENV", "Node application environment") do |e|
+    args.env = e
+  end
 
   opts.on("-nHOST", "--hostname=HOST", "Docker Private Registry hostname/IP address") do |h|
     args.private_registry = h
@@ -68,6 +74,10 @@ OptionParser.new do |opts|
 
 end.parse!
 
+if args.env == nil
+  fail "Missing required argument '--env'"
+end
+
 if args.image_name == nil
   fail "Missing required argument '--name'"
 end
@@ -80,6 +90,7 @@ if args.jenkins_job == nil
   fail "Missing required argument '--jenkinsjob'"
 end
 
+application_env = args.env
 private_registry = args.private_registry
 private_registry_port = args.private_registry_port
 image_owner = args.image_owner
@@ -111,8 +122,19 @@ def run_command(options)
   end
 end
 
+# Set Logrotate restart env
+run_command({
+                :application_env => application_env,
+                :dry_run => dry_run,
+                :abort_on_error => abort_on_error,
+                :name => image_name,
+                :cmd => "if [ -e config/logrotate.conf ]; then sudo sed -i.orig -e 's/NODE_ENV=[a-z]\\{3\\}/NODE_ENV=#{application_env}/g' config/logrotate.conf; fi",
+                :jenkins_job => jenkins_job
+            })
+
 # Build
 run_command({
+                :application_env => application_env,
                 :dry_run => dry_run,
                 :abort_on_error => abort_on_error,
                 :name => image_name,
@@ -122,6 +144,7 @@ run_command({
 
 # Tag
 run_command({
+                :application_env => application_env,
                 :dry_run => dry_run,
                 :abort_on_error => abort_on_error,
                 :name => image_name,
@@ -131,6 +154,7 @@ run_command({
 
 # Push
 run_command({
+                :application_env => application_env,
                 :dry_run => dry_run,
                 :abort_on_error => abort_on_error,
                 :name => image_name,

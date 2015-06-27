@@ -115,7 +115,7 @@ namespace :docker do
   desc "Docker Build"
   task :build, :name, :version, :jenkins_job do |t, args|
     on roles(:ci) do |host|
-      execute "/opt/chef/embedded/bin/ruby docker-build.rb --name #{args[:name]} --version #{args[:version]} -j #{args[:jenkins_job]}"
+      execute "/opt/chef/embedded/bin/ruby docker-build.rb --env #{fetch(:stage)} --name #{args[:name]} --version #{args[:version]} -j #{args[:jenkins_job]}"
       info "Host #{host} (#{host.roles.to_a.join(", ")}):\t#{capture(:uptime)}"
     end
   end
