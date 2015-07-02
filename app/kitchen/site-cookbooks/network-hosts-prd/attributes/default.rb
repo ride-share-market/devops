@@ -1,3 +1,3 @@
 default["network-hosts"] = [
-    "dev_ams_ridesharemarket"
+    "prd_ams_ridesharemarket"
 ]

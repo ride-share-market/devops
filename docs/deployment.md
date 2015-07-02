@@ -5,7 +5,10 @@
 Once all the repos are setup with their configs, copy those private configs to the CI server.
 
 - `cd ride-share-market/devops/app`
+- vbx environment
 - `cap vbx app:upload_config`
+- prd environment
+- `cap prd app:upload_config`
  
 ## Step 2
 

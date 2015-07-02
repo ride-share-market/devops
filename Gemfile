@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "chef"
+gem "chef", "12.3.0"
 gem "test-kitchen"
 gem "knife-solo"
 gem "berkshelf", github: "berkshelf/berkshelf"

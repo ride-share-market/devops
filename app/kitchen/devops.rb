@@ -168,11 +168,13 @@ class MyCLI < Thor
     cmd = "ssh ubuntu@#{name} -X 'sudo apt-get autoremove -y'"
     puts "==> #{cmd}"; system cmd
 
-    cmd = "scp #{options[:secret_key]} ubuntu@#{name}:~/.ssh/chef_secret_key.txt"
+    #cmd = "scp #{options[:secret_key]} ubuntu@#{name}:~/.ssh/chef_secret_key.txt"
+    cmd = "scp #{options[:secret_key]} root@#{name}:~/.ssh/chef_secret_key.txt"
     puts "==> Uploading Chef Secret Key..."
     puts "==> #{cmd}"; system cmd
 
-    cmd = "ssh ubuntu@#{name} 'chmod 600 ~/.ssh/chef_secret_key.txt'"
+    # cmd = "ssh ubuntu@#{name} 'chmod 600 ~/.ssh/chef_secret_key.txt'"
+    cmd = "ssh root@#{name} 'chmod 600 ~/.ssh/chef_secret_key.txt'"
     puts "==> Updating Chef Secret Key Permissions..."
     puts "==> #{cmd}"; system cmd
 

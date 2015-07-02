@@ -3,7 +3,7 @@ require "json"
 class DigitalOcean
 
   def initialize
-    @network = "dev_ams_ridesharemarket"
+    @network = "prd_ams_ridesharemarket"
     @file_path = File.join(File.dirname(__FILE__), "/../kitchen/data_bags/network/#{@network}.json")
     @data_hash = JSON.parse(File.read(@file_path))
   end

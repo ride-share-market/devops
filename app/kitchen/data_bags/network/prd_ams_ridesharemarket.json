@@ -32,18 +32,17 @@
         "noc.prd.ridesharemarket.com"
       ],
       "digitalOcean": {
-        "id": "4722800",
+        "id": "5970133",
         "ip": {
-          "eth0": "178.62.202.20",
+          "eth0": "188.166.85.18",
           "eth1": "10.133.190.73"
         },
-        "size": "1gb"
+        "size": "4gb"
       },
       "chefBootstrap": {
         "runList": [
           "recipe[network-hosts-prd]",
-          "recipe[common]",
-          "recipe[relk]"
+          "recipe[common]"
         ],
         "jsonAttributes": {
           "set_fqdn": "redline.ridesharemarket.com",

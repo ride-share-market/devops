@@ -182,7 +182,7 @@ interface "${internet_interface}" internet src not "${newunroutable_ips}" "${int
         server kibana accept src "${KIBANA_ACCESS}"
 
         # Jenkins
-        server kibana accept src "${JENKINS_ACCESS}"
+        server jenkins accept src "${JENKINS_ACCESS}"
 
         # Graphite
         server graphite accept src "${GRAPHITE_ACCESS}"
