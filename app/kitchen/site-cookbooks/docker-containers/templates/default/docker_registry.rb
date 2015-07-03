@@ -3,8 +3,8 @@ require "json"
 
 class DockerRegistry
   def initialize(options = {})
-    @host = options[:host] || "192.168.33.10"
-    @port = options[:port] || 5000
+    @host = options[:registry_host] || "192.168.33.10"
+    @port = options[:registry_port] || 5000
   end
 
   def get_image_current_version(image_name)
