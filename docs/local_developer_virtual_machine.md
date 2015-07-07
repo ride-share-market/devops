@@ -1,5 +1,11 @@
 # Local Developer Virtual Machine
 
+- Chef Version
+- Developer Host Machine: [Gemfile](../Gemfile)
+- Developer VM Machine: [devops.rb](../app/kitchen/devops.rb)
+- Production (remote) Machine(s): [prd_ams_ridesharemarket.json](../app/kitchen/data_bags/network/prd_ams_ridesharemarket.json)
+
+
 ## Install
 
 - Start by clearing out any previous virtualbox known_hosts

@@ -7,8 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 include_recipe "sysdig"
-include_recipe "chef-client"
-include_recipe "chef-client::delete_validation"
 include_recipe "timezone-ii"
 # include_recipe "network-hosts"
 include_recipe "hostname"
@@ -22,6 +20,6 @@ include_recipe "packages"
 include_recipe "notify-email-on-boot"
 include_recipe "user::data_bag"
 include_recipe "knockd"
-include_recipe "firehol"
+#include_recipe "firehol"
 include_recipe "ssh-config"
 include_recipe "tmux"

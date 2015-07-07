@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# Create a PRE_DOCKER table
+iptables -N PRE_DOCKER
+
+# Insert this as the first table on the FORWARD chain.
+iptables -I FORWARD -o docker0 -j PRE_DOCKER
+
+# Access is specifically ordered
+
+# Docker internal use
+iptables -A PRE_DOCKER -i docker0 ! -o docker0 -j ACCEPT
+iptables -A PRE_DOCKER -i docker0 -o docker0 -j ACCEPT
+
+# Docker Containers Restricted LAN Access
+<% @lan_hosts.each { |ip|  %>
+iptables -A PRE_DOCKER -i eth1 -s <%= ip %> -j ACCEPT
+<% } %>
+
+# Docker Containers Public Access
+<% if @enable_public_access %>
+iptables -A PRE_DOCKER -i eth0 -p tcp --dport 80  -j ACCEPT
+iptables -A PRE_DOCKER -i eth0 -p tcp --dport 443 -j ACCEPT
+<% end %>
+
+# Docker Containers Public Admin access
+<% @hosts[:remoteTech].each { |ip|  %>
+iptables -A PRE_DOCKER -i eth0 -s <%= ip %> -j ACCEPT
+<% } %>
+
+# Set the default action to REJECT
+iptables -A PRE_DOCKER -j REJECT

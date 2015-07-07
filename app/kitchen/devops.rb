@@ -96,6 +96,7 @@ class MyCLI < Thor
   desc "bootstrap", "Bootstraps local virtualbox"
   option :user, :default => default[:user]
   option :hostname, :default => default[:hostname]
+  option :chef_client_version, :default => default[:chef_client_version]
 
   def bootstrap
     puts "==> Apt-get Auto Remove before bootstrapping chef-solo on #{options[:hostname]}..."

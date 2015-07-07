@@ -34,7 +34,7 @@ role :ci, %w{ubuntu@ridesharemarket.com}
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-
+set :private_docker_registry, "reg01.prd.ams.ridesharemarket.com"
 
 # Custom SSH Options
 # ==================

@@ -11,9 +11,6 @@
       "root": "systemsadmin@ridesharemarket.com"
     }
   },
-  "firehol": {
-    "virtual_box_hosts": "10.0.0.0/8"
-  },
   "users": [
     "rsm-data"
   ],
@@ -33,6 +30,7 @@
   "run_list": [
     "recipe[network-hosts]",
     "recipe[common]",
+    "recipe[firehol]",
     "recipe[relk]",
     "recipe[metrics]",
     "recipe[mongodb]",

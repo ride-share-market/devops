@@ -48,7 +48,7 @@ Vagrant.configure(2) do |config|
   #
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "4096"
-    vb.name = "app01.dev.loc.ridesharemarket.com"
+    vb.name = "app01.dev.vbx.ridesharemarket.com"
   end
 
   # View the documentation for the provider you are using for more

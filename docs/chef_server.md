@@ -27,4 +27,4 @@
 - Run all cookbooks
 - `sudo -u root -i chef-client`
 - Run selected cookbooks
-- `sudo -u root -i chef-client --override-runlist network-hosts-prd`
+- `sudo -u root -i chef-client --override-runlist firehol-prd`

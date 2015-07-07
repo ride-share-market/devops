@@ -27,9 +27,9 @@ Build each image one by one, use the current passing CI build version.
 
 Note: No spaces in capistrano command arguments.
 
+- `cap vbx docker:build[rsm-iojs,x.x.x,iojs]` 
 - `cap vbx docker:build[rsm-nginx,x.x.x,nginx]` 
 - `cap vbx docker:build[rsm-logstash-forwarder,x.x.x,logstash-forwarder]` 
-- `cap vbx docker:build[rsm-iojs,x.x.x,iojs]` 
 - `cap vbx docker:build[rsm-data,x.x.x,data]` 
 - `cap vbx docker:build[rsm-api,x.x.x,api]` 
 - `cap vbx docker:build[rsm-app,x.x.x,app]` 

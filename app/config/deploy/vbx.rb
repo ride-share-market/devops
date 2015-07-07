@@ -3,8 +3,6 @@
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-set :branch, 'develop'
-
 server 'vbox.ridesharemarket.com', user: 'vagrant', roles: %w{app}
 # server 'example.com', user: 'deploy', roles: %w{app db web}, my_property: :my_value
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
@@ -36,7 +34,7 @@ role :ci, %w{vagrant@vbox.ridesharemarket.com}
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-
+set :private_docker_registry, "reg01.dev.vbx.ridesharemarket.com"
 
 # Custom SSH Options
 # ==================

@@ -120,7 +120,7 @@ GEM
     ipaddress (0.8.0)
     json (1.8.3)
     kartograph (0.2.2)
-    knife-digital_ocean (2.4.1)
+    knife-digital_ocean (2.4.2)
       chef (>= 10.18)
       droplet_kit (~> 1.2.0)
     knife-solo (0.4.2)
@@ -138,7 +138,7 @@ GEM
     mixlib-config (2.2.1)
     mixlib-log (1.6.0)
     mixlib-shellout (2.1.0)
-    multi_json (1.11.1)
+    multi_json (1.11.2)
     multipart-post (2.0.0)
     net-http-persistent (2.9.4)
     net-scp (1.2.1)
@@ -236,7 +236,7 @@ GEM
     solve (1.2.1)
       dep_selector (~> 1.0)
       semverse (~> 1.1)
-    specinfra (2.36.10)
+    specinfra (2.36.13)
       net-scp
       net-ssh
       net-telnet
