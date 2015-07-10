@@ -6,7 +6,9 @@ node["docker"]["users"].each {|user|
     group user[:user]
     variables({
                   :logstash_ip => node["hosts"][:logstash_ip],
-                  :metrics_ip => node["hosts"][:metrics_ip]
+                  :metrics_ip => node["hosts"][:metrics_ip],
+                  :rabbitmq_ip => node["hosts"][:rabbitmq_ip],
+                  :mongodb_ip => node["hosts"][:mongodb_ip]
               })
   end
 

@@ -4,6 +4,7 @@
 
 - app – Application Server (non-web)
 - sql – Database Server
+- mgo – MongoDB Server
 - ftp – SFTP Server
 - mta – Mail Server
 - cch - Memcache/Redis Server

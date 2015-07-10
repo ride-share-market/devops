@@ -6,9 +6,9 @@ Once all the repos are setup with their configs, copy those private configs to t
 
 - `cd ride-share-market/devops/app`
 - vbx environment
-- `cap vbx app:upload_config`
+- `cap vbx docker:upload_config`
 - prd environment
-- `cap prd app:upload_config`
+- `cap prd docker:upload_config`
  
 ## Step 2
 

@@ -23,26 +23,30 @@
         "els01",
         "log01",
         "met01",
-        "www01",
-        "api01",
         "rpc01",
-        "reg01"
+        "reg01",
+        "mgo01",
+        "www01",
+        "api01"
       ],
       "cnames": [
         "noc.prd.ridesharemarket.com"
       ],
       "digitalOcean": {
-        "id": "5970133",
+        "id": "6084027",
         "ip": {
-          "eth0": "188.166.85.18",
-          "eth1": "10.133.190.73"
+          "eth0": "188.166.127.172",
+          "eth1": "10.133.255.122"
         },
         "size": "4gb"
       },
       "chefBootstrap": {
         "runList": [
+          "recipe[firehol-prd]",
           "recipe[network-hosts-prd]",
-          "recipe[common]"
+          "recipe[common]",
+          "recipe[chef-client]",
+          "recipe[chef-client::delete_validation]"
         ],
         "jsonAttributes": {
           "set_fqdn": "redline.ridesharemarket.com",

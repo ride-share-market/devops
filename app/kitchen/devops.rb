@@ -158,6 +158,7 @@ class MyCLI < Thor
 
   desc "server_bootstrap SERVER", "Bootstraps a digitalocean.com droplet"
   option :secret_key, :default => default[:secret_key]
+  option :chef_client_version, :default => default[:chef_client_version]
 
   def server_bootstrap(name)
 
@@ -180,7 +181,7 @@ class MyCLI < Thor
     puts "==> #{cmd}"; system cmd
 
     cloud = DigitalOcean.new
-    cloud.bootstrap(name)
+    cloud.bootstrap(name, options[:chef_client_version])
   end
 
   desc "server_list", "Lists known digitalocean.com droplets"

@@ -82,11 +82,11 @@ set :rsm_configs, fetch(:rsm_configs, []).push(
 
                 )
 
-namespace :app do
+namespace :docker do
 
   desc "Upload App Config"
   task :upload_config do
-    on roles(:app) do |host|
+    on roles(:ci) do |host|
       puts "Host: #{host} ==> #{fetch(:stage)}"
       as "ubuntu" do
         within "/home/ubuntu" do
@@ -107,10 +107,6 @@ namespace :app do
       end
     end
   end
-
-end
-
-namespace :docker do
 
   desc "Docker Build"
   task :build, :name, :version, :jenkins_job do |t, args|

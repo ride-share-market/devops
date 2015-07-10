@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if [ ! -x /usr/bin/docker ]; then
+    exit
+fi
+
 # Create a PRE_DOCKER table
 iptables -N PRE_DOCKER
 
@@ -9,7 +13,9 @@ iptables -I FORWARD -o docker0 -j PRE_DOCKER
 # Access is specifically ordered
 
 # Docker internal use
+iptables -A PRE_DOCKER -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 iptables -A PRE_DOCKER -i docker0 ! -o docker0 -j ACCEPT
+iptables -A PRE_DOCKER -m state --state RELATED -j ACCEPT
 iptables -A PRE_DOCKER -i docker0 -o docker0 -j ACCEPT
 
 # Docker Containers Restricted LAN Access
