@@ -103,8 +103,19 @@ abort_on_error = args.abort_on_error
 def run_command(options)
   puts "==> #{options[:cmd]}"
   if !options[:dry_run]
-    #Dir.chdir "/var/lib/jenkins/jobs/#{options[:jenkins_job]}/workspace"
-    Dir.chdir "/var/lib/jenkins/workspace/#{options[:jenkins_job]}"
+
+    # workdir for differing Jenkins versions
+    work_dir_Jenkins_1_618 = "/var/lib/jenkins/jobs/#{options[:jenkins_job]}/workspace"
+    work_dir_Jenkins_1_619 = "/var/lib/jenkins/workspace/#{options[:jenkins_job]}"
+
+    work_dir = work_dir_Jenkins_1_619
+
+    work_dir = work_dir_Jenkins_1_618 if Dir.exists?(work_dir_Jenkins_1_618)
+
+    puts "Work Directory = #{work_dir}"
+
+    Dir.chdir work_dir
+
     Open3.popen3(options[:cmd]) { |stdin, stdout, stderr, wait_thr|
       while line = stdout.gets
         puts line

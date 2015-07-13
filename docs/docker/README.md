@@ -40,25 +40,12 @@ To delete an image from the private registry.
 
 - `curl -X DELETE 192.168.33.10:5000/v1/repositories/ride-share-market/rsm-nginx/tags/x.x.x`
 
-curl -X DELETE lan.reg01.prd.ams.ridesharemarket.com:5000/v1/repositories/ride-share-market/rsm-app/tags/1.3.2
-sudo docker rm -f -v rsm-app
-sudo docker rmi -f ride-share-market/rsm-app:1.3.2
-sudo docker rmi -f lan.reg01.prd.ams.ridesharemarket.com:5000/ride-share-market/rsm-app:1.3.2
-
-curl -X DELETE lan.reg01.prd.ams.ridesharemarket.com:5000/v1/repositories/ride-share-market/rsm-api/tags/1.2.1
-sudo docker rm -f -v rsm-api
-sudo docker rmi -f ride-share-market/rsm-api:1.2.1
-sudo docker rmi -f lan.reg01.prd.ams.ridesharemarket.com:5000/ride-share-market/rsm-api:1.2.1
-
-curl -X DELETE lan.reg01.prd.ams.ridesharemarket.com:5000/v1/repositories/ride-share-market/rsm-data/tags/1.2.4
-sudo docker rm -f -v rsm-data
-sudo docker rmi -f ride-share-market/rsm-data:1.2.4
-sudo docker rmi -f lan.reg01.prd.ams.ridesharemarket.com:5000/ride-share-market/rsm-data:1.2.4
-
-
 To bulk delete images from the private registry.
 
 - `for n ({1..5}) { curl -X DELETE 192.168.33.10:5000/v1/repositories/ride-share-market/rsm-nginx/tags/0.0.$n }`
+
+To delete from the private registry, image and all containers (ssh into a VM):
+- `~./docker-purge.sh rsm-nginx x.x.x`
 
 ### Local
 
@@ -70,4 +57,6 @@ To bulk delete images.
 
 - `for n ({1..5}) { sudo docker rmi -f ride-share-market/rsm-nginx:0.0.$n }`
 
+To delete all containers.
 
+- `sudo docker rm -f -v $(sudo docker ps -a -q)`
