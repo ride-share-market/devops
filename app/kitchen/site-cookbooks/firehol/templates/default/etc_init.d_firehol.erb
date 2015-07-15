@@ -51,7 +51,7 @@ case "$COMMAND" in
     if $RESTART_DOCKER; then
         log_daemon_msg "Restarting Docker"
         /usr/sbin/service docker restart > /dev/null 2>&1
-        sleep 3; /home/ubuntu/docker_iptables.sh
+        /usr/bin/timeout 30 /home/ubuntu/docker_iptables.sh
     fi
     log_end_msg 0
   fi
@@ -62,7 +62,7 @@ case "$COMMAND" in
   if $RESTART_DOCKER; then
     log_daemon_msg "Restarting Docker"
     /usr/sbin/service docker restart > /dev/null 2>&1
-    sleep 3; /home/ubuntu/docker_iptables.sh
+    /usr/bin/timeout 30 /home/ubuntu/docker_iptables.sh
   fi
   log_end_msg 0
   ;;
@@ -80,7 +80,7 @@ case "$COMMAND" in
     if $RESTART_DOCKER; then
         log_daemon_msg "Restarting Docker"
         /usr/sbin/service docker restart > /dev/null 2>&1
-        sleep 3; /home/ubuntu/docker_iptables.sh
+        /usr/bin/timeout 30 /home/ubuntu/docker_iptables.sh
     fi
     log_action_end_msg 0
   fi
