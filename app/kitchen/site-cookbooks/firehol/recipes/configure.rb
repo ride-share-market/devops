@@ -20,7 +20,7 @@ node[:firehol][:network][:consul].each { |network_data|
 # Customized startup script that restarts docker after firehol stop|start|restart
 template "/etc/init.d/firehol" do
   source "etc_init.d_firehol.erb"
-  mode 0755
+  mode "0755"
 end
 
 template "/etc/default/firehol" do
@@ -46,7 +46,7 @@ end
 
 template "/home/ubuntu/docker_iptables.sh" do
   source "docker_iptables.sh.erb"
-  mode 0755
+  mode "0755"
   owner "ubuntu"
   group "ubuntu"
   variables({
