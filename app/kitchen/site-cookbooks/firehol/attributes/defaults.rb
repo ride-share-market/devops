@@ -13,4 +13,4 @@ default[:firehol][:network][:consul] = [
     "dev_vbx_ridesharemarket"
 ]
 
-default[:firehol][:docker][:enable_public_access] = false
+default[:firehol][:docker][:enable_public_access] = true
