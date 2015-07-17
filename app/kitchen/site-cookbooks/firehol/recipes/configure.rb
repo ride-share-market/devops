@@ -17,19 +17,6 @@ node[:firehol][:network][:consul].each { |network_data|
 
 }
 
-# Customized startup script that restarts docker after firehol stop|start|restart
-template "/etc/init.d/firehol" do
-  source "etc_init.d_firehol.erb"
-  mode "0755"
-end
-
-template "/etc/default/firehol" do
-  source "etc_default_firehol.erb"
-  variables({
-                :start_firehol => node[:firehol][:start_firehol]
-            })
-end
-
 template "/etc/firehol/firehol.conf" do
   source "firehol.conf.erb"
   variables({
@@ -42,6 +29,10 @@ template "/etc/firehol/firehol.conf" do
                 :consul_hosts => consul_hosts.join(" ")
             })
   notifies :restart, "service[firehol]", :immediately
+end
+
+template "/etc/init/docker-iptables.conf" do
+  source "etc_init_docker-iptables.conf"
 end
 
 template "/home/ubuntu/docker_iptables.sh" do

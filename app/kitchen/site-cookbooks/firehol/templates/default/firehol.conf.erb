@@ -1,13 +1,4 @@
-# This configuration file will allow all requests originating from the
-# local machine to be send through all network interfaces.
-#
-# No requests are allowed to come from the network. The host will be
-# completely stealthed! It will not respond to anything, and it will
-# not be pingable, although it will be able to originate anything
-# (even pings to other hosts).
-#
-
-version 5
+version 6
 
 # HOSTS
 #======
@@ -20,16 +11,11 @@ LAN_HOSTS="<%= @lan_hosts %>"
 
 ADMIN_HOSTS="${REMOTE_TECH_HOSTS} ${VIRTUAL_BOX_HOSTS}"
 
-# ACL
-#====
-
 CONSUL_ACCESS="${ADMIN_HOSTS} <%= @consul_hosts %>"
 
 # INTERFACES
 #===========
 
-# You can use more than one (space separated) and if your server has many aliases for the same interface
-# You can use the plus sign to match them all (e.g. eth0+).
 internet_interface="eth0+"
 
 lan_interface="eth1"
@@ -65,69 +51,42 @@ client_consul_ports="default 8300 8301 8302 8400 8500 8600"
 
 # A space-separated list of IPs to be blocked.
 
-email_brute_forcers=""
+BLACKLIST=""
 
-ftp_brute_forcers=""
-
-ssh_brute_forcers=""
-
-portscanners=""
-
-BLACKLIST="${email_brute_forcers} ${ftp_brute_forcers} ${ssh_brute_forcers} ${portscanners}"
-
-# Block all traffic from/to certain IPs
+# Block all traffic from and to certain IPs
 if [ ! -z "${BLACKLIST}" ]; then
     blacklist full "${BLACKLIST}"
 fi
 
-# CUSTOM SETTINGS
-#================
-
-# Fix unroutable IP addresses to allow misconfigured routers to connect.
-newreserved_ips="0.0.0.0/8 127.0.0.0/8 169.254.0.0/16 255.255.255.255/32"
-newprivate_ips="192.88.99.0/24 192.168.0.0/16"
-NEW_UNROUTABLE_IPS="${newreserved_ips} ${newprivate_ips}"
-
-# The protections you wish to have on the internet side of this host.
-#internet_protections="invalid icmp-floods syn-floods malformed-xmas malformed-null malformed-bad"
-internet_protections="all"
-
-# At what frequency to accept requests from the internet?
-internet_requests="5000/sec 10000"
-
 # LOGGING
 #========
 
-# Set Firehol logging options for integration with psad.
 FIREHOL_LOG_LEVEL="info"
-FIREHOL_LOG_OPTIONS="--log-tcp-options --log-ip-options"
-FIREHOL_LOG_FREQUENCY="1/second"
-FIREHOL_LOG_BURST="5"
 
-# Rules
+FIREHOL_LOG_OPTIONS="--log-tcp-options --log-ip-options"
+
+# RULES
 #======
 
-interface "${lan_interface}" lan
+interface4 "${lan_interface}" lan
     policy reject
     client all accept
     server all accept src "${LAN_HOSTS}"
 
-# Docker interfaces and router
-interface "${docker_interface}" docker
+interface4 "${docker_interface}" docker
     policy accept
 
-interface "${docker_virtual_subnets}" veth
+interface4 "${docker_virtual_subnets}" veth
     policy accept
 
-router dockerlan inface docker+ outface docker+
-    client all accept
-    server all accept
+router4 dockerlan inface docker+ outface docker+
+    policy accept
 
-interface "${internet_interface}" internet src not "${NEW_UNROUTABLE_IPS}"
+interface4 "${internet_interface}" internet <% if @virtual_box_hosts.nil? %>src not "${UNROUTABLE_IPS}" <% end %>
 
-    protection "${internet_protections}" ${internet_requests}
+    policy drop
 
-    policy reject
+    protection strong
 
     client all accept
 

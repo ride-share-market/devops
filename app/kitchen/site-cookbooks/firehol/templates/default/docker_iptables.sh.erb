@@ -12,8 +12,8 @@ fi
 # Create a PRE_DOCKER table
 iptables -N PRE_DOCKER
 
-# Set the default action to REJECT
-iptables -I PRE_DOCKER -j REJECT
+# Default action
+iptables -I PRE_DOCKER -j DROP
 
 # Docker Containers Public Admin access
 <% @hosts[:remoteTech].each { |ip|  %>
@@ -34,11 +34,11 @@ iptables -I PRE_DOCKER -i docker0 -o docker0 -j ACCEPT
 # Docker Containers Public Access
 <% if @enable_public_access %>
 
-RSM_WWW_IP_CMD="/usr/bin/docker inspect --format="{{.NetworkSettings.IPAddress}}" rsm-nginx"
+RSM_WWW_IP_CMD="/usr/bin/docker inspect --format='{{.NetworkSettings.IPAddress}}' rsm-nginx"
 
 RSM_WWW_IP=$($RSM_WWW_IP_CMD)
 
-# Wait for docker socket
+# Double check, wait for docker socket (upstart docker.conf already does this)
 while [ ! -e "/var/run/docker.sock" ]; do echo "Waiting for /var/run/docker.sock..."; sleep 1; done
 
 # Wait for docker rsm-ngix container IP
