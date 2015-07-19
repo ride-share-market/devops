@@ -4,7 +4,7 @@ template "/sbin/firehol" do
 end
 
 template "/etc/init/firehol.conf" do
-  source "etc_init_firehol.conf"
+  source "firehol.conf"
 end
 
 directory "/etc/firehol" do

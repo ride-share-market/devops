@@ -30,20 +30,3 @@ template "/etc/firehol/firehol.conf" do
             })
   notifies :restart, "service[firehol]", :immediately
 end
-
-template "/etc/init/docker-iptables.conf" do
-  source "etc_init_docker-iptables.conf"
-end
-
-template "/home/ubuntu/docker_iptables.sh" do
-  source "docker_iptables.sh.erb"
-  mode "0755"
-  owner "ubuntu"
-  group "ubuntu"
-  variables({
-                :lan_hosts => node[:firehol][:lan_hosts],
-                :hosts => node[:secrets][:data][:firehol][:hosts],
-                :enable_public_access => node[:firehol][:docker][:enable_public_access]
-            })
-  notifies :restart, "service[firehol]", :immediately
-end
