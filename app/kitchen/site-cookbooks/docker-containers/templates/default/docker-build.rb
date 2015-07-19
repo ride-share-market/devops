@@ -112,8 +112,6 @@ def run_command(options)
 
     work_dir = work_dir_Jenkins_1_618 if Dir.exists?(work_dir_Jenkins_1_618)
 
-    puts "Work Directory = #{work_dir}"
-
     Dir.chdir work_dir
 
     Open3.popen3(options[:cmd]) { |stdin, stdout, stderr, wait_thr|

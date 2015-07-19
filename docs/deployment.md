@@ -45,6 +45,10 @@ Deploy from Private docker registry, on the remote server(s):
 - VBX environment
 - `cap vbx docker:deploy`
 
+### Manual Production Deployment
+- SSH onto the remote app server
+- `/usr/bin/env /opt/chef/embedded/bin/ruby docker-deploy.rb --env prd --hostname lan.reg01.prd.ams.ridesharemarket.com`
+
 ### Step 2 Build Option
 
 Docker images can also be built locally (from Ubuntu workstation non-VM).

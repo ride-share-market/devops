@@ -118,3 +118,5 @@ run_command dry_run, "sudo docker run -d --restart always --name rsm-app-logstas
 
 run_command dry_run, "sudo docker run -d --restart always --name rsm-nginx --volumes-from rsm-app --link rsm-app:rsm-app --link rsm-api:rsm-api -p 80:80 -p 443:443 #{rsm_nginx_image}"
 run_command dry_run, "sudo docker run -d --restart always --name rsm-nginx-logstash-forwarder --add-host logstash.ridesharemarket.com:<%= @logstash_ip %> -v /etc/pki/tls:/etc/pki/tls --volumes-from rsm-nginx -t #{rsm_logstash_forwarder_image} '--quiet=true' '--config=/etc/nginx/logstash-forwarder.json'"
+
+run_command dry_run, "sudo /home/ubuntu/docker-filter.sh"

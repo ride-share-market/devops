@@ -10,3 +10,5 @@
 package "linux-image-extra-`uname -r`"
 
 include_recipe "docker"
+
+include_recipe "docker-wrapper::docker-upstart"
