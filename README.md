@@ -1,8 +1,8 @@
 # Ride Share Market Devops
 
-ridesharemarket.com - Free, Accessible and Opensource Ride Sharing.
+[Ride Share Market](ridesharemarket.com) - Free, Accessible and Opensource Ride Sharing.
 
-This git repository is the Chef Configuration Management Policy for ridesharemarket.com.
+This git repository is the Chef Configuration Management Policy for [ridesharemarket.com](ridesharemarket.com).
 
 You are welcome to view all the code, though sensitive data like passwords and API keys are encrypted for security.
 
