@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# This script is meant to run daily.
+# It will delete the logstash elascticsearch index from 7 days ago.
+# Thus logstash has 7 days of data only.
+
+SEVEN_DAYS_AGO=`date -d '7 days ago' '+%Y.%m.%d'`
+
+LOGSTASH_INDEX="logstash-${SEVEN_DAYS_AGO}"
+
+echo "Deleting index ${LOGSTASH_INDEX}"
+
+curl -XDELETE -sS "localhost:9200/${LOGSTASH_INDEX}?pretty"
+
+# List current Logstash Elasticsearch indexes
+curl -sS 'localhost:9200/_cat/indices' | sort
