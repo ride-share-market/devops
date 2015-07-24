@@ -10,6 +10,5 @@ cron "Trim logstash index at midnight" do
   hour 0
   user "ubuntu"
   mailto "root"
-  # command "/home/ubuntu/trim-logstash-index.sh > /dev/null"
-  command "/home/ubuntu/trim-logstash-index.sh"
+  command "/home/ubuntu/trim-logstash-index.sh > /dev/null"
 end
