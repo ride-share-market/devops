@@ -24,6 +24,12 @@ node["docker"]["users"].each {|user|
     group user[:user]
   end
 
+  template "#{user[:home]}/docker_registry_latest_versions.rb" do
+    source "docker_registry_latest_versions.rb"
+    owner user[:user]
+    group user[:user]
+  end
+
   template "#{user[:home]}/docker-purge.sh" do
     source "docker-purge.sh.erb"
     owner user[:user]
