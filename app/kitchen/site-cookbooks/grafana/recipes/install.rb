@@ -1,3 +1,5 @@
+# TODO create a grafana user
+
 remote_file "/opt/grafana-2.0.2.linux-x64.tar.gz" do
   source "https://grafanarel.s3.amazonaws.com/builds/grafana-2.0.2.linux-x64.tar.gz"
   not_if { File.exists?("/opt/grafana-2.0.2.linux-x64.tar.gz") }
