@@ -7,3 +7,4 @@ long_description 'Installs/Configures grafana'
 version          '0.1.0'
 
 depends 'git'
+depends 'docker'
