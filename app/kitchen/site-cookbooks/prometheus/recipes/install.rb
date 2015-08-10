@@ -54,8 +54,6 @@ docker_container "rsm-prometheus" do
 end
 # sudo docker run -d --name rsm-prometheus --link rsm-node-exporter:rsm-node-exporter --link rsm-container-exporter:rsm-container-exporter -v /home/ubuntu/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
 
-
+# TODO prom statsd-bridge
 # sudo docker run --rm -p 9102:9102 -p 9125:9125/udp -v $PWD/statsd_mapping.conf:/tmp/statsd_mapping.conf prom/statsd-bridge -statsd.mapping-config=/tmp/statsd_mapping.conf
 # echo "node_test.some_service.task.time:500|ms" | nc -w 0 -u localhost 8125
-
-# https://www.kernel.org/doc/Documentation/ABI/testing/procfs-diskstats
