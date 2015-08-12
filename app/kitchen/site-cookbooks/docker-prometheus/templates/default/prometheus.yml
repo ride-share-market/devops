@@ -19,6 +19,6 @@ scrape_configs:
     target_groups:
       - targets: ['rsm-container-exporter:9104']
 
-#  - job_name: 'statsd'
-#    target_groups:
-#      - targets: ['192.168.33.10:9102']
+  - job_name: 'statsd'
+    target_groups:
+      - targets: ['rsm-statsd-bridge:9102']

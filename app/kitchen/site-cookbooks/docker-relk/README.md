@@ -1,4 +1,4 @@
-# grafana-cookbook
+# docker-relk-cookbook
 
 TODO: Enter the cookbook description here.
 
@@ -16,7 +16,7 @@ TODO: List your supported platforms.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['grafana']['bacon']</tt></td>
+    <td><tt>['docker-relk']['bacon']</tt></td>
     <td>Boolean</td>
     <td>whether to include bacon</td>
     <td><tt>true</tt></td>
@@ -25,14 +25,14 @@ TODO: List your supported platforms.
 
 ## Usage
 
-### grafana::default
+### docker-relk::default
 
-Include `grafana` in your node's `run_list`:
+Include `docker-relk` in your node's `run_list`:
 
 ```json
 {
   "run_list": [
-    "recipe[grafana::default]"
+    "recipe[docker-relk::default]"
   ]
 }
 ```
