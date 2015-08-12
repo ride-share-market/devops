@@ -10,7 +10,8 @@ LOGSTASH_INDEX="logstash-${SEVEN_DAYS_AGO}"
 
 echo "Deleting index ${LOGSTASH_INDEX}"
 
-curl -XDELETE -sS "localhost:9200/${LOGSTASH_INDEX}?pretty"
+sudo docker exec rsm-elasticsearch curl -XDELETE -sS "localhost:9200/${LOGSTASH_INDEX}?pretty"
 
 # List current Logstash Elasticsearch indexes
-curl -sS 'localhost:9200/_cat/indices' | sort
+sudo docker exec rsm-elasticsearch curl -sS localhost:9200/_cat/indices | sort
+
