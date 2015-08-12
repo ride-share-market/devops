@@ -2,6 +2,8 @@ default["logstash"]["settings"]["rabbitmq_host"] = "192.168.33.10"
 
 default["logstash"]["settings"]["rabbitmq_vhost"] = "rsm"
 
+default["logstash"]["settings"]["rabbitmq_user"] = "rsm-logstash"
+
 default["logstash"]["settings"]["rules"] = [
     "100_input_mail.conf",
     # "100_input_logstash.conf",

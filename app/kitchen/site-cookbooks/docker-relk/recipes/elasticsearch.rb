@@ -1,3 +1,11 @@
+image = "elasticsearch:1.7.1"
+
+docker_image image do
+  action :pull_if_missing
+  # 30 minute timeout allows for slow local env developer connections
+  cmd_timeout 1800
+end
+
 directory "/opt/esdata" do
   owner "root"
   group "root"
@@ -6,7 +14,7 @@ end
 
 docker_container "rsm-elasticsearch" do
   detach true
-  image "elasticsearch:1.7.1"
+  image image
   container_name "rsm-elasticsearch"
   restart "always"
   init_type false

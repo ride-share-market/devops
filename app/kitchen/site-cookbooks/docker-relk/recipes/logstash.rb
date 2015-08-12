@@ -1,3 +1,11 @@
+image = "logstash:1.5.2"
+
+docker_image image do
+  action :pull_if_missing
+  # 30 minute timeout allows for slow local env developer connections
+  cmd_timeout 1800
+end
+
 rules = []
 rules.push(node["logstash"]["settings"]["rules"])
 # rules.push(node["logstash"]["rules"]["services"])
@@ -10,7 +18,7 @@ rules.flatten.each do |f|
     mode '0644'
     variables({
                   :settings => node["logstash"]["settings"],
-                  :rabbitmq_user => node["secrets"]["data"]['rabbitmq']['enabledUsers'][2]
+                  :rabbitmq_password => node["secrets"]["data"]["rabbitmq"]["users"][node["logstash"]["settings"]["rabbitmq_user"]]["password"]
               })
     # notifies :restart, "service[logstash]"
   end
@@ -18,7 +26,7 @@ end
 
 docker_container "rsm-logstash" do
   detach true
-  image "logstash:1.5.2"
+  image image
   container_name "rsm-logstash"
   restart "always"
   init_type false

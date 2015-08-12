@@ -20,8 +20,8 @@ output {
     else {
         rabbitmq {
             host => "<%= @settings["rabbitmq_host"] %>"
-            user => "<%= @rabbitmq_user["name"] %>"
-            password => "<%= @rabbitmq_user["password"] %>"
+            user => "<%= @settings["rabbitmq_user"] %>"
+            password => "<%= @rabbitmq_password %>"
             vhost => "<%= @settings["rabbitmq_vhost"] %>"
             exchange => "logstash-rabbitmq"
             exchange_type => "direct"

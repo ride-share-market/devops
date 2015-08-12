@@ -1,6 +1,14 @@
+image = "kibana:4.1.1"
+
+docker_image image do
+  action :pull_if_missing
+  # 30 minute timeout allows for slow local env developer connections
+  cmd_timeout 1800
+end
+
 docker_container "rsm-kibana" do
   detach true
-  image "kibana:4.1.1"
+  image image
   container_name "rsm-kibana"
   restart "always"
   init_type false
