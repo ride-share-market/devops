@@ -1,7 +1,20 @@
 output {
     if "rabbitmq-input" in [tags] {
-        elasticsearch_http {
-            host => "<%= @settings["elasticsearch_host"] %>"
+#        elasticsearch_http {
+#            host => "rsm-elasticsearch"
+#        }
+        elasticsearch {
+            host => ["rsm-elasticsearch"]
+            codec => "plain"
+            workers => 1
+            index => "logstash-%{+YYYY.MM.dd}"
+            manage_template => true
+            template_name => "logstash"
+            template_overwrite => false
+            port => 9200
+            flush_size => 100
+            idle_flush_time => 1
+            protocol => "http"
         }
     }
     else {

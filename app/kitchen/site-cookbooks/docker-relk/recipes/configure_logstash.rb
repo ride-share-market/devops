@@ -28,19 +28,21 @@ docker_container "rsm-logstash" do
              "/var/log:/host/var/log:ro"
          ]
   link [
-           "rsm-elasticsearch:els.dev.vbx.ridesharemarket.com"
+           "rsm-elasticsearch:rsm-elasticsearch"
        ]
   port [
+           "514:514",
+           "514:514/udp",
            "9876:9876"
        ]
   user "root"
-  command "/opt/logstash/bin/logstash -f /etc/logstash/conf.d --debug"
+  command "/opt/logstash/bin/logstash -f /etc/logstash/conf.d"
 end
 
-# sudo docker run -it --rm --user root --name rsm-logstash \
-#     -v $(pwd)/etc/logstash/conf.d:/etc/logstash/conf.d:ro \
-#     -v $(pwd)/etc/pki:/etc/pki:ro \
-#     -v /var/log:/host/var/log:ro \
-#     -p 9876:9876 \
-#     --link rsm-elasticsearch:els.dev.vbx.ridesharemarket.com \
-#     logstash:1.5.2 /opt/logstash/bin/logstash -f /etc/logstash/conf.d --debug
+# sudo docker run -it --rm --user root --name rsm-logstash
+# -v /etc/logstash/conf.d:/etc/logstash/conf.d:ro
+# -v /etc/pki:/etc/pki:ro
+# -v /var/log:/host/var/log:ro
+# -p 9876:9876
+# --link rsm-elasticsearch:els.dev.vbx.ridesharemarket.com
+# logstash:1.5.2 /opt/logstash/bin/logstash -f /etc/logstash/conf.d --debug
