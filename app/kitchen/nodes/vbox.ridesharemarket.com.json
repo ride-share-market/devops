@@ -28,18 +28,17 @@
     ]
   },
   "run_list": [
-//    "recipe[network-hosts]",
-//    "recipe[common]",
-//    "recipe[firehol]",
-//    "recipe[relk]",
-//    "recipe[metrics]",
-//    "recipe[mongodb]",
-//    "recipe[docker-wrapper]",
-//    "recipe[git-repos]",
-//    "recipe[docker-containers]",
-//    "recipe[jenkins-cookbook]",
-//    "recipe[cron-jobs]"
-    "recipe[grafana]",
-    "recipe[prometheus]"
+    "recipe[network-hosts]",
+    "recipe[common]",
+    "recipe[firehol]",
+    "recipe[docker-wrapper]",
+    "recipe[docker-prometheus]",
+    "recipe[docker-grafana]",
+    "recipe[docker-relk]",
+    "recipe[mongodb]",
+    "recipe[git-repos]",
+    "recipe[docker-containers]",
+    "recipe[jenkins-cookbook]",
+    "recipe[cron-jobs]"
   ]
 }
