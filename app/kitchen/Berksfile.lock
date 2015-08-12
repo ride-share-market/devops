@@ -1,18 +1,13 @@
 DEPENDENCIES
   apt
   chef-client
-  docker
-  graphite
-    git: git://github.com/yticketfly/graphite.git
-    revision: d5ed9526b11ead609651a39b1ba432a3260fbeed
-    branch: patch-1
+  docker (~> 0.37.0)
+  git
   hostname
   hostsfile
   jenkins
   postfix
-  rabbitmq
   ssh_known_hosts
-  statsdaemon-bitly
   sysdig
   timezone-ii
   unattended_upgrades
@@ -24,11 +19,11 @@ GRAPH
     apt (>= 0.0.0)
     modules (>= 0.0.0)
   build-essential (2.2.3)
-  chef-client (4.3.0)
+  chef-client (4.3.1)
     cron (>= 1.2.0)
     logrotate (>= 1.2.0)
-    windows (~> 1.11)
-  chef_handler (1.1.9)
+    windows (~> 1.37)
+  chef_handler (1.2.0)
   cron (1.6.1)
   device-mapper (0.1.0)
     apt (>= 0.0.0)
@@ -47,26 +42,14 @@ GRAPH
     runit (>= 0.0.0)
     sysctl (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  dpkg_autostart (0.1.12)
-  erlang (1.5.8)
-    apt (>= 1.7.0)
-    build-essential (>= 0.0.0)
-    yum (~> 3.0)
-    yum-epel (>= 0.0.0)
-    yum-erlang_solutions (>= 0.0.0)
-  git (4.2.2)
+  dpkg_autostart (0.2.0)
+  git (4.3.3)
     build-essential (>= 0.0.0)
     dmg (>= 0.0.0)
     windows (>= 0.0.0)
     yum-epel (>= 0.0.0)
   golang (1.5.1)
-  graphite (1.0.2)
-    build-essential (>= 0.0.0)
-    memcached (>= 0.0.0)
-    python (>= 0.0.0)
-    runit (~> 1.0)
-    yum-epel (>= 0.0.0)
-  homebrew (1.12.0)
+  homebrew (1.13.0)
     build-essential (>= 2.1.2)
   hostname (0.3.0)
     hostsfile (>= 0.0.0)
@@ -77,34 +60,21 @@ GRAPH
     apt (~> 2.0)
     runit (~> 1.5)
     yum (~> 3.0)
-  logrotate (1.9.1)
+  logrotate (1.9.2)
   lxc (2.0.0)
     dpkg_autostart (>= 0.1.10)
     iptables-ng (>= 0.0.0)
     polipo (>= 0.0.0)
-  memcached (1.7.2)
-    runit (~> 1.0)
-    yum (~> 3.0)
-    yum-epel (>= 0.0.0)
   modules (0.2.0)
   ohai (2.0.1)
-  packagecloud (0.0.18)
+  packagecloud (0.0.19)
   partial_search (1.0.8)
   polipo (0.1.0)
-  postfix (3.6.2)
-  python (1.4.6)
-    build-essential (>= 0.0.0)
-    yum-epel (>= 0.0.0)
-  rabbitmq (4.0.1)
-    erlang (~> 1.5.0)
-    yum-epel (>= 0.0.0)
-    yum-erlang_solutions (>= 0.0.0)
-  runit (1.6.0)
+  postfix (3.7.0)
+  runit (1.7.2)
     packagecloud (>= 0.0.0)
   ssh_known_hosts (2.0.0)
     partial_search (>= 0.0.0)
-  statsdaemon-bitly (1.0.4)
-    golang (>= 0.0.0)
   sysctl (0.6.2)
     ohai (>= 0.0.0)
   sysdig (0.3.1)
@@ -112,12 +82,10 @@ GRAPH
     yum (>= 0.0.0)
     yum-epel (>= 0.0.0)
   timezone-ii (0.2.0)
-  unattended_upgrades (0.2.0)
+  unattended_upgrades (0.3.0)
   user (0.4.2)
-  windows (1.37.0)
+  windows (1.38.1)
     chef_handler (>= 0.0.0)
-  yum (3.6.1)
-  yum-epel (0.6.0)
-    yum (~> 3.0)
-  yum-erlang_solutions (0.2.0)
-    yum (~> 3.0)
+  yum (3.6.3)
+  yum-epel (0.6.2)
+    yum (~> 3.2)
