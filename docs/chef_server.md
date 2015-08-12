@@ -1,5 +1,23 @@
 ## Chef server usage notes
 
+## Data Bags
+
+### Secrets
+
+- Initial only
+- `knife data bag create secrets`
+- Initial **and** Update
+- `knife data bag from file secrets data_bags/secrets/secrets.json`
+
+### Network
+
+- Initial only
+- `knife data bag create network`
+- Initial **and** Update
+- `knife data bag from file network file data_bags/network/prd_ams_ridesharemarket.json`
+
+## Cookbooks
+
 ### Reset all chef server cookbooks - delete all, then upload all
 
 - Delete all cookbooks
