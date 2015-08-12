@@ -7,4 +7,4 @@ long_description 'Installs/Configures rabbitmq-config'
 version          '0.1.0'
 
 depends 'secrets'
-depends 'rabbitmq'
+# depends 'rabbitmq'
