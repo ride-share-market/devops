@@ -2,5 +2,6 @@ input {
     file {
         type => "upstart"
         path => "/host/var/log/upstart/*.log"
+        sincedb_path => "/opt/logstash-since_db/upstart_since_db"
     }
 }

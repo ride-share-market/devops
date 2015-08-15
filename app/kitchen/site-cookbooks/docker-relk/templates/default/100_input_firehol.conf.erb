@@ -1,0 +1,7 @@
+input {
+    file {
+        type => "firehol"
+        path => "/host/var/log/firehol.log"
+        sincedb_path => "/opt/logstash-since_db/firehol_since_db"
+    }
+}

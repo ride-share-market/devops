@@ -2,5 +2,6 @@ input {
     file {
         type => "auth"
         path => "/host/var/log/auth.log"
+        sincedb_path => "/opt/logstash-since_db/auth_since_db"
     }
 }

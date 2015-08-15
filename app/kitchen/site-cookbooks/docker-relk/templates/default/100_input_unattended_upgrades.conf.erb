@@ -2,5 +2,6 @@ input {
   file {
     type => "unattended-upgrades"
     path => "/host/var/log/unattended-upgrades/*.log"
+    sincedb_path => "/opt/logstash-since_db/unattended-upgrades_since_db"
   }
 }

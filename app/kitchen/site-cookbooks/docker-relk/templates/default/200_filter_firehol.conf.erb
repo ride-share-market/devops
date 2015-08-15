@@ -1,7 +1,7 @@
 filter {
-  if [type] == "syslog" and !("rabbitmq-input" in [tags]) {
+  if [type] == "firehol" and !("rabbitmq-input" in [tags]) {
     grok {
-      match => { "message" => "%{SYSLOGLINE}" }
+      match => { "message" => "%{SYSLOGBASE} %{GREEDYDATA:message}" }
       overwrite => [ "message" ]
     }
     mutate {

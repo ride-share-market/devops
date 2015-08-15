@@ -2,5 +2,6 @@ input {
     file {
         type => "mail"
         path => "/host/var/log/mail.log"
+        sincedb_path => "/opt/logstash-since_db/mail_since_db"
     }
 }

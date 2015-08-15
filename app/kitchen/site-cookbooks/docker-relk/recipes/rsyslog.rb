@@ -3,8 +3,8 @@ service "rsyslog" do
   action :nothing
 end
 
-template "/etc/rsyslog.d/100-logstash.conf" do
-  source "rsyslog_logstash.conf.erb"
+template "/etc/rsyslog.d/10-firehol.conf" do
+  source "rsyslog_firehol.conf.erb"
   owner "root"
   group "root"
   mode "0644"

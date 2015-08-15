@@ -1,10 +1,7 @@
 input {
-    tcp {
-        port => 514
-        type => syslog
-    }
-    udp {
-        port => 514
-        type => syslog
+    file {
+        type => "syslog"
+        path => "/host/var/log/syslog"
+        sincedb_path => "/opt/logstash-since_db/syslog_since_db"
     }
 }

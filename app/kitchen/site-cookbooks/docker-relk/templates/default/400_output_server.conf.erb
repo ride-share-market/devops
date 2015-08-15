@@ -1,8 +1,5 @@
 output {
     if "rabbitmq-input" in [tags] {
-#        elasticsearch_http {
-#            host => "rsm-elasticsearch"
-#        }
         elasticsearch {
             host => ["rsm-elasticsearch"]
             codec => "plain"
