@@ -15,7 +15,7 @@ default["logstash"]["settings"]["rules"] = [
     "100_input_unattended_upgrades.conf",
     # "100_input_rabbitmq.conf",
     "100_input_lumberjack.conf",
-    # "100_input_upstart.conf",
+    "100_input_upstart.conf",
     "200_filter_syslog.conf",
     "200_filter_firehol.conf",
     "300_output_syslog.conf",
