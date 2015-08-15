@@ -12,4 +12,6 @@ include_recipe "firehol::install"
 
 include_recipe "firehol::configure"
 
+include_recipe "firehol::rsyslog"
+
 include_recipe "firehol::docker-filter"

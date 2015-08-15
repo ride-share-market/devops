@@ -20,4 +20,3 @@ include_recipe "docker-relk::kibana"
 
 include_recipe "docker-relk::lumberjack"
 
-include_recipe "docker-relk::rsyslog"
