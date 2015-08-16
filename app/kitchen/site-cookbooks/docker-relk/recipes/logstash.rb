@@ -6,6 +6,10 @@ docker_image image do
   cmd_timeout 1800
 end
 
+directory "/etc/logstash/conf.d" do
+  recursive true
+end
+
 rules = []
 rules.push(node["logstash"]["settings"]["rules"])
 # rules.push(node["logstash"]["rules"]["services"])

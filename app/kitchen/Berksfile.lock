@@ -6,6 +6,7 @@ DEPENDENCIES
   hostname
   hostsfile
   jenkins
+  logrotate
   postfix
   ssh_known_hosts
   sysdig
