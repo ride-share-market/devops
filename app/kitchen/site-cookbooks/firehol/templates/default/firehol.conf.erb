@@ -33,14 +33,17 @@ client_mosh_ports="default 60000:61000"
 server_kibana_ports="tcp/5601"
 client_kibana_ports="default 5601"
 
-server_jenkins_ports="tcp/8081"
-client_jenkins_ports="default 8081"
+#server_graphite_ports="tcp/8080"
+#client_graphite_ports="default 8080"
 
-server_graphite_ports="tcp/8080"
-client_graphite_ports="default 8080"
+server_grafana_ports="tcp/3000"
+client_grafana_ports="default 3000"
 
 server_rabbitmq_ports="tcp/15672"
 client_rabbitmq_ports="default 15672"
+
+server_jenkins_ports="tcp/8081"
+client_jenkins_ports="default 8081"
 
 # consul.io - Health checking, service discovery, key/value store
 server_consul_ports="tcp/8300 udp/8300 tcp/8301 udp/8301 tcp/8302 udp/8302 tcp/8400 udp/8400 tcp/8500 udp/8500 tcp/8600 udp/8600"
@@ -99,7 +102,8 @@ interface4 "${internet_interface}" internet <% if @virtual_box_hosts.nil? %>src 
         server rabbitmq accept
         server kibana accept
         server jenkins accept
-        server graphite accept
+        #server graphite accept
+        server grafana accept
     group end
 
     server ssh accept with knock SSH1
