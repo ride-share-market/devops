@@ -6,7 +6,7 @@ docker_image image do
   cmd_timeout 1800
 end
 
-check_file = "/home/ubuntu/docker-rsm-rabbitmq_check_file.txt"
+check_file = "/home/ubuntu/docker-check_file_rsm-rabbitmq.txt"
 if File.exists?(check_file)
   log "Aborting recipe rabbitmq - one time configuration on initial container instance required."
   log "Remove #{check_file} to proceed with recipe"

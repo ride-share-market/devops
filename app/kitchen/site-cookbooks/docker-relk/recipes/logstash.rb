@@ -58,3 +58,6 @@ end
 # -p 9876:9876
 # --link rsm-elasticsearch:els.dev.vbx.ridesharemarket.com
 # logstash:1.5.2 /opt/logstash/bin/logstash -f /etc/logstash/conf.d --debug
+
+#sudo docker run -d --user root --name rsm-logstash -v /etc/logstash/conf.d:/etc/logstash/conf.d:ro -v /etc/pki:/etc/pki:ro -v /var/log:/host/var/log:ro -v /opt/logstash-since_db:/opt/logstash-since_db:rw -p 9876:9876 --link rsm-elasticsearch:els.dev.vbx.ridesharemarket.com logstash:1.5.2 /opt/logstash/bin/logstash -f /etc/logstash/conf.d --debug
+#sudo docker exec rsm-logstash /opt/logstash/bin/plugin update logstash-output-rabbitmq logstash-input-rabbitmq

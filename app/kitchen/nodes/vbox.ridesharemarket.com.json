@@ -35,6 +35,7 @@
     "recipe[docker-prometheus]",
     "recipe[docker-grafana]",
     "recipe[docker-relk]",
+    "recipe[docker-couchbase]",
     "recipe[mongodb]",
     "recipe[git-repos]",
     "recipe[docker-containers]",
