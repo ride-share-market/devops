@@ -4,7 +4,7 @@ maintainer_email 'systemsadmin@ridesharemarket.com'
 license          'All rights reserved'
 description      'Installs/Configures docker-couchbase'
 long_description 'Installs/Configures docker-couchbase'
-version          '0.1.0'
+version          '1.0.1'
 
 depends 'docker'
 depends 'secrets'

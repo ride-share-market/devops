@@ -10,18 +10,18 @@ if File.exists?(check_file)
 end
 
 execute 'couchbase_auth' do
-  command "sleep 10; curl -u admin:password -d username=#{user} -d password=#{pass} -d port=8091 http://192.168.33.10:8091/settings/web"
+  command "curl -u admin:password -d username=#{user} -d password=#{pass} -d port=8091 http://#{node["couchbase"]["ip_address"]}:8091/settings/web"
   retries 24
   retry_delay 5
 end
-# curl -u admin:password -d username=Administrator -d password=123456 -d port=8091 http://192.168.33.10:8091/settings/web
+# curl -u admin:password -d username=Administrator -d password=xxxxxx -d port=8091 http://192.168.33.10:8091/settings/web
 
 execute 'couchbase_bucket' do
-  command "curl -X POST -u #{user}:#{pass} -d name=oauthstate -d ramQuotaMB=100 -d authType=none -d replicaNumber=0 -d proxyPort=11212 -d flushEnabled=1 http://192.168.33.10:8091/pools/default/buckets"
+  command "curl -X POST -u #{user}:#{pass} -d name=oauthstate -d ramQuotaMB=100 -d authType=none -d replicaNumber=0 -d proxyPort=11212 -d flushEnabled=1 http://#{node["couchbase"]["ip_address"]}:8091/pools/default/buckets"
   retries 24
   retry_delay 5
 end
-# curl -X POST -u Administrator:123456 -d name=oauthstate -d ramQuotaMB=100 -d authType=none -d replicaNumber=0 -d proxyPort=11212 -d flushEnabled=1 http://192.168.33.10:8091/pools/default/buckets
+# curl -X POST -u Administrator:xxxxxx -d name=oauthstate -d ramQuotaMB=100 -d authType=none -d replicaNumber=0 -d proxyPort=11212 -d flushEnabled=1 http://192.168.33.10:8091/pools/default/buckets
 
 file check_file do
   action :create

@@ -42,6 +42,9 @@ client_grafana_ports="default 3000"
 server_rabbitmq_ports="tcp/15672"
 client_rabbitmq_ports="default 15672"
 
+server_couchbase_ports="tcp/8091"
+client_couchbase_ports="default 8091"
+
 server_jenkins_ports="tcp/8081"
 client_jenkins_ports="default 8081"
 
@@ -99,11 +102,12 @@ interface4 "${internet_interface}" internet <% if @virtual_box_hosts.nil? %>src 
 
     group with src "${ADMIN_HOSTS}"
         server ssh accept
-        server rabbitmq accept
         server kibana accept
-        server jenkins accept
-        #server graphite accept
         server grafana accept
+        server rabbitmq accept
+        #server graphite accept
+        server couchbase accept
+        server jenkins accept
     group end
 
     server ssh accept with knock SSH1

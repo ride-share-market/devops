@@ -1,0 +1,1 @@
+default["couchbase"]["ip_address"] = "192.168.33.10"
