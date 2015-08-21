@@ -1,7 +1,5 @@
 docker_image "prom/statsd-bridge" do
   action :pull_if_missing
-  # 30 minute timeout allows for slow local env developer connections
-  cmd_timeout 1800
 end
 
 template "/home/ubuntu/statsd_mapping.conf" do
@@ -11,12 +9,10 @@ template "/home/ubuntu/statsd_mapping.conf" do
 end
 
 docker_container "rsm-statsd-bridge" do
-  detach true
   image "prom/statsd-bridge"
   container_name "rsm-statsd-bridge"
-  restart "always"
-  init_type false
-  volume [
+  restart_policy 'always'
+  volumes [
              "/home/ubuntu/statsd_mapping.conf:/tmp/statsd_mapping.conf"
          ]
   port [
