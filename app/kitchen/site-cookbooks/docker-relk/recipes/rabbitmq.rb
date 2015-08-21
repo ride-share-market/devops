@@ -1,9 +1,9 @@
-image = "rabbitmq:3.5.4-management"
+image = "rabbitmq"
+tag = "3.5.4-management"
 
 docker_image image do
+  tag tag
   action :pull_if_missing
-  # 30 minute timeout allows for slow local env developer connections
-  cmd_timeout 1800
 end
 
 check_file = "/home/ubuntu/docker-check_file_rsm-rabbitmq.txt"
@@ -14,11 +14,10 @@ if File.exists?(check_file)
 end
 
 docker_container "rsm-rabbitmq" do
-  detach true
-  image image
+  repo image
+  tag tag
   container_name "rsm-rabbitmq"
-  restart "always"
-  init_type false
+  restart_policy "always"
   hostname "rsm-rabbit"
   port [
            "5672:5672",

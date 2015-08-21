@@ -1,9 +1,9 @@
-image = "elasticsearch:1.7.1"
+image = "elasticsearch"
+tag = "1.7.1"
 
 docker_image image do
+  tag tag
   action :pull_if_missing
-  # 30 minute timeout allows for slow local env developer connections
-  cmd_timeout 1800
 end
 
 directory "/opt/esdata" do
@@ -13,12 +13,11 @@ directory "/opt/esdata" do
 end
 
 docker_container "rsm-elasticsearch" do
-  detach true
-  image image
+  repo image
+  tag tag
   container_name "rsm-elasticsearch"
-  restart "always"
-  init_type false
-  volume [
+  restart_policy "always"
+  volumes [
              "/opt/esdata:/usr/share/elasticsearch/data"
          ]
   command "elasticsearch -Des.node.name=LogstashNode"

@@ -8,7 +8,7 @@
 #
 include_recipe "secrets::default"
 
-raise "Missing required rabbitmq secrets: enabled_users" if !node["secrets"]["data"]["rabbitmq"]["enabledUsers"]
+raise "Missing required rabbitmq secrets: users" if !node["secrets"]["data"]["rabbitmq"]["users"]
 
 include_recipe "docker-relk::rabbitmq"
 

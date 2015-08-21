@@ -1,18 +1,17 @@
-image = "kibana:4.1.1"
+image = "kibana"
+tag = "4.1.1"
 
 docker_image image do
+  tag tag
   action :pull_if_missing
-  # 30 minute timeout allows for slow local env developer connections
-  cmd_timeout 1800
 end
 
 docker_container "rsm-kibana" do
-  detach true
-  image image
+  repo image
+  tag tag
   container_name "rsm-kibana"
-  restart "always"
-  init_type false
-  link [
+  restart_policy "always"
+  links [
            "rsm-elasticsearch:elasticsearch"
        ]
   port [

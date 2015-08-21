@@ -1,9 +1,9 @@
-image = "logstash:1.5.2"
+image = "logstash"
+tag = "1.5.2"
 
 docker_image image do
+  tag tag
   action :pull_if_missing
-  # 30 minute timeout allows for slow local env developer connections
-  cmd_timeout 1800
 end
 
 directory "/etc/logstash/conf.d" do
@@ -29,18 +29,17 @@ rules.flatten.each do |f|
 end
 
 docker_container "rsm-logstash" do
-  detach true
-  image image
+  repo image
+  tag tag
   container_name "rsm-logstash"
-  restart "always"
-  init_type false
-  volume [
+  restart_policy "always"
+  volumes [
              "/etc/logstash/conf.d:/etc/logstash/conf.d:ro",
              "/etc/pki:/etc/pki:ro",
              "/var/log:/host/var/log:ro",
              "/opt/logstash-since_db:/opt/logstash-since_db:rw"
          ]
-  link [
+  links [
            "rsm-elasticsearch:rsm-elasticsearch"
        ]
   port [
