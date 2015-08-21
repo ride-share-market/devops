@@ -4,7 +4,6 @@ end
 
 docker_container "rsm-node-exporter" do
   image "prom/node-exporter"
-  container_name "rsm-node-exporter"
   restart_policy 'always'
 end
 # sudo docker run -d --name rsm-node-exporter prom/node-exporter

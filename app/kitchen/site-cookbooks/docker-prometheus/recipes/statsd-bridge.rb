@@ -9,12 +9,11 @@ template "/home/ubuntu/statsd_mapping.conf" do
 end
 
 docker_container "rsm-statsd-bridge" do
-  image "prom/statsd-bridge"
-  container_name "rsm-statsd-bridge"
+  repo "prom/statsd-bridge"
   restart_policy 'always'
-  volumes [
-             "/home/ubuntu/statsd_mapping.conf:/tmp/statsd_mapping.conf"
-         ]
+  binds [
+            "/home/ubuntu/statsd_mapping.conf:/tmp/statsd_mapping.conf"
+        ]
   port [
            "9102:9102",
            "9125:9125/udp"
