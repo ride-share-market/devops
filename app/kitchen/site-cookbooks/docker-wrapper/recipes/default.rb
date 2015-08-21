@@ -9,6 +9,9 @@
 # Needed linux-image-extra for aufs filesystem support
 package "linux-image-extra-`uname -r`"
 
-include_recipe "docker"
+docker_service "default" do
+  version "1.7.1"
+  action [:create, :start]
+end
 
 include_recipe "docker-wrapper::docker-upstart"
