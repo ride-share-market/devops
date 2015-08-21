@@ -6,7 +6,11 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-docker_image "grafana/grafana" do
+image = "grafana/grafana"
+tag = "2.1.0"
+
+docker_image image do
+  tag tag
   action :pull_if_missing
 end
 
@@ -22,18 +26,20 @@ directory "/opt/grafana" do
 end
 
 docker_container "rsm-grafana" do
-  image "grafana/grafana"
-  container_name "rsm-grafana"
+  repo image
+  tag tag
   restart_policy "always"
   links [
-
+            "rsm-prometheus:rsm-prometheus"
         ]
   volumes [
-             "/opt/grafana:/var/lib/grafana",
+            "/opt/grafana:/var/lib/grafana"
+        ]
+  binds [
              "/opt/grafana-plugins/datasources/prometheus:/usr/share/grafana/public/app/plugins/datasource/prometheus"
          ]
   port [
            "3000:3000"
        ]
 end
-# sudo docker run -d --name rsm-grafana --link rsm-prometheus:rsm-prometheus -v $(pwd)/grafana-plugins/datasources/prometheus:/usr/share/grafana/public/app/plugins/datasource/prometheus -p 3000:3000 grafana/grafana
+#sudo docker run --rm --name rsm-grafana --link rsm-prometheus:rsm-prometheus -v /opt/grafana-plugins/datasources/prometheus:/usr/share/grafana/public/app/plugins/datasource/prometheus -p 3000:3000 grafana/grafana:2.0.2
