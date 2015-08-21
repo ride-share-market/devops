@@ -10,7 +10,7 @@ docker_container "rsm-couchbase" do
   repo image
   tag tag
   container_name "rsm-couchbase"
-  restart_policy 'always'
+  restart_policy "always"
   privileged true
   port [
            "8091:8091",
