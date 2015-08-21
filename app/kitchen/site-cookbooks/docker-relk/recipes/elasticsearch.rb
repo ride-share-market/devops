@@ -6,20 +6,20 @@ docker_image image do
   action :pull_if_missing
 end
 
-directory "/opt/esdata" do
+directory "/opt/elasticsearch" do
+  recursive true
   owner "root"
   group "root"
-  mode "0755"
+  mode "0777"
 end
 
 docker_container "rsm-elasticsearch" do
   repo image
   tag tag
-  container_name "rsm-elasticsearch"
   restart_policy "always"
-  volumes [
-             "/opt/esdata:/usr/share/elasticsearch/data"
+  binds [
+             "/opt/elasticsearch/data:/usr/share/elasticsearch/data"
          ]
   command "elasticsearch -Des.node.name=LogstashNode"
 end
-# sudo docker run --rm -it --name rsm-elasticsearch -v /opt/esdata:/usr/share/elasticsearch/data elasticsearch:1.7.1 elasticsearch -Des.node.name=LogstashNode
+# sudo docker run --rm -it --name rsm-elasticsearch -v /opt/elasticsearch/data:/usr/share/elasticsearch/data elasticsearch:1.7.1 elasticsearch -Des.node.name=LogstashNode

@@ -6,17 +6,9 @@ docker_image image do
   action :pull_if_missing
 end
 
-check_file = "/home/ubuntu/docker-check_file_rsm-rabbitmq.txt"
-if File.exists?(check_file)
-  log "Aborting recipe rabbitmq - one time configuration on initial container instance required."
-  log "Remove #{check_file} to proceed with recipe"
-  return
-end
-
 docker_container "rsm-rabbitmq" do
   repo image
   tag tag
-  container_name "rsm-rabbitmq"
   restart_policy "always"
   hostname "rsm-rabbit"
   port [
@@ -31,6 +23,13 @@ end
 # sudo docker run --rm -it --hostname my-rabbit --name some-rabbit \
 #    -p 5672:5672 -p 15672:15672 \
 #    rabbitmq:management
+
+check_file = "/home/ubuntu/docker-check_file_rsm-rabbitmq.txt"
+if File.exists?(check_file)
+  log "Aborting recipe rabbitmq - one time configuration on initial container instance required."
+  log "Remove #{check_file} to proceed with recipe"
+  return
+end
 
 # Create /rsm vhost
 execute "add_vhost rsm" do

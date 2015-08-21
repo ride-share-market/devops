@@ -9,7 +9,6 @@ end
 docker_container "rsm-kibana" do
   repo image
   tag tag
-  container_name "rsm-kibana"
   restart_policy "always"
   links [
            "rsm-elasticsearch:elasticsearch"
