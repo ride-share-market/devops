@@ -1,17 +1,17 @@
-image = "couchbase:community-3.0.1"
+image = "couchbase"
+tag = "community-3.0.1"
 
 docker_image image do
+  tag tag
   action :pull_if_missing
-  # 30 minute timeout allows for slow local env developer connections
-  cmd_timeout 1800
 end
 
 docker_container "rsm-couchbase" do
-  detach true
-  image image
+  repo image
+  tag tag
   container_name "rsm-couchbase"
-  restart "always"
-  init_type false
+  restart_policy 'always'
+  privileged true
   port [
            "8091:8091",
            "11210:11210",
