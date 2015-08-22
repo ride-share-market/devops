@@ -31,15 +31,16 @@
     "recipe[network-hosts]",
     "recipe[common]",
     "recipe[firehol]",
+    "recipe[git-repos]",
     "recipe[docker-wrapper]",
     "recipe[docker-prometheus]",
     "recipe[docker-grafana]",
     "recipe[docker-relk]",
     "recipe[docker-couchbase]",
-    "recipe[mongodb]",
-    "recipe[git-repos]",
-    "recipe[docker-containers]",
-    "recipe[jenkins-cookbook]",
+    "recipe[docker-mongodb]",
+    "recipe[docker-private-registry]",
+    "recipe[docker-scripts]",
+    "recipe[docker-jenkins]",
     "recipe[cron-jobs]"
   ]
 }
