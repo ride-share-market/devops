@@ -6,11 +6,11 @@ docker_image image do
   action :pull_if_missing
 end
 
-directory "/opt/elasticsearch" do
+directory "/opt/elasticsearch/data" do
   recursive true
   owner "root"
   group "root"
-  mode "0777"
+  mode "0755"
 end
 
 docker_container "rsm-elasticsearch" do

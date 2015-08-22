@@ -17,9 +17,9 @@ docker_container "rsm-couchbase" do
            "11212:11212"
        ]
   ulimits [
-              {'Name' => 'nofile', 'Soft' => 40960, 'Hard' => 40960},
-              {'Name' => 'core', 'Soft' => 100000000, 'Hard' => 100000000},
-              {'Name' => 'memlock', 'Soft' => 100000000, 'Hard' => 100000000}
+              {"Name" => "nofile", "Soft" => 40960, "Hard" => 40960},
+              {"Name" => "core", "Soft" => 100000000, "Hard" => 100000000},
+              {"Name" => "memlock", "Soft" => 100000000, "Hard" => 100000000}
           ]
 end
 # sudo docker run --rm --name rsm-couchbase -p 8091:8091 -p 11210:11210 -p 11212:11212 --ulimit nofile=40960:40960 --ulimit core=100000000:100000000 --ulimit memlock=100000000:100000000 couchbase:community-3.0.1
