@@ -1,0 +1,10 @@
+#!/bin/sh
+
+<% @jenkins_plugins.each do |plugin| %>
+# <%= plugin %>
+java -jar /var/jenkins_home/war/WEB-INF/jenkins-cli.jar -s http://localhost:8080 install-plugin <%= plugin %>
+
+<% end %>
+# restart
+#echo "Restarting Jenkins CI..."
+#java -jar /var/jenkins_home/war/WEB-INF/jenkins-cli.jar -s http://localhost:8080 safe-restart

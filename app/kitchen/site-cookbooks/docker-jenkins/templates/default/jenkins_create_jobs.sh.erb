@@ -1,0 +1,7 @@
+#!/bin/sh
+
+<% @jenkins_jobs.each do |job| %>
+# <%= job[:name] %>
+java -jar /var/jenkins_home/war/WEB-INF/jenkins-cli.jar -s http://localhost:8080 create-job <%= job[:name] %> < /var/jenkins_home/jobs-xml/<%= job[:name] %>_config.xml
+
+<% end %>
