@@ -37,7 +37,7 @@
 - [Grafana](http://192.168.33.10:3000)
 - [RabbitMQ](http://192.168.33.10:15672)
 - [Couchbase](http://192.168.33.10:8091)
-- [Jenkins CI](http://192.168.33.10:8081)
+- [Jenkins CI](http://192.168.33.10:8080)
 - [Docker Private Registry](http://192.168.33.10:9001)
 
 ## Configure Grafana
