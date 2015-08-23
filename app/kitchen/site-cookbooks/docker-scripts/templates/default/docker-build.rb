@@ -7,7 +7,7 @@ Options = Struct.new(
     :private_registry,
     :private_registry_port,
     :image_owner,
-    :image_name,
+    :image_prefix,
     :image_version,
     :jenkins_job,
     :dry_run,
@@ -47,8 +47,8 @@ OptionParser.new do |opts|
     args.image_owner = o
   end
 
-  opts.on("-cNAME", "--name=NAME", "Docker image name") do |c|
-    args.image_name = c
+  opts.on("-cPREFIX", "--prefix=PREFIX", "Docker image prefix") do |c|
+    args.image_prefix = c
   end
 
   opts.on("-vVERSON", "--version=VERSION", "Docker image version") do |v|
@@ -78,23 +78,23 @@ if args.env == nil
   fail "Missing required argument '--env'"
 end
 
-if args.image_name == nil
-  fail "Missing required argument '--name'"
-end
-
-if args.image_version == nil
-  fail "Missing required argument '--version'"
+if args.image_prefix == nil
+  fail "Missing required argument '--prefix'"
 end
 
 if args.jenkins_job == nil
   fail "Missing required argument '--jenkinsjob'"
 end
 
+if args.image_version == nil
+  fail "Missing required argument '--version'"
+end
+
 application_env = args.env
 private_registry = args.private_registry
 private_registry_port = args.private_registry_port
 image_owner = args.image_owner
-image_name = args.image_name
+image_prefix = args.image_prefix
 image_version = args.image_version
 jenkins_job = args.jenkins_job
 dry_run = args.dry_run
@@ -104,13 +104,7 @@ def run_command(options)
   puts "==> #{options[:cmd]}"
   if !options[:dry_run]
 
-    # workdir for differing Jenkins versions
-    work_dir_Jenkins_1_618 = "/var/lib/jenkins/jobs/#{options[:jenkins_job]}/workspace"
-    work_dir_Jenkins_1_619 = "/var/lib/jenkins/workspace/#{options[:jenkins_job]}"
-
-    work_dir = work_dir_Jenkins_1_619
-
-    work_dir = work_dir_Jenkins_1_618 if Dir.exists?(work_dir_Jenkins_1_618)
+    work_dir = "/home/jenkins/workspace/#{options[:jenkins_job]}"
 
     Dir.chdir work_dir
 
@@ -136,7 +130,6 @@ run_command({
                 :application_env => application_env,
                 :dry_run => dry_run,
                 :abort_on_error => abort_on_error,
-                :name => image_name,
                 :cmd => "if [ -e config/logrotate.conf ]; then sudo sed -i.orig -e 's/NODE_ENV=[a-z]\\{3\\}/NODE_ENV=#{application_env}/g' config/logrotate.conf; fi",
                 :jenkins_job => jenkins_job
             })
@@ -146,8 +139,7 @@ run_command({
                 :application_env => application_env,
                 :dry_run => dry_run,
                 :abort_on_error => abort_on_error,
-                :name => image_name,
-                :cmd => "sudo docker build -t #{image_owner}/#{image_name}:#{image_version} .",
+                :cmd => "sudo docker build -t #{image_owner}/#{image_prefix}-#{jenkins_job}:#{image_version} .",
                 :jenkins_job => jenkins_job
             })
 
@@ -156,8 +148,7 @@ run_command({
                 :application_env => application_env,
                 :dry_run => dry_run,
                 :abort_on_error => abort_on_error,
-                :name => image_name,
-                :cmd => "sudo docker tag #{image_owner}/#{image_name}:#{image_version} #{private_registry}:#{private_registry_port}/#{image_owner}/#{image_name}:#{image_version}",
+                :cmd => "sudo docker tag #{image_owner}/#{image_prefix}-#{jenkins_job}:#{image_version} #{private_registry}:#{private_registry_port}/#{image_owner}/#{image_prefix}-#{jenkins_job}:#{image_version}",
                 :jenkins_job => jenkins_job
             })
 
@@ -166,7 +157,6 @@ run_command({
                 :application_env => application_env,
                 :dry_run => dry_run,
                 :abort_on_error => abort_on_error,
-                :name => image_name,
-                :cmd => "sudo docker push #{private_registry}:#{private_registry_port}/#{image_owner}/#{image_name}:#{image_version}",
+                :cmd => "sudo docker push #{private_registry}:#{private_registry_port}/#{image_owner}/#{image_prefix}-#{jenkins_job}:#{image_version}",
                 :jenkins_job => jenkins_job
             })

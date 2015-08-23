@@ -62,22 +62,22 @@ set :rsm_configs, fetch(:rsm_configs, []).push(
                     {
                         name: "data",
                         config_src: Dir.glob(File.join(File.dirname(__FILE__), "/../../../data/config/env/*.json")),
-                        config_dst: "config/data/config/env"
+                        config_dst: "/home/jenkins/jobs-config/data/config/env"
                     },
                     {
                         name: "api",
                         config_src: Dir.glob(File.join(File.dirname(__FILE__), "/../../../api/config/env/*.json")),
-                        config_dst: "config/api/config/env"
+                        config_dst: "/home/jenkins/jobs-config/api/config/env"
                     },
                     {
                         name: "app",
                         config_src: Dir.glob(File.join(File.dirname(__FILE__), "/../../../app/config/env/*.json")),
-                        config_dst: "config/app/config/env"
+                        config_dst: "/home/jenkins/jobs-config/app/config/env"
                     },
                     {
                         name: "nginx",
                         config_src: Dir.glob(File.join(File.dirname(__FILE__), "/../../../nginx/ssl/*")),
-                        config_dst: "config/nginx/ssl"
+                        config_dst: "/home/jenkins/jobs-config/nginx/ssl"
                     }
 
                 )
@@ -87,31 +87,49 @@ namespace :docker do
   desc "Upload App Config"
   task :upload_config do
     on roles(:ci) do |host|
-      puts "Host: #{host} ==> #{fetch(:stage)}"
-      as "ubuntu" do
-        within "/home/ubuntu" do
+
+      puts "==> Host: #{host}"
+
+      puts "==> Stage: #{fetch(:stage)}"
+
+      if fetch(:stage).to_s == "vbx"
+        user = "vagrant"
+      else
+        user = "ubuntu"
+      end
+
+      puts "==> User: #{user}"
+
+      as user do
+        within "/home/jenkins" do
+
           fetch(:rsm_configs, []).each do |rsm_config|
+
             if test "[ ! -d #{rsm_config[:config_dst]} ]"
               execute :mkdir, "-p", rsm_config[:config_dst]
             end
+
             rsm_config[:config_src].each do |file|
               # The upload!() method doesn't honor the values of within(), as() etc, this will be improved
               # as the library matures, but we're not there yet.
               # upload! file, rsm_config[:config_dst]
               on(:local) do
-                execute :scp, "#{file} ubuntu@#{host}:#{rsm_config[:config_dst]}"
+                execute :scp, "#{file} #{user}@#{host}:#{rsm_config[:config_dst]}"
               end
             end
+
           end
+
         end
+
       end
     end
   end
 
   desc "Docker Build"
-  task :build, :name, :version, :jenkins_job do |t, args|
+  task :build, :prefix, :jenkins_job, :version do |t, args|
     on roles(:ci) do |host|
-      execute "/opt/chef/embedded/bin/ruby docker-build.rb --env #{fetch(:stage)} --hostname #{fetch(:private_docker_registry)} --name #{args[:name]} --version #{args[:version]} -j #{args[:jenkins_job]}"
+      execute "/opt/chef/embedded/bin/ruby docker-build.rb --env #{fetch(:stage)} --hostname #{fetch(:private_docker_registry)} --prefix #{args[:prefix]} -j #{args[:jenkins_job]} --version #{args[:version]}"
       info "Host #{host} (#{host.roles.to_a.join(", ")}):\t#{capture(:uptime)}"
     end
   end
