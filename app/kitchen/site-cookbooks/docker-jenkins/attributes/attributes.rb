@@ -1,4 +1,8 @@
-default["docker-jenkins"]["jenkins_jobs_dir"] = "/home/ubuntu/jenkins/jobs-xml"
+default["docker-jenkins"]["jenkins_home"] = "/home/jenkins"
+
+default["docker-jenkins"]["jenkins_jobs_dir"] = "/home/jenkins/jobs-xml"
+
+default["docker-jenkins"]["app_config_dir"] = "/home/jenkins/jobs-config"
 
 default["docker-jenkins"]["plugins"] = [
     "greenballs",

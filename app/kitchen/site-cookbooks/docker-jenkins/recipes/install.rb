@@ -1,4 +1,5 @@
-image = "jenkins"
+# image = "jenkins"
+image = "rudijs/jenkins-build-essential"
 tag = "1.609.2"
 
 docker_image image do
@@ -14,7 +15,12 @@ docker_container "rsm-jenkins" do
            "8080:8080"
        ]
   binds [
-            "/home/ubuntu/jenkins/jobs-xml:/var/jenkins_home/jobs-xml"
+            "#{node["docker-jenkins"]["jenkins_home"]}:/var/jenkins_home"
+        ]
+  links [
+            "rsm-mongodb:rsm-mongodb",
+            "rsm-rabbitmq:rsm-rabbitmq",
+            "rsm-couchbase:rsm-couchbase"
         ]
 end
-# sudo docker run --rm --name rsm-jenkins -p 8080:8080 -v /home/ubuntu/jenkins/jobs-xml:/var/jenkins_home/jobs-xml jenkins:1.609.2
+# sudo docker run --rm --name rsm-jenkins -p 8080:8080 -v /home/jenkins:/var/jenkins_home jenkins:1.609.2

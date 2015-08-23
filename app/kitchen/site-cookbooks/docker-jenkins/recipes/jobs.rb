@@ -7,8 +7,8 @@ jenkins_jobs_dir = node["docker-jenkins"]["jenkins_jobs_dir"]
 
 directory jenkins_jobs_dir do
   recursive true
-  owner "ubuntu"
-  group "ubuntu"
+  owner 1000
+  group 1000
 end
 
 # Create XML file for each job
