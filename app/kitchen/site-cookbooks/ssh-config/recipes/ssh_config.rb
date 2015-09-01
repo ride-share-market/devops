@@ -13,10 +13,10 @@ network_hosts.each { |host|
 
   next if host.fetch("login", true) == false
 
-  if IPAddress.valid? host["digitalOcean"]["ip"]["eth0"]
+  if IPAddress.valid? host["cloud"]["ip"]["eth0"]
     ssh_config_hosts.push(network_host.new(
                         host["id"],
-                        host["digitalOcean"]["ip"]["eth0"],
+                        host["cloud"]["ip"]["eth0"],
                         "ubuntu"
                     ))
   end

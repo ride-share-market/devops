@@ -1,0 +1,35 @@
+{
+  "name": "toyota",
+  "set_fqdn": "toyota.ridesharemarket.com",
+  "postfix": {
+    "main": {
+      "hostname": "toyota",
+      "mydomain": "ridesharemarket.com",
+      "smtpd_use_tls": "no"
+    },
+    "aliases": {
+      "root": "systemsadmin@ridesharemarket.com"
+    }
+  },
+  "users": [
+    "rsm-data"
+  ],
+  "ssh-config": {
+    "users": [
+      "vagrant"
+    ]
+  },
+  "tmux": {
+    "users": [
+      {
+        "user": "vagrant",
+        "home": "/home/vagrant"
+      }
+    ]
+  },
+  "run_list": [
+    "recipe[network-hosts]",
+    "recipe[common]",
+    "recipe[docker-wrapper]"
+  ]
+}

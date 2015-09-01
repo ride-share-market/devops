@@ -22,7 +22,7 @@ docker_container "rsm-rabbitmq" do
 end
 # sudo docker run --rm -it --hostname my-rabbit --name some-rabbit \
 #    -p 5672:5672 -p 15672:15672 \
-#    rabbitmq:management
+#    rabbitmq:3.5.4-management
 
 check_file = "/home/ubuntu/docker-check_file_rsm-rabbitmq.txt"
 if File.exists?(check_file)

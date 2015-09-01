@@ -18,9 +18,10 @@ docker_container "rsm-jenkins" do
             "#{node["docker-jenkins"]["jenkins_home"]}:/var/jenkins_home"
         ]
   links [
-            "rsm-mongodb:rsm-mongodb",
             "rsm-rabbitmq:rsm-rabbitmq",
-            "rsm-couchbase:rsm-couchbase"
+            "rsm-mongodb:rsm-mongodb",
+            "rsm-couchbase:rsm-couchbase",
+            "rsm-statsd-bridge:rsm-statsd-bridge"
         ]
 end
 # sudo docker run --rm --name rsm-jenkins -p 8080:8080 -v /home/jenkins:/var/jenkins_home jenkins:1.609.2

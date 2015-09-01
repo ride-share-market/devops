@@ -7,6 +7,9 @@ data_bag_path "data_bags"
 
 knife[:berkshelf_path] = "berks-cookbooks"
 
+knife[:aws_access_key_id] = "#{ENV['AWS_ACCESS_KEY']}"
+knife[:aws_secret_access_key] = "#{ENV['AWS_SECRET_KEY']}"
+
 knife[:digital_ocean_access_token] = "#{ENV['RSMCOM_DIGITAL_OCEAN_ACCESS_TOKEN']}"
 
 # https://manage.chef.io/organizations/rsmcom

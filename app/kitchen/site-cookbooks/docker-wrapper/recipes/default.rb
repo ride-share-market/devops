@@ -15,4 +15,4 @@ docker_service "default" do
   insecure_registry node["docker-wrapper"]["docker_opts"]["insecure-registry"]
 end
 
-include_recipe "docker-wrapper::docker-upstart"
+# include_recipe "docker-wrapper::docker-upstart"

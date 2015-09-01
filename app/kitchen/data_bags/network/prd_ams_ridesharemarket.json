@@ -32,7 +32,7 @@
       "cnames": [
         "noc.prd.ridesharemarket.com"
       ],
-      "digitalOcean": {
+      "cloud": {
         "id": "6084027",
         "ip": {
           "eth0": "188.166.127.172",

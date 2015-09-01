@@ -57,10 +57,10 @@ class NetworkHosts
           hosts += host["cnames"]
         end
 
-        puts "# Digital Ocean Droplet ID #{host["digitalOcean"]["id"]}"
+        puts "# Cloud Server ID #{host["cloud"]["id"]}"
 
-        if IPAddress.valid? host["digitalOcean"]["ip"]["eth0"]
-          puts "#{host["digitalOcean"]["ip"]["eth0"]} #{hosts.join(" ")}"
+        if IPAddress.valid? host["cloud"]["ip"]["eth0"]
+          puts "#{host["cloud"]["ip"]["eth0"]} #{hosts.join(" ")}"
         end
 
       }

@@ -1,0 +1,77 @@
+1)
+ec2-create-vpc --region ap-southeast-1 10.0.0.0/16
+VPC     vpc-d04fecb5    pending 10.0.0.0/16     dopt-f2cc3b97   default
+
+ec2-modify-vpc-attribute --region ap-southeast-1 --vpc vpc-d04fecb5 --dns-support true
+RETURN  true
+ec2-modify-vpc-attribute --region ap-southeast-1 --vpc vpc-d04fecb5 --dns-hostnames true
+RETURN  true
+
+
+
+2) public subnet (a default route table will be created
+ec2-create-subnet --region ap-southeast-1 -c vpc-d04fecb5 -i 10.0.0.0/24
+SUBNET  subnet-f2b72497 pending vpc-d04fecb5    10.0.0.0/24     251     ap-southeast-1a
+
+3)
+ec2-create-internet-gateway --region ap-southeast-1
+INTERNETGATEWAY igw-0a5e946f
+
+4)
+ec2-attach-internet-gateway --region ap-southeast-1 igw-0a5e946f -c vpc-d04fecb5
+ATTACHMENT      vpc-d04fecb5    attaching
+
+5)
+ec2-associate-route-table --region ap-southeast-1 --subnet subnet-f2b72497 rtb-c0e367a5
+ASSOCIATION     rtbassoc-35c24250       rtb-c0e367a5    subnet-f2b72497
+
+6)
+ec2-create-route --region ap-southeast-1 rtb-c0e367a5 -r 0.0.0.0/0 -g igw-0a5e946f
+ROUTE   igw-0a5e946f                    0.0.0.0/0
+
+7)
+ec2-allocate-address --region ap-southeast-1 -d vpc
+ADDRESS 52.76.80.20             vpc     eipalloc-ac36ccc9
+
+8)
+knife ec2 server create --image ami-96f1c1c4 --flavor t2.micro --region ap-southeast-1
+--associate-eip 52.76.80.20 --subnet subnet-f2b72497 --security-group-ids sg-37ea8352
+--ssh-user ubuntu --ssh-key amazon-vpc-singapore --identity-file ~/.ssh/amazon-vpc-singapore.pem
+
+ec2-run-instances ami-96f1c1c4 --region ap-southeast-1 --key amazon-vpc-singapore --group sg-37ea8352 --instance-type t2.micro --subnet subnet-f2b72497
+
+9)
+ec2-create-tags --region ap-southeast-1 i-ac77bb08 --tag Name=NAT01
+TAG     instance        i-ac77bb08      Name    NAT01
+
+10)
+ec2-associate-address --region ap-southeast-1 -a eipalloc-ac36ccc9 -i i-ac77bb08
+ADDRESS         i-ac77bb08      eipalloc-ac36ccc9       eipassoc-14f58071
+
+11)
+* route53 update
+
+* scp secret_key
+
+knife bootstrap 52.74.67.99 --yes --sudo --node-name nat01 --bootstrap-version 12.3.0 --ssh-user ubuntu --run-list 'recipe[hostname],recipe[chef-client],recipe[chef-client::delete_validation]' --json-attributes '{"set_fqdn":"nat01.ridesharemarket.com"}'
+
+# EBS
+
+lsblk
+sudo mkfs.ext4 /dev/xvdf
+sudo mkdir /mnt/my-data
+sudo mount /dev/xvdf /mnt/my-data
+df -h
+
+# DNS - route53
+aws route53 list-hosted-zones
+aws route53 list-resource-record-sets --hosted-zone-id Z2Y8J8HP9H88E5
+aws route53 change-resource-record-sets --hosted-zone-id Z2Y8J8HP9H88E5 --change-batch file://./add-a-record.json
+{
+    "ChangeInfo": {
+        "Status": "PENDING",
+        "Comment": "Add DNS A record",
+        "SubmittedAt": "2015-08-31T07:14:44.268Z",
+        "Id": "/change/C2RL1XAPIPWMFV"
+    }
+}

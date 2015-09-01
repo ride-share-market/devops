@@ -12,7 +12,7 @@
         "www.dev.loc.ridesharemarket.com",
         "api.dev.loc.ridesharemarket.com"
       ],
-      "digitalOcean": {
+      "cloud": {
         "id": "xxxxxx",
         "ip": {
           "eth0": "127.0.0.1"

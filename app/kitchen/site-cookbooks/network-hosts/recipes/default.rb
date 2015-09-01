@@ -29,8 +29,8 @@ node["network-hosts"].each { |network|
         "lan.#{host["id"]}.#{domain}"
     ]
 
-    if IPAddress.valid? host["digitalOcean"]["ip"]["eth0"]
-      hostsfile_entry host["digitalOcean"]["ip"]["eth0"] do
+    if IPAddress.valid? host["cloud"]["ip"]["eth0"]
+      hostsfile_entry host["cloud"]["ip"]["eth0"] do
         hostname host['id']
         unique true
         action :create
@@ -41,14 +41,14 @@ node["network-hosts"].each { |network|
     if host["roles"]
       host["roles"].each { |role|
         host_aliases.push("#{role}.#{environment}.#{location}.#{domain}")
-        if host["digitalOcean"]["ip"]["eth1"] and IPAddress.valid? host["digitalOcean"]["ip"]["eth1"]
+        if host["cloud"]["ip"]["eth1"] and IPAddress.valid? host["cloud"]["ip"]["eth1"]
           host_lan_aliases.push("lan.#{role}.#{environment}.#{location}.#{domain}")
         end
       }
     end
 
-    if host["digitalOcean"]["ip"]["eth1"] and IPAddress.valid? host["digitalOcean"]["ip"]["eth1"]
-      hostsfile_entry host["digitalOcean"]["ip"]["eth1"] do
+    if host["cloud"]["ip"]["eth1"] and IPAddress.valid? host["cloud"]["ip"]["eth1"]
+      hostsfile_entry host["cloud"]["ip"]["eth1"] do
         hostname "lan.#{host['id']}"
         unique true
         action :create

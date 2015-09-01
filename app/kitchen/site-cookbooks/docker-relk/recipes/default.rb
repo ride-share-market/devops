@@ -14,9 +14,9 @@ include_recipe "docker-relk::rabbitmq"
 
 include_recipe "docker-relk::elasticsearch"
 
+include_recipe "docker-lumberjack"
+include_recipe "docker-lumberjack::ssl"
+
 include_recipe "docker-relk::logstash"
 
 include_recipe "docker-relk::kibana"
-
-include_recipe "docker-relk::lumberjack"
-

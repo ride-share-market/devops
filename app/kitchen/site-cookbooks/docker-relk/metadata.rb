@@ -8,3 +8,4 @@ version          '1.0.1'
 
 depends 'docker'
 depends 'secrets'
+depends 'docker-lumberjack'

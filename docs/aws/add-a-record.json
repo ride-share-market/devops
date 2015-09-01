@@ -1,0 +1,18 @@
+{
+  "Comment": "Add DNS A record",
+  "Changes": [
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ssh01.ridesharemarket.com",
+        "Type": "A",
+        "TTL": 300,
+        "ResourceRecords": [
+          {
+            "Value": "52.76.22.138"
+          }
+        ]
+      }
+    }
+  ]
+}

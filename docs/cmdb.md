@@ -23,3 +23,4 @@
 - web – Web Server
 - els - Elastic Search Node
 - reg - Private Docker Registry
+- cis - Continuous Integration Server

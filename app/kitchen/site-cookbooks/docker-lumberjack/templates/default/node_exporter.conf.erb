@@ -1,0 +1,17 @@
+{
+  "network": {
+    "servers": ["logstash.ridesharemarket.com:9876"],
+    "ssl certificate": "<%= @ssl_certificate %>",
+    "ssl key": "<%= @ssl_key %>",
+    "ssl ca": "<%= @ssl_certificate %>",
+    "timeout": 15
+  },
+  "files": [
+    {
+      "paths": [
+        "/host/var/log/auth.log"
+      ],
+      "fields": {"type": "auth", "host": "<%= @fqdn %>"}
+    }
+  ]
+}

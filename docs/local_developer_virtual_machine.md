@@ -20,16 +20,29 @@
 - Create a new Virtualbox instance with Vagrant
 - `cd app`
 - `vagrant plugin install vagrant-vbguest`
-- `vagrant up`
-- Configure the new Ubuntu VM
+- `vagrant up app`
+- Configure *one* of the Ubuntu VMs
 - `cd kitchen`
-- `./devops.rb sshcopyid`
-- `./devops.rb update_ubuntu_account`
-- `./devops.rb upgrade`
-- `./devops.rb reboot`
-- `./devops.rb bootstrap`
+- `./devops.rb sshcopyid --hostname toyota`
+- `./devops.rb update_ubuntu_account --hostname toyota`
+- `./devops.rb upgrade --hostname toyota`
+- `./devops.rb reboot --hostname toyota`
+- `./devops.rb bootstrap --hostname toyota`
+- Create a backup of this prepared box for use with other VMs (so they don't need to upgrade and bootstrap)
+- `vagrant package`
+- Adjust the date to the current date.
+- `mv package.box ../tmp/trustytahr_2015-08-31.box`
+- Update the [Vagrantfile](../app/Vagrantfile) to use this saved box.
+- Comment out these two lines and add the following:
+- `# config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"`
+- `# config.vm.box = "trustytahr"`
+- `config.vm.box = "file://#{__dir__}/tmp/trustytahr_2015-08-31.box"`
+- `vagrant up`
+- Install Chef cookbook dependencies
 - `berks vendor`
-- `./devops.rb cook`
+- Configure VMs (use fully qualified domain name)
+- `./devops.rb cook --hostname toyota.ridesharemarket.com`
+- `./devops.rb cook --hostname tesla.ridesharemarket.com`
 
 ## Web Admin
 

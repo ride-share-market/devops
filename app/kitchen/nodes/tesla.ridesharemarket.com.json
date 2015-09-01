@@ -1,0 +1,40 @@
+{
+  "name": "tesla",
+  "set_fqdn": "tesla.ridesharemarket.com",
+  "postfix": {
+    "main": {
+      "hostname": "tesla",
+      "mydomain": "ridesharemarket.com",
+      "smtpd_use_tls": "no"
+    },
+    "aliases": {
+      "root": "systemsadmin@ridesharemarket.com"
+    }
+  },
+  "users": [
+    "rsm-data"
+  ],
+  "ssh-config": {
+    "users": [
+      "vagrant"
+    ]
+  },
+  "tmux": {
+    "users": [
+      {
+        "user": "vagrant",
+        "home": "/home/vagrant"
+      }
+    ]
+  },
+  "run_list": [
+    "recipe[network-hosts]",
+    "recipe[common]",
+    "recipe[docker-wrapper]",
+    "recipe[docker-prometheus]",
+    "recipe[docker-grafana]",
+    "recipe[docker-relk]",
+    "recipe[docker-lumberjack::default]",
+    "recipe[docker-lumberjack::node_exporter]"
+  ]
+}

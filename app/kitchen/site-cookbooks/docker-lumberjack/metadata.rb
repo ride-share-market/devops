@@ -1,0 +1,10 @@
+name             'docker-lumberjack'
+maintainer       'Ride Share Market'
+maintainer_email 'systemsadmin@ridesharemarket.com'
+license          'All rights reserved'
+description      'Installs/Configures docker-lumberjack'
+long_description 'Installs/Configures docker-lumberjack'
+version          '1.0.0'
+
+depends 'secrets'
+depends 'docker'

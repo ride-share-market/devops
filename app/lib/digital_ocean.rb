@@ -61,7 +61,8 @@ class DigitalOcean
     raise "Host not found: #{name}" if new_server.size == 0
 
     cmd = "knife bootstrap #{name} --yes --sudo --node-name #{name} --bootstrap-version #{chef_client_version} --ssh-user ubuntu --run-list '#{new_server[0]["chefBootstrap"]["runList"].join(",")}' --json-attributes '#{new_server[0]["chefBootstrap"]["jsonAttributes"].to_json}'"
-    puts "==> #{cmd}"; system cmd
+    # puts "==> #{cmd}"; system cmd
+    puts "==> #{cmd}"
 
   end
 

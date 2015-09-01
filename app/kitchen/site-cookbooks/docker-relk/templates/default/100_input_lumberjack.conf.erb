@@ -3,6 +3,14 @@ input {
     port => 9876
     ssl_certificate => "/etc/pki/tls/certs/logstash-forwarder/rsm-logstash-forwarder.crt"
     ssl_key => "/etc/pki/tls/private/logstash-forwarder/rsm-logstash-forwarder.key"
+  }
+}
+
+input {
+  lumberjack {
+    port => 9877
+    ssl_certificate => "/etc/pki/tls/certs/logstash-forwarder/rsm-logstash-forwarder.crt"
+    ssl_key => "/etc/pki/tls/private/logstash-forwarder/rsm-logstash-forwarder.key"
     codec => "json"
   }
 }
