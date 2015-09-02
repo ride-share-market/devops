@@ -1,5 +1,0 @@
-output {
-    if [type] == "syslog" and "_grokparsefailure" in [tags] {
-        file { path => "/var/log/failed_syslog_events-%{+YYYY-MM-dd}" }
-    }
-}

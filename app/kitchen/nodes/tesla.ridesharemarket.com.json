@@ -35,6 +35,12 @@
     "recipe[docker-grafana]",
     "recipe[docker-relk]",
     "recipe[docker-lumberjack::default]",
-    "recipe[docker-lumberjack::node_exporter]"
+    "recipe[docker-lumberjack::node_exporter]",
+    "recipe[docker-private-registry]",
+    "recipe[docker-couchbase]",
+    "recipe[docker-mongodb]",
+    "recipe[docker-jenkins]",
+    "recipe[docker-scripts::ci_server]",
+    "recipe[cron-jobs::ci_server]"
   ]
 }

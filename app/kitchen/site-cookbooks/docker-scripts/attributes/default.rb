@@ -4,9 +4,9 @@ default["docker"]["users"] = [
 ]
 
 default["hosts"] = {
-    :docker_registry_ip => "192.168.33.10",
-    :logstash_ip => "192.168.33.10",
-    :metrics_ip => "192.168.33.10",
-    :rabbitmq_ip => "192.168.33.10",
-    :mongodb_ip => "192.168.33.10"
+    :docker_registry_ip => "192.168.33.100",
+    :logstash_ip => "192.168.33.100",
+    :metrics_ip => "192.168.33.100",
+    :rabbitmq_ip => "192.168.33.100",
+    :mongodb_ip => "192.168.33.100"
 }

@@ -1,1 +1,1 @@
-default["couchbase"]["ip_address"] = "192.168.33.10"
+default["couchbase"]["ip_address"] = "192.168.33.100"

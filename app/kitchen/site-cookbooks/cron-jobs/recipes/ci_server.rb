@@ -1,0 +1,1 @@
+include_recipe "cron-jobs::trim_logstash_index"

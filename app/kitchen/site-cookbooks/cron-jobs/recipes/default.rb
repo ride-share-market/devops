@@ -6,4 +6,4 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-include_recipe "cron-jobs::trim-logstash-index"
+
