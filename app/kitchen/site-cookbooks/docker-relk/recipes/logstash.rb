@@ -1,5 +1,5 @@
 image = "logstash"
-tag = "1.5.4-1"
+tag = "1.5.2"
 
 docker_image image do
   tag tag
@@ -48,7 +48,7 @@ docker_container "rsm-logstash" do
        ]
   # user "root"
   # command "/opt/logstash/bin/logstash -f /etc/logstash/conf.d"
-  command "logstash -f /etc/logstash/conf.d"
+  command "logstash -f /etc/logstash/conf.d --debug"
 end
 
 # One time commands to fix/update logstash rabbitmq plugins

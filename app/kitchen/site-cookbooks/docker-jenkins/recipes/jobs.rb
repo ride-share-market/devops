@@ -3,6 +3,11 @@
 #
 # This file is typically copied from the CI server into the Chef repo
 # Chef will write out the file to disk, then point to it for the jenkins_job to read from.
+directory node["docker-jenkins"]["jenkins_home"] do
+  owner 1000
+  group 1000
+end
+
 jenkins_jobs_dir = node["docker-jenkins"]["jenkins_jobs_dir"]
 
 directory jenkins_jobs_dir do

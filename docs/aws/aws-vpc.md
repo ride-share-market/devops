@@ -74,7 +74,7 @@
 - `aws ec2 authorize-security-group-ingress --group-id sg-266f0743 --protocol tcp --port 22 --cidr 0.0.0.0/0`
 
 - **Step 9: Start a single instance**
-- `aws ec2 run-instances --image-id ami-96f1c1c4 --instance-type t2.micro --subnet-id subnet-01f34876 --security-group-ids sg-266f0743 --key-name amazon-vpc-singapore`
+- `aws ec2 run-instances --image-id ami-96f1c1c4 --instance-type t2.micro --subnet-id subnet-01f34876 --security-group-ids sg-266f0743 --key-name amazon-vpc-singapore --user-data file://./user-data`
 
 ```
 {

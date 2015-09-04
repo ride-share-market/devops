@@ -86,7 +86,7 @@ namespace :docker do
 
   desc "Upload App Config"
   task :upload_config do
-    on roles(:ci) do |host|
+    on roles(:cis) do |host|
 
       puts "==> Host: #{host}"
 
@@ -128,7 +128,7 @@ namespace :docker do
 
   desc "Docker Build"
   task :build, :prefix, :jenkins_job, :version do |t, args|
-    on roles(:ci) do |host|
+    on roles(:cis) do |host|
       execute "/opt/chef/embedded/bin/ruby docker-build.rb --env #{fetch(:stage)} --hostname #{fetch(:private_docker_registry)} --prefix #{args[:prefix]} -j #{args[:jenkins_job]} --version #{args[:version]}"
       info "Host #{host} (#{host.roles.to_a.join(", ")}):\t#{capture(:uptime)}"
     end

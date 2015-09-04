@@ -6,6 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+package "ntp"
 package "apticron"
 package "git-core"
 package "htop"
