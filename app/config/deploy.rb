@@ -135,11 +135,24 @@ namespace :docker do
   end
 
   desc "Docker Deploy"
-  task :deploy do
-    on roles(:app) do |host|
-      execute "/opt/chef/embedded/bin/ruby docker-deploy.rb --env #{fetch(:stage)} --hostname #{fetch(:private_docker_registry)}"
-      info "Host #{host} (#{host.roles.to_a.join(", ")}):\t#{capture(:uptime)}"
+  task :deploy, :pod do |t, args|
+
+    raise "Argument pod required. Ex: 'cap vbx docker:deploy[app]'" if !args[:pod]
+
+    if args[:pod] == "app"
+      on roles(:app) do |host|
+        execute "/opt/chef/embedded/bin/ruby docker-deploy.rb --env #{fetch(:stage)} --pod app --hostname #{fetch(:private_docker_registry)}"
+        info "Host #{host} (#{host.roles.to_a.join(", ")}):\t#{capture(:uptime)}"
+      end
     end
+
+    if args[:pod] == "data"
+      on roles(:cis) do |host|
+        execute "/opt/chef/embedded/bin/ruby docker-deploy.rb --env #{fetch(:stage)} --pod data --hostname #{fetch(:private_docker_registry)}"
+        info "Host #{host} (#{host.roles.to_a.join(", ")}):\t#{capture(:uptime)}"
+      end
+    end
+
   end
 
 end

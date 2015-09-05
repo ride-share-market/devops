@@ -8,7 +8,8 @@ node["docker"]["users"].each {|user|
                   :logstash_ip => node["hosts"][:logstash_ip],
                   :metrics_ip => node["hosts"][:metrics_ip],
                   :rabbitmq_ip => node["hosts"][:rabbitmq_ip],
-                  :mongodb_ip => node["hosts"][:mongodb_ip]
+                  :mongodb_ip => node["hosts"][:mongodb_ip],
+                  :couchbase_ip => node["hosts"][:couchbase_ip]
               })
   end
 

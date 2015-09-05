@@ -8,5 +8,6 @@ default["hosts"] = {
     :logstash_ip => "192.168.33.100",
     :metrics_ip => "192.168.33.100",
     :rabbitmq_ip => "192.168.33.100",
-    :mongodb_ip => "192.168.33.100"
+    :mongodb_ip => "192.168.33.100",
+    :couchbase_ip => "192.168.33.100"
 }
