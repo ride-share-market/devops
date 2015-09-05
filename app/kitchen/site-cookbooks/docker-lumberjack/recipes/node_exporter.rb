@@ -38,7 +38,7 @@ docker_container "rsm-logstash-forwarder" do
   extra_hosts [
                   "logstash.ridesharemarket.com:192.168.33.100"
               ]
-  user "root"
+  # user "root"
   command "--config=/etc/logstash/forwarder/node-exporter.conf"
 end
 
