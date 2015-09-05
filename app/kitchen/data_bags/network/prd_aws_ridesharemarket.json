@@ -1,18 +1,5 @@
 {
-  "id": "prd_ams_ridesharemarket",
-  "defaults": {
-    "digitalOcean": {
-      "image": "ubuntu-14-04-x64",
-      "size": "1gb",
-      "location": "ams3",
-      "sshKeys": [
-        "698297"
-      ],
-      "booleans": [
-        "private_networking"
-      ]
-    }
-  },
+  "id": "prd_aws_ridesharemarket",
   "hosts": [
     {
       "id": "redline",

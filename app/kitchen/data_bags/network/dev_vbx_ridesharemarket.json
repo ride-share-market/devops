@@ -13,10 +13,6 @@
         "rpc01",
         "reg01"
       ],
-      "cnames": [
-        "www.dev.vbx.ridesharemarket.com",
-        "api.dev.vbx.ridesharemarket.com"
-      ],
       "cloud": {
         "id": "xxxxxx",
         "ip": {
@@ -32,6 +28,7 @@
         "api01"
       ],
       "cnames": [
+        "vbox.ridesharemarket.com",
         "www.dev.vbx.ridesharemarket.com",
         "api.dev.vbx.ridesharemarket.com"
       ],

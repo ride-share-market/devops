@@ -1,8 +1,8 @@
 ssh_config_hosts = Array.new
 
-# network_hosts_dev = data_bag_item("network", "dev_ams_ridesharemarket")["hosts"]
+# network_hosts_dev = data_bag_item("network", "dev_aws_ridesharemarket")["hosts"]
 
-network_hosts_prd = data_bag_item("network", "prd_ams_ridesharemarket")["hosts"]
+network_hosts_prd = data_bag_item("network", "prd_aws_ridesharemarket")["hosts"]
 
 # network_hosts = network_hosts_dev # + network_hosts_prd
 network_hosts = network_hosts_prd
