@@ -2,8 +2,8 @@
   "id": "prd_aws_ridesharemarket",
   "hosts": [
     {
-      "id": "redline",
-      "description": "NOC Server",
+      "id": "trumpet",
+      "description": "Database, ELK, CI, StatsD, Prometheus server",
       "roles": [
         "noc01",
         "rmq01",
@@ -13,19 +13,17 @@
         "rpc01",
         "reg01",
         "mgo01",
-        "www01",
-        "api01"
+        "cch01"
       ],
       "cnames": [
         "noc.prd.ridesharemarket.com"
       ],
       "cloud": {
-        "id": "6084027",
+        "id": "xxxxxx",
         "ip": {
           "eth0": "188.166.127.172",
           "eth1": "10.133.255.122"
-        },
-        "size": "4gb"
+        }
       },
       "chefBootstrap": {
         "runList": [
@@ -36,10 +34,10 @@
           "recipe[chef-client::delete_validation]"
         ],
         "jsonAttributes": {
-          "set_fqdn": "redline.ridesharemarket.com",
+          "set_fqdn": "trumpet.ridesharemarket.com",
           "postfix": {
             "main": {
-              "hostname": "redline",
+              "hostname": "trumpet",
               "mydomain": "ridesharemarket.com",
               "smtpd_use_tls": "no"
             },
@@ -49,6 +47,21 @@
           }
         }
       }
+    },
+    {
+      "id": "mandolin",
+      "description": "Web API and Web App server",
+      "roles": [
+        "www01",
+        "api01"
+      ],
+      "cloud": {
+        "id": "xxxxxx",
+        "ip": {
+          "eth0": "192.168.33.101"
+        }
+      }
     }
+
   ]
 }
