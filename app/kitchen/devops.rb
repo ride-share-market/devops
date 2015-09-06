@@ -2,7 +2,7 @@
 
 require "thor"
 require "ipaddress"
-require "../lib/digital_ocean"
+require "../lib/aws_server"
 
 class MyCLI < Thor
 
@@ -167,20 +167,20 @@ class MyCLI < Thor
 
     puts "==> Apt-get Auto Remove before bootstrapping chef-client on #{options[:hostname]}..."
     cmd = "ssh ubuntu@#{name} -X 'sudo apt-get autoremove -y'"
-    puts "==> #{cmd}"; system cmd
+    # puts "==> #{cmd}"; system cmd
 
-    #cmd = "scp #{options[:secret_key]} ubuntu@#{name}:~/.ssh/chef_secret_key.txt"
-    cmd = "scp #{options[:secret_key]} root@#{name}:~/.ssh/chef_secret_key.txt"
+    cmd = "scp #{options[:secret_key]} ubuntu@#{name}:~/.ssh/chef_secret_key.txt"
+    # cmd = "scp #{options[:secret_key]} root@#{name}:~/.ssh/chef_secret_key.txt"
     puts "==> Uploading Chef Secret Key..."
-    puts "==> #{cmd}"; system cmd
+    # puts "==> #{cmd}"; system cmd
 
-    # cmd = "ssh ubuntu@#{name} 'chmod 600 ~/.ssh/chef_secret_key.txt'"
-    cmd = "ssh root@#{name} 'chmod 600 ~/.ssh/chef_secret_key.txt'"
+    cmd = "ssh ubuntu@#{name} 'chmod 600 ~/.ssh/chef_secret_key.txt'"
+    # cmd = "ssh root@#{name} 'chmod 600 ~/.ssh/chef_secret_key.txt'"
     puts "==> Updating Chef Secret Key Permissions..."
-    puts "==> #{cmd}"; system cmd
+    # puts "==> #{cmd}"; system cmd
 
-    cloud = DigitalOcean.new
-    cloud.bootstrap(name, options[:chef_client_version])
+    # cloud = AwsServer.new
+    # cloud.bootstrap(name, options[:chef_client_version])
   end
 
   desc "server_list", "Lists known digitalocean.com droplets"
@@ -193,7 +193,7 @@ class MyCLI < Thor
   desc "server_delete SERVER", "Deletes a Digital Ocean Droplet and Chef Client Node"
 
   def server_delete(name)
-    cloud = DigitalOcean.new
+    cloud = AwsServer.new
     cloud.delete_server(name)
   end
 

@@ -6,7 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-include_recipe "sysdig"
+# include_recipe "sysdig"
 include_recipe "timezone-ii"
 include_recipe "hostname"
 include_recipe "apt-get-periodic"

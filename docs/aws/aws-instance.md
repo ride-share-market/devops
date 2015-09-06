@@ -1,9 +1,19 @@
-- `aws ec2 run-instances --image-id ami-96f1c1c4 --instance-type t2.micro --subnet-id subnet-01f34876 --security-group-ids sg-266f0743 --key-name amazon-vpc-singapore --user-data file://./user-data`
+## AWS Server Instance
+
+Step by step examples follow (includes samples of command output).
+
+As you proceed update the various IDs used from the output of each command.
+
+- Create and EC2 Key Pair if required, else ssh-add the existing one.
+- `ssh-add ~/.ssh/amazon-vpc-singapore.pem`
+- Create a Ubuntu 14.04.2 LTS server instance.
+- The cloud-init config will apt-get update, upgrade, install ntp and then reboot.
+- `aws ec2 run-instances --image-id ami-96f1c1c4 --instance-type t2.micro --subnet-id subnet-b372eed6 --security-group-ids sg-02b1c467 --key-name amazon-vpc-singapore --user-data file://./user-data`
 
 ```
 {
     "OwnerId": "205565617391", 
-    "ReservationId": "r-230e2cef", 
+    "ReservationId": "r-a70a026a", 
     "Groups": [], 
     "Instances": [
         {
@@ -17,63 +27,63 @@
                 "Name": "pending"
             }, 
             "EbsOptimized": false, 
-            "LaunchTime": "2015-08-31T08:57:52.000Z", 
-            "PrivateIpAddress": "10.0.0.38", 
+            "LaunchTime": "2015-09-06T08:58:51.000Z", 
+            "PrivateIpAddress": "10.0.0.30", 
             "ProductCodes": [], 
-            "VpcId": "vpc-ecf35189", 
+            "VpcId": "vpc-ba7ed2df", 
             "StateTransitionReason": "", 
-            "InstanceId": "i-8f8a6640", 
+            "InstanceId": "i-37b06693", 
             "ImageId": "ami-96f1c1c4", 
-            "PrivateDnsName": "ip-10-0-0-38.ap-southeast-1.compute.internal", 
+            "PrivateDnsName": "ip-10-0-0-30.ap-southeast-1.compute.internal", 
             "KeyName": "amazon-vpc-singapore", 
             "SecurityGroups": [
                 {
                     "GroupName": "SSHSecurityGroup", 
-                    "GroupId": "sg-266f0743"
+                    "GroupId": "sg-02b1c467"
                 }
             ], 
             "ClientToken": "", 
-            "SubnetId": "subnet-01f34876", 
+            "SubnetId": "subnet-b372eed6", 
             "InstanceType": "t2.micro", 
             "NetworkInterfaces": [
                 {
                     "Status": "in-use", 
-                    "MacAddress": "06:b8:6f:3f:a4:77", 
+                    "MacAddress": "02:78:68:2a:53:fb", 
                     "SourceDestCheck": true, 
-                    "VpcId": "vpc-ecf35189", 
+                    "VpcId": "vpc-ba7ed2df", 
                     "Description": "", 
-                    "NetworkInterfaceId": "eni-3949c44f", 
+                    "NetworkInterfaceId": "eni-06681562", 
                     "PrivateIpAddresses": [
                         {
-                            "PrivateDnsName": "ip-10-0-0-38.ap-southeast-1.compute.internal", 
+                            "PrivateDnsName": "ip-10-0-0-30.ap-southeast-1.compute.internal", 
                             "Primary": true, 
-                            "PrivateIpAddress": "10.0.0.38"
+                            "PrivateIpAddress": "10.0.0.30"
                         }
                     ], 
-                    "PrivateDnsName": "ip-10-0-0-38.ap-southeast-1.compute.internal", 
+                    "PrivateDnsName": "ip-10-0-0-30.ap-southeast-1.compute.internal", 
                     "Attachment": {
                         "Status": "attaching", 
                         "DeviceIndex": 0, 
                         "DeleteOnTermination": true, 
-                        "AttachmentId": "eni-attach-550c3a7d", 
-                        "AttachTime": "2015-08-31T08:57:52.000Z"
+                        "AttachmentId": "eni-attach-06ce942f", 
+                        "AttachTime": "2015-09-06T08:58:51.000Z"
                     }, 
                     "Groups": [
                         {
                             "GroupName": "SSHSecurityGroup", 
-                            "GroupId": "sg-266f0743"
+                            "GroupId": "sg-02b1c467"
                         }
                     ], 
-                    "SubnetId": "subnet-01f34876", 
+                    "SubnetId": "subnet-b372eed6", 
                     "OwnerId": "205565617391", 
-                    "PrivateIpAddress": "10.0.0.38"
+                    "PrivateIpAddress": "10.0.0.30"
                 }
             ], 
             "SourceDestCheck": true, 
             "Placement": {
                 "Tenancy": "default", 
                 "GroupName": "", 
-                "AvailabilityZone": "ap-southeast-1b"
+                "AvailabilityZone": "ap-southeast-1a"
             }, 
             "Hypervisor": "xen", 
             "BlockDeviceMappings": [], 

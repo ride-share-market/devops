@@ -14,7 +14,7 @@
 - Initial only
 - `knife data bag create network`
 - Initial **and** Update
-- `knife data bag from file network file data_bags/network/prd_ams_ridesharemarket.json`
+- `knife data bag from file network file data_bags/network/prd_aws_ridesharemarket.json`
 
 ## Cookbooks
 

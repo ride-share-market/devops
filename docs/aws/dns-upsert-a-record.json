@@ -4,12 +4,12 @@
     {
       "Action": "UPSERT",
       "ResourceRecordSet": {
-        "Name": "ssh01.ridesharemarket.com",
+        "Name": "mandolin.ridesharemarket.com",
         "Type": "A",
         "TTL": 300,
         "ResourceRecords": [
           {
-            "Value": "52.76.22.138"
+            "Value": "52.76.79.143"
           }
         ]
       }
