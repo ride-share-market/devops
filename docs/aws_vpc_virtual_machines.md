@@ -16,6 +16,8 @@ Post install `~/.aws/` should be set up with config and credentials files.
 
 Check the `~./aws/config` file is set to the correct aws region.
 
+The [jq](https://stedolan.github.io/jq/) binary is also required.
+
 ### Chef Server Account
 
 An active and configured account with [Chef](https://manage.chef.io/login).
@@ -50,27 +52,48 @@ Users data_bag need to be kept in sync locally and with the remote Chef server.
 
 ### Create an AWS VPC
 
-- Step by step [aws-apc](./aws/aws-vpc.md) details.
+- [aws-apc](./aws/aws-vpc.md)
 
-### Create an AWS VPC Security Group
+### Create AWS VPC Security Groups
 
-- Step by step [aws-security-group](./aws/aws-security-group.md) details.
+- [aws-security-groups](./aws/aws-security-groups.md)
 
-### Create AWS Server Instance
-- [aws-instance](./aws/aws-instance.md)
+### Create AWS VPC Subnets
+
+- [aws-apc-private-subnet](./aws/aws-vpc-private-subnet.md)
+- [aws-apc-public-subnet](./aws/aws-vpc-public-subnet.md)
+
+### Create AWS Public Subnet Server Instance
+- [aws-instance](./aws/aws-instance-public-subnet.md)
 
 ### Create AWS IP and DNS
 - [aws-ip-dns](./aws/aws-ip-and-dns.md)
 
 ### AWS Login with SSH
 
-- `ssh -v ubuntu@mandolin.ridesharemarket.com`
-- `ssh -v ubuntu@52.76.79.143`
-- `ssh -v ubuntu@ec2-52-76-79-143.ap-southeast-1.compute.amazonaws.com`
+After a few minutes the new instance will boot up, upgrade, then reboot.
+
+- `ssh -vA ubuntu@mandolin.ridesharemarket.com`
+- `ssh -vA ubuntu@$VPCPUBLICIP`
+
+On the remote serve enable NAT in iptables
+
+- `echo '1' | sudo tee /proc/sys/net/ipv4/ip_forward`
+- `sudo iptables -t nat -A POSTROUTING -o eth0 -s 10.0.1.0/24 -j MASQUERADE`
+- `sudo iptables -A FORWARD -i eth0 -j ACCEPT`
+
+### Create a route to the internet, via the NAT instance, for the private subnet
+
+- [aws-vpc-private-subnet-route](./aws/aws-vpc-private-subnet-route.md)
+
+### Create AWS Private Subnet Server Instance
+- [aws-instance](./aws/aws-instance-private-subnet.md)
+
 
 ### Instance Configuration Management
 
 - Update [kitchen/data_bags/network/prd_aws_ridesharemarket.json](./../app/kitchen/data_bags/network/prd_aws_ridesharemarket.json) with:
+- `aws ec2 describe-instances --instance-id $VPCNATINSTANCEID | grep 'InstanceId\|PublicIpAddress\|PrivateIpAddress'`
 - AWS instance id
 - AWS Public IP
 - AWS Private IP

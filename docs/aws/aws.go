@@ -72,7 +72,8 @@ knife ec2 server delete --region us-west-1 i-66d147a6
 knife ec2 server delete --region us-west-1 i-75d345b5
 
 echo 1 > /proc/sys/net/ipv4/ip_forward
-iptables --table nat --append POSTROUTING --out-interface eth0 -j MASQUERADE
+iptables --table nat --append POSTROUTING --out-interface eth0 -s 10.0.1.0/24 -j MASQUERADE
+iptables --table nat --append POSTROUTING -o eth0 -s 10.0.1.0/24 -j MASQUERADE
 iptables --append FORWARD --in-interface eth0 -j ACCEPT
 iptables -vnL
 iptables -vnL -t nat
