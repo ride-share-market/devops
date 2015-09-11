@@ -9,4 +9,4 @@ As you proceed update the various IDs used from the output of each command.
 - `aws ec2 run-instances --image-id ami-96f1c1c4 --instance-type t2.micro --subnet-id $VPCPRIVATESUBNET --security-group-ids $VPCDBSERVERSG --key-name amazon-vpc-singapore --user-data file://./user-data`
 
 - From the command output, save/export the **InstanceId** to en environment variable
-- `export VPCPRIVATEINSTANCE=i-210cfcee`
+- `export VPCPRIVATEINSTANCE=i-xxxxxx`

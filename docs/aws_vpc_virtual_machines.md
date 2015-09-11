@@ -76,12 +76,6 @@ After a few minutes the new instance will boot up, upgrade, then reboot.
 - `ssh -vA ubuntu@mandolin.ridesharemarket.com`
 - `ssh -vA ubuntu@$VPCPUBLICIP`
 
-On the remote serve enable NAT in iptables
-
-- `echo '1' | sudo tee /proc/sys/net/ipv4/ip_forward`
-- `sudo iptables -t nat -A POSTROUTING -o eth0 -s 10.0.1.0/24 -j MASQUERADE`
-- `sudo iptables -A FORWARD -i eth0 -j ACCEPT`
-
 ### Create a route to the internet, via the NAT instance, for the private subnet
 
 - [aws-vpc-private-subnet-route](./aws/aws-vpc-private-subnet-route.md)
@@ -93,7 +87,7 @@ On the remote serve enable NAT in iptables
 ### Instance Configuration Management
 
 - Update [kitchen/data_bags/network/prd_aws_ridesharemarket.json](./../app/kitchen/data_bags/network/prd_aws_ridesharemarket.json) with:
-- `aws ec2 describe-instances --instance-id $VPCNATINSTANCEID | grep 'InstanceId\|PublicIpAddress\|PrivateIpAddress'`
+- `aws ec2 describe-instances --instance-id $VPCNATINSTANCE | grep 'InstanceId\|PublicIpAddress\|PrivateIpAddress'`
 - AWS instance id
 - AWS Public IP
 - AWS Private IP
