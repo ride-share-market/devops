@@ -30,6 +30,7 @@
   "run_list": [
     "recipe[network-hosts]",
     "recipe[common]",
+    "recipe[iptables-rules]",
     "recipe[docker-wrapper]",
     "recipe[docker-lumberjack::default]",
     "recipe[docker-lumberjack::ssl]",
