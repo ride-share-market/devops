@@ -148,13 +148,6 @@ class MyCLI < Thor
     system "berks cookbook --maintainer='#{options[:maintainer]}' --maintainer-email=#{options[:maintainer_email]} --license=reserved #{name} site-cookbooks/#{name}"
   end
 
-  desc "server_create SERVER", "Creates and Bootstraps a new digitalocean.com droplet"
-
-  def server_create(name)
-    cloud = DigitalOcean.new
-    cloud.create(name)
-  end
-
   desc "server_bootstrap SERVER", "Bootstraps a digitalocean.com droplet"
   option :secret_key, :default => default[:secret_key]
   option :chef_client_version, :default => default[:chef_client_version]
@@ -167,26 +160,30 @@ class MyCLI < Thor
 
     puts "==> Apt-get Auto Remove before bootstrapping chef-client on #{options[:hostname]}..."
     cmd = "ssh ubuntu@#{name} -X 'sudo apt-get autoremove -y'"
-    # puts "==> #{cmd}"; system cmd
+    puts "==> #{cmd}"; system cmd
 
-    cmd = "scp #{options[:secret_key]} ubuntu@#{name}:~/.ssh/chef_secret_key.txt"
-    # cmd = "scp #{options[:secret_key]} root@#{name}:~/.ssh/chef_secret_key.txt"
     puts "==> Uploading Chef Secret Key..."
-    # puts "==> #{cmd}"; system cmd
+    cmd = "scp #{options[:secret_key]} ubuntu@#{name}:~/.ssh/chef_secret_key.txt"
+    puts "==> #{cmd}"; system cmd
 
-    cmd = "ssh ubuntu@#{name} 'chmod 600 ~/.ssh/chef_secret_key.txt'"
-    # cmd = "ssh root@#{name} 'chmod 600 ~/.ssh/chef_secret_key.txt'"
+    puts "==> Moving Chef Secret Key to /root/.ssh..."
+    cmd = "ssh ubuntu@#{name} 'sudo mv ~/.ssh/chef_secret_key.txt /root/.ssh/chef_secret_key.txt'"
+    puts "==> #{cmd}"; system cmd
+
     puts "==> Updating Chef Secret Key Permissions..."
-    # puts "==> #{cmd}"; system cmd
+    cmd = "ssh ubuntu@#{name} 'sudo chmod 600 /root/.ssh/chef_secret_key.txt'"
+    puts "==> #{cmd}"; system cmd
+    cmd = "ssh ubuntu@#{name} 'sudo chown root.root /root/.ssh/chef_secret_key.txt'"
+    puts "==> #{cmd}"; system cmd
 
-    # cloud = AwsServer.new
-    # cloud.bootstrap(name, options[:chef_client_version])
+    cloud = AwsServer.new
+    cloud.bootstrap(name, options[:chef_client_version])
   end
 
-  desc "server_list", "Lists known digitalocean.com droplets"
+  desc "server_list", "Lists AWS Instances"
 
   def server_list
-    cloud = DigitalOcean.new
+    cloud = AwsServer.new
     cloud.hosts
   end
 
