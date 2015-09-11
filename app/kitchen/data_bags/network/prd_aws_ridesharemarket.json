@@ -56,10 +56,10 @@
         "api01"
       ],
       "cloud": {
-        "id": "i-37b06693",
+        "id": "i-a909fa66",
         "ip": {
-          "eth0": "52.76.79.143",
-          "eth1": "10.0.0.30"
+          "eth0": "52.74.32.214",
+          "eth1": "10.0.0.74"
         }
       },
       "chefBootstrap": {
@@ -67,7 +67,8 @@
           "recipe[network-hosts-prd]",
           "recipe[common]",
           "recipe[chef-client]",
-          "recipe[chef-client::delete_validation]"
+          "recipe[chef-client::delete_validation]",
+          "recipe[iptables-rules]"
         ],
         "jsonAttributes": {
           "set_fqdn": "mandolin.ridesharemarket.com",
