@@ -19,11 +19,13 @@
         "noc.prd.ridesharemarket.com"
       ],
       "cloud": {
-        "id": "xxxxxx",
+        "id": "i-445adder3",
         "ip": {
-          "eth0": "188.166.127.172",
-          "eth1": "10.133.255.122"
+          "eni": {
+            "eth0": "10.0.1.223"
+          }
         }
+
       },
       "chefBootstrap": {
         "runList": [
@@ -53,13 +55,16 @@
       "description": "Web API and Web App server",
       "roles": [
         "www01",
-        "api01"
+        "api01",
+        "ssh01"
       ],
       "cloud": {
-        "id": "i-a909fa66",
+        "id": "i-754bb9ba",
         "ip": {
-          "eth0": "52.74.32.214",
-          "eth1": "10.0.0.74"
+          "eip": "52.76.13.89",
+          "eni": {
+            "eth0": "10.0.0.88"
+          }
         }
       },
       "chefBootstrap": {

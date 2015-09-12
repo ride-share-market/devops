@@ -4,8 +4,7 @@ require "json"
 require "ipaddress"
 
 class NetworkHosts
-  def initialize(hosts)
-    @hosts = hosts
+  def initialize
     @path = File.dirname(__FILE__) + "/../kitchen/data_bags/network"
   end
 
@@ -57,10 +56,16 @@ class NetworkHosts
           hosts += host["cnames"]
         end
 
-        puts "# Cloud Server ID #{host["cloud"]["id"]}"
-
+        # Vagrant machines
         if IPAddress.valid? host["cloud"]["ip"]["eth0"]
+          puts "# VirtualBox Server #{host["cloud"]["id"]}"
           puts "#{host["cloud"]["ip"]["eth0"]} #{hosts.join(" ")}"
+        end
+
+        # AWS machines
+        if IPAddress.valid? host["cloud"]["ip"]["eip"]
+          puts "# Cloud Server ID #{host["cloud"]["id"]}"
+          puts "#{host["cloud"]["ip"]["eip"]} #{hosts.join(" ")}"
         end
 
       }
@@ -71,6 +76,6 @@ class NetworkHosts
 
 end
 
-network_hosts = NetworkHosts.new(%w(dev_ams_ridesharemarket))
+network_hosts = NetworkHosts.new
 
 network_hosts.hosts_entries

@@ -29,6 +29,17 @@ node["network-hosts"].each { |network|
         "lan.#{host["id"]}.#{domain}"
     ]
 
+    if host["roles"]
+      host["roles"].each { |role|
+        host_aliases.push("#{role}.#{environment}.#{location}.#{domain}")
+
+        if host["cloud"]["ip"]["eni"] and IPAddress.valid? host["cloud"]["ip"]["eni"]["eth0"]
+          host_lan_aliases.push("lan.#{role}.#{environment}.#{location}.#{domain}")
+        end
+      }
+    end
+
+    # Virtualbox machines
     if IPAddress.valid? host["cloud"]["ip"]["eth0"]
       hostsfile_entry host["cloud"]["ip"]["eth0"] do
         hostname host['id']
@@ -38,17 +49,18 @@ node["network-hosts"].each { |network|
       end
     end
 
-    if host["roles"]
-      host["roles"].each { |role|
-        host_aliases.push("#{role}.#{environment}.#{location}.#{domain}")
-        if host["cloud"]["ip"]["eth1"] and IPAddress.valid? host["cloud"]["ip"]["eth1"]
-          host_lan_aliases.push("lan.#{role}.#{environment}.#{location}.#{domain}")
-        end
-      }
+    # AWS machines
+    if IPAddress.valid? host["cloud"]["ip"]["eip"]
+      hostsfile_entry host["cloud"]["ip"]["eip"] do
+        hostname host['id']
+        unique true
+        action :create
+        aliases host_aliases
+      end
     end
 
-    if host["cloud"]["ip"]["eth1"] and IPAddress.valid? host["cloud"]["ip"]["eth1"]
-      hostsfile_entry host["cloud"]["ip"]["eth1"] do
+    if host["cloud"]["ip"]["eni"] and IPAddress.valid? host["cloud"]["ip"]["eni"]["eth0"]
+      hostsfile_entry host["cloud"]["ip"]["eni"]["eth0"] do
         hostname "lan.#{host['id']}"
         unique true
         action :create

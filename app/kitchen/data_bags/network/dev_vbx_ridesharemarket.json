@@ -16,7 +16,7 @@
         "cch01"
       ],
       "cloud": {
-        "id": "xxxxxx",
+        "id": "vbox-cis",
         "ip": {
           "eth0": "192.168.33.100"
         }
@@ -35,7 +35,7 @@
         "api.dev.vbx.ridesharemarket.com"
       ],
       "cloud": {
-        "id": "xxxxxx",
+        "id": "vbox-app",
         "ip": {
           "eth0": "192.168.33.101"
         }
