@@ -1,0 +1,2 @@
+*nat
+-A PREROUTING -i eth0 -p tcp --dport <%= @port %> -j DNAT --to-destination <%= @ip %>:22

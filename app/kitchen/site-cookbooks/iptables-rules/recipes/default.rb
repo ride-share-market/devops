@@ -8,15 +8,7 @@
 #
 include_recipe "iptables::default"
 
-iptables_rule "nat_forward" do
-  action :enable
-end
+include_recipe "iptables-rules::nat_masquerade"
 
-iptables_rule "nat_masquerade" do
-  action :enable
-end
+include_recipe "iptables-rules::dnat_ssh"
 
-execute "/proc/sys/net/ipv4/ip_forward" do
-  command "echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward"
-  not_if "grep 1 /proc/sys/net/ipv4/ip_forward"
-end
