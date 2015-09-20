@@ -31,12 +31,14 @@
     "recipe[network-hosts]",
     "recipe[common]",
     "recipe[iptables-rules]",
-    "recipe[docker-wrapper]",
-    "recipe[docker-lumberjack::default]",
-    "recipe[docker-lumberjack::ssl]",
-    "recipe[docker-lumberjack::node_exporter]",
-    "recipe[docker-prometheus::node-exporter]",
-    "recipe[docker-prometheus::container-exporter]",
-    "recipe[docker-scripts::app_server]"
+    "recipe[openvpn]",
+    "recipe[sysctl-wrapper]"
+//    "recipe[docker-wrapper]",
+//    "recipe[docker-lumberjack::default]",
+//    "recipe[docker-lumberjack::ssl]",
+//    "recipe[docker-lumberjack::node_exporter]",
+//    "recipe[docker-prometheus::node-exporter]",
+//    "recipe[docker-prometheus::container-exporter]",
+//    "recipe[docker-scripts::app_server]"
   ]
 }

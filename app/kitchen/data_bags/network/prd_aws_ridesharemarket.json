@@ -19,10 +19,10 @@
         "noc.prd.ridesharemarket.com"
       ],
       "cloud": {
-        "id": "i-445adder3",
+        "id": "i-6a16d1a5",
         "ip": {
           "eni": {
-            "eth0": "10.0.1.223",
+            "eth0": "10.0.1.153",
             "portForward": 2222
           }
         }
@@ -60,11 +60,11 @@
         "ssh01"
       ],
       "cloud": {
-        "id": "i-754bb9ba",
+        "id": "i-7909ceb6",
         "ip": {
-          "eip": "52.76.13.89",
+          "eip": "52.74.221.30",
           "eni": {
-            "eth0": "10.0.0.88"
+            "eth0": "10.0.0.171"
           }
         }
       },
@@ -74,7 +74,9 @@
           "recipe[common]",
           "recipe[chef-client]",
           "recipe[chef-client::delete_validation]",
-          "recipe[iptables-rules]"
+          "recipe[iptables-rules]",
+          "recipe[sysctl-wrapper]",
+          "recipe[openvpn]"
         ],
         "jsonAttributes": {
           "set_fqdn": "mandolin.ridesharemarket.com",

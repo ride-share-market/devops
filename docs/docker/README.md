@@ -24,7 +24,7 @@ Not sure why the package manager misses this dependency.
 - `sudo init 6`
 
 ### Private Docker Registry
-
+    
 To list all images in the private registry:
 
 - `curl -s 192.168.33.10:5000/v1/search`

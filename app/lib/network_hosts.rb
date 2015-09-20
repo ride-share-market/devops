@@ -56,6 +56,8 @@ class NetworkHosts
           hosts += host["cnames"]
         end
 
+        lan_hosts = hosts.map {|host| "lan." + host}
+
         # Vagrant machines
         if IPAddress.valid? host["cloud"]["ip"]["eth0"]
           puts "# VirtualBox Server #{host["cloud"]["id"]}"
@@ -66,6 +68,13 @@ class NetworkHosts
         if IPAddress.valid? host["cloud"]["ip"]["eip"]
           puts "# Cloud Server ID #{host["cloud"]["id"]}"
           puts "#{host["cloud"]["ip"]["eip"]} #{hosts.join(" ")}"
+        end
+
+        if host["cloud"]["ip"]["eni"]
+          if IPAddress.valid? host["cloud"]["ip"]["eni"]["eth0"]
+            puts "# Cloud Server ID #{host["cloud"]["id"]}"
+            puts "#{host["cloud"]["ip"]["eni"]["eth0"]} #{lan_hosts.join(" ")}"
+          end
         end
 
       }

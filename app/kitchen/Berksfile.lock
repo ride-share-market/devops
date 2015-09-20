@@ -10,6 +10,7 @@ DEPENDENCIES
   logrotate
   postfix
   ssh_known_hosts
+  sysctl
   sysdig
   timezone-ii
   unattended_upgrades
@@ -40,6 +41,7 @@ GRAPH
     runit (~> 1.5)
     yum (~> 3.0)
   logrotate (1.9.2)
+  ohai (2.0.1)
   packagecloud (0.0.19)
   partial_search (1.0.8)
   postfix (3.7.0)
@@ -47,6 +49,8 @@ GRAPH
     packagecloud (>= 0.0.0)
   ssh_known_hosts (2.0.0)
     partial_search (>= 0.0.0)
+  sysctl (0.6.2)
+    ohai (>= 0.0.0)
   sysdig (0.3.1)
     apt (>= 0.0.0)
     yum (>= 0.0.0)

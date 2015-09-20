@@ -101,6 +101,10 @@ After a few minutes the new instance will boot up, upgrade, then reboot.
 - Reboot the server and confirm boot up email received (sanity check plus reboot into any new linux kernel).
 - `./devops.rb reboot --user ubuntu --hostname mandolin`
 
+## Configure Local OpenVPN
+
+- [vpn](./vpn.md)
+
 ## Configure Chef Server run list
 
 - [Chef Server Run List](chef_server.md)
