@@ -151,6 +151,7 @@ class MyCLI < Thor
   desc "server_bootstrap SERVER", "Bootstraps a digitalocean.com droplet"
   option :secret_key, :default => default[:secret_key]
   option :chef_client_version, :default => default[:chef_client_version]
+  option :lan, :default => "no"
 
   def server_bootstrap(name)
 
@@ -158,26 +159,32 @@ class MyCLI < Thor
       raise "Required File Not Found: #{options[:secret_key]}"
     end
 
+    hostname = name
+
+    if options[:lan] == "yes"
+      hostname = "lan.#{hostname}"
+    end
+
     puts "==> Apt-get Auto Remove before bootstrapping chef-client on #{options[:hostname]}..."
-    cmd = "ssh ubuntu@#{name} -X 'sudo apt-get autoremove -y'"
+    cmd = "ssh ubuntu@#{hostname} -X 'sudo apt-get autoremove -y'"
     puts "==> #{cmd}"; system cmd
 
     puts "==> Uploading Chef Secret Key..."
-    cmd = "scp #{options[:secret_key]} ubuntu@#{name}:~/.ssh/chef_secret_key.txt"
+    cmd = "scp #{options[:secret_key]} ubuntu@#{hostname}:~/.ssh/chef_secret_key.txt"
     puts "==> #{cmd}"; system cmd
 
     puts "==> Moving Chef Secret Key to /root/.ssh..."
-    cmd = "ssh ubuntu@#{name} 'sudo mv ~/.ssh/chef_secret_key.txt /root/.ssh/chef_secret_key.txt'"
+    cmd = "ssh ubuntu@#{hostname} 'sudo mv ~/.ssh/chef_secret_key.txt /root/.ssh/chef_secret_key.txt'"
     puts "==> #{cmd}"; system cmd
 
     puts "==> Updating Chef Secret Key Permissions..."
-    cmd = "ssh ubuntu@#{name} 'sudo chmod 600 /root/.ssh/chef_secret_key.txt'"
+    cmd = "ssh ubuntu@#{hostname} 'sudo chmod 600 /root/.ssh/chef_secret_key.txt'"
     puts "==> #{cmd}"; system cmd
-    cmd = "ssh ubuntu@#{name} 'sudo chown root.root /root/.ssh/chef_secret_key.txt'"
+    cmd = "ssh ubuntu@#{hostname} 'sudo chown root.root /root/.ssh/chef_secret_key.txt'"
     puts "==> #{cmd}"; system cmd
 
     cloud = AwsServer.new
-    cloud.bootstrap(name, options[:chef_client_version])
+    cloud.bootstrap(name, options[:chef_client_version], options[:lan])
   end
 
   desc "server_list", "Lists AWS Instances"

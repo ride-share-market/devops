@@ -93,10 +93,17 @@ After a few minutes the new instance will boot up, upgrade, then reboot.
 - AWS Private IP
 - Update developer workstation */etc/hosts*
 - `../lib/network_hosts.rb | sudo tee -a /etc/hosts && sudo vi /etc/hosts`
-- Bootstrap the server, which includes:
+
+## Bootstrap Bastion Server
+
+**Bootstrap includes:**
+
 - apt-get autoremove.
 - Copy in the chef secret key.
-- Bootstrap the node with Chef and register with Chef Server 
+- Bootstrap the node with Chef and register with Chef Server
+ 
+**AWS Public Subnet**
+
 - `./devops.rb server_bootstrap mandolin`
 - Reboot the server and confirm boot up email received (sanity check plus reboot into any new linux kernel).
 - `./devops.rb reboot --user ubuntu --hostname mandolin`
@@ -104,6 +111,20 @@ After a few minutes the new instance will boot up, upgrade, then reboot.
 ## Configure Local OpenVPN
 
 - [vpn](./vpn.md)
+
+## Bootstrap Servers
+
+**Bootstrap includes:**
+
+- apt-get autoremove.
+- Copy in the chef secret key.
+- Bootstrap the node with Chef and register with Chef Server
+
+**AWS Private Subnet**
+
+- `./devops.rb server_bootstrap trumpet --lan yes`
+- Reboot the server and confirm boot up email received (sanity check plus reboot into any new linux kernel).
+- `./devops.rb reboot --user ubuntu --hostname lan.trumpet`
 
 ## Configure Chef Server run list
 
@@ -124,3 +145,4 @@ After a few minutes the new instance will boot up, upgrade, then reboot.
 - Delete Chef Client.
 - Remove .ssh/known_hosts entries.
 - `./devops.rb server_delete mandolin`
+- `./devops.rb server_delete trumpet`

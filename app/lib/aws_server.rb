@@ -23,7 +23,7 @@ class AwsServer
          }
   end
 
-  def bootstrap(name, chef_client_version)
+  def bootstrap(name, chef_client_version, lan)
     puts "==> Bootstrapping AWS Server: #{name}"
 
     new_server = @data_hash["hosts"].select { |host|
@@ -32,7 +32,13 @@ class AwsServer
 
     raise "Host not found: #{name}" if new_server.size == 0
 
-    cmd = "knife bootstrap #{name} --yes --sudo --node-name #{name} --bootstrap-version #{chef_client_version} --ssh-user ubuntu --run-list '#{new_server[0]["chefBootstrap"]["runList"].join(",")}' --json-attributes '#{new_server[0]["chefBootstrap"]["jsonAttributes"].to_json}'"
+    hostname = name
+
+    if lan == "yes"
+      hostname = "lan.#{name}"
+    end
+
+    cmd = "knife bootstrap #{hostname} --yes --sudo --node-name #{name} --bootstrap-version #{chef_client_version} --ssh-user ubuntu --run-list '#{new_server[0]["chefBootstrap"]["runList"].join(",")}' --json-attributes '#{new_server[0]["chefBootstrap"]["jsonAttributes"].to_json}'"
     puts "==> #{cmd}"; system cmd
 
   end

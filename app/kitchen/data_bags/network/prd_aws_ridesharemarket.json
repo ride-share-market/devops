@@ -30,7 +30,6 @@
       },
       "chefBootstrap": {
         "runList": [
-          "recipe[firehol-prd]",
           "recipe[network-hosts-prd]",
           "recipe[common]",
           "recipe[chef-client]",
