@@ -60,11 +60,18 @@ Users data_bag need to be kept in sync locally and with the remote Chef server.
 
 ### Create AWS VPC Subnets
 
-- [aws-apc-private-subnet](./aws/aws-vpc-private-subnet.md)
 - [aws-apc-public-subnet](./aws/aws-vpc-public-subnet.md)
+- [aws-apc-private-subnet](./aws/aws-vpc-private-subnet.md)
+
+### Create Internet Gatway and Route tables
+
+- [aws-vpc-internet-gateway.md](./aws/aws-vpc-internet-gateway.md)
+- [aws-vpc-public-route-table.md](./aws/aws-vpc-public-route-table.md)
+- [aws-vpc-private-route-table.md](./aws/aws-vpc-private-route-table.md)
+
 
 ### Create AWS Public Subnet Server Instance
-- [aws-instance](./aws/aws-instance-public-subnet.md)
+- [aws-public-instance](./aws/aws-instance-public-subnet.md)
 
 ### Create AWS IP and DNS
 - [aws-ip-dns](./aws/aws-ip-and-dns.md)
@@ -73,8 +80,8 @@ Users data_bag need to be kept in sync locally and with the remote Chef server.
 
 After a few minutes the new instance will boot up, upgrade, then reboot.
 
+- `ssh -vA ubuntu@$VPC_PUBLIC_IP`
 - `ssh -vA ubuntu@mandolin.ridesharemarket.com`
-- `ssh -vA ubuntu@$VPCPUBLICIP`
 
 ### Create a route to the internet, via the NAT instance, for the private subnet
 
@@ -86,13 +93,21 @@ After a few minutes the new instance will boot up, upgrade, then reboot.
 
 ### Instance Configuration Management
 
-- Update [kitchen/data_bags/network/prd_aws_ridesharemarket.json](./../app/kitchen/data_bags/network/prd_aws_ridesharemarket.json) with:
-- `aws ec2 describe-instances --instance-id $VPCNATINSTANCE | grep 'InstanceId\|PublicIpAddress\|PrivateIpAddress'`
+Update [kitchen/data_bags/network/prd_aws_ridesharemarket.json](./../app/kitchen/data_bags/network/prd_aws_ridesharemarket.json) with:
+
 - AWS instance id
 - AWS Public IP
 - AWS Private IP
-- Update developer workstation */etc/hosts*
+- `aws ec2 describe-instances --instance-id $VPC_BASTION_INSTANCE | grep 'InstanceId\|PublicIpAddress\|PrivateIpAddress'`
+- `aws ec2 describe-instances --instance-id $VPC_DB_INSTANCE | grep 'InstanceId\|PublicIpAddress\|PrivateIpAddress'`
+
+Update developer workstation */etc/hosts*
+
 - `../lib/network_hosts.rb | sudo tee -a /etc/hosts && sudo vi /etc/hosts`
+
+Update Chef Server with network data bag
+
+- `knife data bag from file network data_bags/network/prd_aws_ridesharemarket.json` 
 
 ## Bootstrap Bastion Server
 
