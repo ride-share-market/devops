@@ -47,11 +47,11 @@ class AwsServer
 
     puts "==> Deleting AWS server instance and Chef Server Node: #{name}"
 
-    new_server = @data_hash["hosts"].select { |host|
+    server_name = @data_hash["hosts"].select { |host|
       host["id"] == name
     }
 
-    raise "Host not found: #{name}" if new_server.size == 0
+    raise "Host not found: #{name}" if server_name.size == 0
 
     cmd = "aws ec2 terminate-instances --instance-ids #{new_server[0]["cloud"]["id"]}"
     puts "==> #{cmd}"; system cmd
@@ -62,32 +62,45 @@ class AwsServer
     cmd = "knife client delete #{name} --yes"
     puts "==> #{cmd}"; system cmd
 
-    cmd = "ssh-keygen -f /home/rudi/.ssh/known_hosts -R #{new_server[0]["cloud"]["ip"]["eth0"]}"
-    puts "==> #{cmd}"; system cmd
 
-    cmd = "ssh-keygen -f /home/rudi/.ssh/known_hosts -R #{new_server[0]["id"]}"
-    puts "==> #{cmd}"; system cmd
+    # build up an array of hostnames and IPs to remove from ssh known_hosts
 
-    if new_server[0]["roles"]
-      new_server[0]["roles"].each { |role|
-        cmd = "ssh-keygen -f /home/rudi/.ssh/known_hosts -R #{role}.#{@network}"
-        puts "==> #{cmd}"; system cmd
+    hosts = [server_name[0]["cloud"]["ip"]["eni"]["eth0"]]
+
+    if server_name[0]["cloud"]["ip"]["eip"]
+      hosts << server_name[0]["cloud"]["ip"]["eip"]
+    end
+
+    hosts << server_name[0]["id"]
+    hosts << "lan.#{server_name[0]["id"]}"
+
+    if server_name[0]["roles"]
+      server_name[0]["roles"].each { |role|
+        hosts << "#{role}.#{@network.gsub(/_/, '.')}"
+        hosts << "lan.#{role}.#{@network.gsub(/_/, '.')}"
       }
     end
 
-    if new_server[0]["cnames"]
-      new_server[0]["cnames"].each { |cname|
-        cmd = "ssh-keygen -f /home/rudi/.ssh/known_hosts -R #{cname}"
-        puts "==> #{cmd}"; system cmd
+    if server_name[0]["cnames"]
+      server_name[0]["cnames"].each { |cname|
+        hosts << cname
+        hosts << "lan.#{cname}"
       }
     end
 
-    cmd = "ssh-keygen -f /home/rudi/.ssh/known_hosts -R #{new_server[0]["chefBootstrap"]["jsonAttributes"]["set_fqdn"]}"
-    puts "==> #{cmd}"; #system cmd
+    hosts << server_name[0]["chefBootstrap"]["jsonAttributes"]["set_fqdn"]
+    hosts << "lan.#{server_name[0]["chefBootstrap"]["jsonAttributes"]["set_fqdn"]}"
 
+    hosts.each {|host|
+      cmd = "ssh-keygen -f /home/rudi/.ssh/known_hosts -R #{host}"
+      puts "==> #{cmd}"; system cmd
+    }
+
+    puts
     puts "==> Manually remove Elastic IP if no longer required"
     puts "==> aws ec2 describe-addresses"
     puts "==> aws ec2 release-address --allocation-id eipalloc-XXXXXX"
+    puts
 
   end
 
