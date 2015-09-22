@@ -12,6 +12,24 @@
         "/host/var/log/auth.log"
       ],
       "fields": {"type": "auth", "host": "<%= @fqdn %>"}
+    },
+    {
+      "paths": [
+        "/host/var/log/syslog"
+      ],
+      "fields": {"type": "syslog", "host": "<%= @fqdn %>"}
+    },
+    {
+      "paths": [
+        "/host/var/log/mail.log"
+      ],
+      "fields": {"type": "mail", "host": "<%= @fqdn %>"}
+    },
+    {
+      "paths": [
+        "/host/var/log/unattended-upgrades/unattended-upgrades.log"
+      ],
+      "fields": {"type": "unattended-upgrades", "host": "<%= @fqdn %>"}
     }
   ]
 }
