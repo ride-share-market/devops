@@ -53,7 +53,7 @@ class AwsServer
 
     raise "Host not found: #{name}" if server_name.size == 0
 
-    cmd = "aws ec2 terminate-instances --instance-ids #{new_server[0]["cloud"]["id"]}"
+    cmd = "aws ec2 terminate-instances --instance-ids #{server_name[0]["cloud"]["id"]}"
     puts "==> #{cmd}"; system cmd
 
     cmd = "knife node delete #{name} --yes"
