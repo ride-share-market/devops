@@ -26,6 +26,31 @@ template "/etc/logstash/forwarder/node-exporter.conf" do
             })
 end
 
+logstash_server = []
+
+network = data_bag_item("network", node["docker-lumberjack"]["network"])
+
+network["hosts"].each { |host|
+
+  is_logstash_server = host["roles"].select { |r| r[/^log01$/] }
+
+  if is_logstash_server.size > 0
+    # vbx
+    if host["cloud"]["ip"]["eth0"] and IPAddress.valid? host["cloud"]["ip"]["eth0"]
+      logstash_server.push(host["cloud"]["ip"]["eth0"])
+    end
+    # aws
+    if host["cloud"]["ip"]["eni"] and IPAddress.valid? host["cloud"]["ip"]["eni"]["eth0"]
+      logstash_server.push(host["cloud"]["ip"]["eni"]["eth0"])
+    end
+  end
+}
+
+# should be only one logstash server, role log01, per network
+if logstash_server.size != 1
+  raise "Should be a single logstash (role log01) server per network: #{node["docker-lumberjack"]["network"]}"
+end
+
 docker_container "rsm-logstash-forwarder" do
   repo image
   tag tag
@@ -36,9 +61,9 @@ docker_container "rsm-logstash-forwarder" do
             "/var/log:/host/var/log:ro"
         ]
   extra_hosts [
-                  "logstash.ridesharemarket.com:192.168.33.100"
+                  "logstash.ridesharemarket.com:#{logstash_server[0]}"
               ]
-  # user "root"
+  # command "--config=/etc/logstash/forwarder/node-exporter.conf --silent"
   command "--config=/etc/logstash/forwarder/node-exporter.conf"
 end
 

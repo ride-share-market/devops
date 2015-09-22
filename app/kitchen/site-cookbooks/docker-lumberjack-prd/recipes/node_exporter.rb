@@ -1,0 +1,1 @@
+include_recipe "docker-lumberjack::node_exporter"
