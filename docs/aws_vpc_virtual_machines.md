@@ -88,7 +88,7 @@ After a few minutes the new instance will boot up, upgrade, then reboot.
 - [aws-vpc-private-subnet-route](./aws/aws-vpc-private-subnet-route.md)
 
 ### Create AWS Private Subnet Server Instance
-- [aws-instance](./aws/aws-instance-private-subnet.md)
+- [aws-private-instance](./aws/aws-instance-private-subnet.md)
 
 
 ### Instance Configuration Management
@@ -120,7 +120,7 @@ Update Chef Server with network data bag
 **AWS Public Subnet**
 
 - `./devops.rb server_bootstrap mandolin`
-- Reboot the server and confirm boot up email received (sanity check plus reboot into any new linux kernel).
+- Reboot the server and confirm boot up email received (sanity check and reboot into any new linux kernel).
 - `./devops.rb reboot --user ubuntu --hostname mandolin`
 
 ## Configure Local OpenVPN
@@ -138,7 +138,7 @@ Update Chef Server with network data bag
 **AWS Private Subnet**
 
 - `./devops.rb server_bootstrap trumpet --lan yes`
-- Reboot the server and confirm boot up email received (sanity check plus reboot into any new linux kernel).
+- Reboot the server and confirm boot up email received (sanity check and reboot into any new linux kernel).
 - `./devops.rb reboot --user ubuntu --hostname lan.trumpet`
 
 ## Configure Chef Server run list

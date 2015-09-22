@@ -51,3 +51,16 @@
 - `sudo -u root -i chef-client`
 - Run selected cookbooks
 - `sudo -u root -i chef-client --override-runlist firehol-prd`
+
+### Trumpet (DB)
+
+- `knife node run_list add trumpet docker-wrapper`
+- `knife node run_list add trumpet docker-prometheus`
+- `knife node run_list add trumpet docker-grafana`
+- `knife node run_list add trumpet docker-relk-prd`
+- `knife node run_list add trumpet docker-lumberjack::default`
+- `knife node run_list add trumpet docker-lumberjack-prd::node_exporter`
+- `knife node run_list add trumpet docker-private-registry-prd`
+- `knife node run_list add trumpet docker-couchbase-prd`
+
+- `knife node run_list add trumpet docker-mongodb`
