@@ -10,12 +10,14 @@ prd_hosts = data_bag_item("network", "prd_aws_ridesharemarket")
 
 prd_hosts["hosts"].each { |host|
 
-  next if !IPAddress.valid? host["cloud"]["ip"]["eth1"]
+  next if !IPAddress.valid? host["cloud"]["ip"]["eni"]["eth0"]
 
   # Find docker_private_registry machine, for now it's only one: reg01
-  is_docker_registry_node = host["roles"].select { |r| r[/^reg/] }
+
+  is_docker_registry_node = host["roles"].select { |r| r[/^reg01$/] }
+
   if is_docker_registry_node.size > 0
-    node.default["hosts"][:docker_registry_ip] = host["cloud"]["ip"]["eth1"]
+    node.default["hosts"][:docker_registry_ip] = host["cloud"]["ip"]["eni"]["eth0"]
   end
 
 }
