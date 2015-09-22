@@ -32,12 +32,10 @@ docker_container "rsm-grafana" do
   links [
             "rsm-prometheus:rsm-prometheus"
         ]
-  volumes [
-            "/opt/grafana:/var/lib/grafana"
-        ]
   binds [
-             "/opt/grafana-plugins/datasources/prometheus:/usr/share/grafana/public/app/plugins/datasource/prometheus"
-         ]
+            "/opt/grafana:/var/lib/grafana",
+            "/opt/grafana-plugins/datasources/prometheus:/usr/share/grafana/public/app/plugins/datasource/prometheus"
+        ]
   port [
            "3000:3000"
        ]
