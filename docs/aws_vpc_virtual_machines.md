@@ -69,6 +69,9 @@ Users data_bag need to be kept in sync locally and with the remote Chef server.
 - [aws-vpc-public-route-table.md](./aws/aws-vpc-public-route-table.md)
 - [aws-vpc-private-route-table.md](./aws/aws-vpc-private-route-table.md)
 
+### Setup AWS AMI and EBS IDs
+
+- [aws-ami-ebs-ids](./aws/aws-ami-ebs-ids.md)
 
 ### Create AWS Public Subnet Server Instance
 - [aws-public-instance](./aws/aws-instance-public-subnet.md)

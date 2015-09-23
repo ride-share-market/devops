@@ -62,5 +62,7 @@
 - `knife node run_list add trumpet docker-lumberjack-prd::node_exporter`
 - `knife node run_list add trumpet docker-private-registry-prd`
 - `knife node run_list add trumpet docker-couchbase-prd`
-
 - `knife node run_list add trumpet docker-mongodb`
+- `knife node run_list add trumpet docker-jenkins`
+- `knife node run_list add trumpet docker-scripts-prd::ci_server`
+- `knife node run_list add trumpet cron-jobs::ci_server`
