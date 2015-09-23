@@ -15,10 +15,6 @@ default["docker-jenkins"]["jobs"] = [
         :repo => "https://github.com/ride-share-market/iojs.git"
     },
     {
-        :name => "logstash-forwarder",
-        :repo => "https://github.com/ride-share-market/logstash-forwarder.git"
-    },
-    {
         :name => "nginx",
         :repo => "https://github.com/ride-share-market/nginx.git"
     },

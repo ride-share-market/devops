@@ -1,4 +1,3 @@
-# image = "jenkins"
 image = "rudijs/jenkins-build-essential"
 tag = "1.609.2"
 
