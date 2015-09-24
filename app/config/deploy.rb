@@ -86,6 +86,7 @@ namespace :docker do
 
   desc "Upload App Config"
   task :upload_config do
+
     on roles(:cis) do |host|
 
       puts "==> Host: #{host}"

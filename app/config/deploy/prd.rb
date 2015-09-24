@@ -18,8 +18,8 @@
 # property set. Specify the username and a domain or IP for the server.
 # Don't use `:all`, it's a meta role.
 
-role :app, %w{ubuntu@redline.ridesharemarket.com}
-role :ci, %w{ubuntu@redline.ridesharemarket.com}
+role :app, %w{ubuntu@lan.mandolin}
+role :cis, %w{ubuntu@lan.trumpet}
 # role :app, %w{deploy@example.com}, my_property: :my_value
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
