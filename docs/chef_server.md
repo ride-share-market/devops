@@ -29,9 +29,52 @@
 - Upload
 - `knife cookbook upload --include-dependencies network-hosts-prd`
 
-### Example Node Run List Management
+### Run chef-client from command line on server
+
+- Run all cookbooks
+- `sudo -u root -i chef-client`
+- Run selected cookbooks
+- `sudo -u root -i chef-client --override-runlist firehol-prd`
+
+### Node Run List Management
 - `knife node list`
-- `knife node show redline`
+- `knife node show trumpet`
+- `knife node show mandolin`
+
+### Trumpet (Data)
+
+- `knife node run_list add trumpet docker-wrapper-prd`
+- `knife node run_list add trumpet docker-prometheus`
+- `knife node run_list add trumpet docker-grafana`
+- `knife node run_list add trumpet docker-relk-prd`
+- `knife node run_list add trumpet docker-lumberjack`
+- `knife node run_list add trumpet docker-lumberjack-prd::node_exporter`
+- `knife node run_list add trumpet docker-private-registry-prd`
+- `knife node run_list add trumpet docker-couchbase-prd`
+- `knife node run_list add trumpet docker-mongodb`
+- `knife node run_list add trumpet docker-jenkins`
+- `knife node run_list add trumpet docker-scripts-prd`
+- `knife node run_list add trumpet docker-scripts-prd::ci_server`
+- `knife node run_list add trumpet cron-jobs::ci_server`
+
+# Todo: single line run_list add
+
+### Mandolin (APP)
+
+- `knife node run_list add mandolin docker-wrapper-prd`
+- `knife node run_list add mandolin docker-lumberjack`
+- `knife node run_list add mandolin docker-lumberjack::ssl`
+- `knife node run_list add mandolin docker-lumberjack-prd::node_exporter`
+- `knife node run_list add mandolin docker-prometheus::node-exporter`
+- `knife node run_list add mandolin docker-prometheus::container-exporter`
+- `knife node run_list add mandolin docker-scripts-prd`
+- `knife node run_list add mandolin docker-scripts-prd::app_server`
+
+# Todo: single line run_list add
+
+**Legacy to be removed.**
+
+### Redline (Data + App)
 
 - Add cookbooks one by one
 - `knife node run_list add redline git-repos`
@@ -46,23 +89,3 @@
 
 - Add all cookbooks
 - `knife node run_list add redline git-repos,docker-wrapper-prd,docker-relk-prd,docker-prometheus,docker-grafana,docker-containers-prd,mongodb,jenkins-cookbook,cron-jobs`
-
-- Run all cookbooks
-- `sudo -u root -i chef-client`
-- Run selected cookbooks
-- `sudo -u root -i chef-client --override-runlist firehol-prd`
-
-### Trumpet (DB)
-
-- `knife node run_list add trumpet docker-wrapper`
-- `knife node run_list add trumpet docker-prometheus`
-- `knife node run_list add trumpet docker-grafana`
-- `knife node run_list add trumpet docker-relk-prd`
-- `knife node run_list add trumpet docker-lumberjack::default`
-- `knife node run_list add trumpet docker-lumberjack-prd::node_exporter`
-- `knife node run_list add trumpet docker-private-registry-prd`
-- `knife node run_list add trumpet docker-couchbase-prd`
-- `knife node run_list add trumpet docker-mongodb`
-- `knife node run_list add trumpet docker-jenkins`
-- `knife node run_list add trumpet docker-scripts-prd::ci_server`
-- `knife node run_list add trumpet cron-jobs::ci_server`
