@@ -4,19 +4,22 @@ end
 
 # Configuration File
 template "/home/ubuntu/prometheus.yml" do
-  source "prometheus.yml"
+  source "prometheus.yml.erb"
   owner "ubuntu"
   group "ubuntu"
+  variables({
+                :scrape_configs => node["docker-prometheus"]["scrape_configs"]
+            })
 end
 
 docker_container "rsm-prometheus" do
   repo "prom/prometheus"
   restart_policy 'always'
-  links [
-            "rsm-node-exporter",
-            "rsm-container-exporter",
-            "rsm-statsd-bridge"
-        ]
+  # links [
+  #           "rsm-node-exporter",
+  #           "rsm-container-exporter",
+  #           "rsm-statsd-bridge"
+  #       ]
   binds [
             "/home/ubuntu/prometheus.yml:/etc/prometheus/prometheus.yml:ro"
         ]
