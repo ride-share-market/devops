@@ -4,6 +4,6 @@ maintainer_email 'systemsadmin@ridesharemarket.com'
 license          'All rights reserved'
 description      'Installs/Configures docker-scripts-prd'
 long_description 'Installs/Configures docker-scripts-prd'
-version          '1.0.1'
+version          '1.0.3'
 
 depends 'docker-scripts'
