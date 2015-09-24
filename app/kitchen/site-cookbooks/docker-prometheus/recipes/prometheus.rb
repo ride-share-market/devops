@@ -22,3 +22,4 @@ docker_container "rsm-prometheus" do
         ]
 end
 # sudo docker run -d --name rsm-prometheus --link rsm-node-exporter:rsm-node-exporter --link rsm-container-exporter:rsm-container-exporter -v /home/ubuntu/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+# sudo docker run -it --name rsm-prometheus --link rsm-node-exporter:rsm-node-exporter --link rsm-container-exporter:rsm-container-exporter -v /home/ubuntu/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus

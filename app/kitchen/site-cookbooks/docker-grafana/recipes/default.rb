@@ -40,4 +40,4 @@ docker_container "rsm-grafana" do
            "3000:3000"
        ]
 end
-#sudo docker run --rm --name rsm-grafana --link rsm-prometheus:rsm-prometheus -v /opt/grafana-plugins/datasources/prometheus:/usr/share/grafana/public/app/plugins/datasource/prometheus -p 3000:3000 grafana/grafana:2.0.2
+# sudo docker run --rm --name rsm-grafana --link rsm-prometheus:rsm-prometheus -v /opt/grafana-plugins/datasources/prometheus:/usr/share/grafana/public/app/plugins/datasource/prometheus -p 3000:3000 grafana/grafana:2.1.3
