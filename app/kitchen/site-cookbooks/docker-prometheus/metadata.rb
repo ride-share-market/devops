@@ -4,7 +4,7 @@ maintainer_email 'systemsadmin@ridesharemarket.com'
 license          'All rights reserved'
 description      'Installs/Configures docker-prometheus'
 long_description 'Installs/Configures docker-prometheus'
-version          '1.0.2'
+version          '1.0.4'
 
 depends 'docker'
 

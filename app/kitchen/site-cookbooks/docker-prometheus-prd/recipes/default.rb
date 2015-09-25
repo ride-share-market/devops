@@ -32,15 +32,15 @@ prd_hosts["hosts"].each { |host|
 node.default["docker-prometheus"]["scrape_configs"] = [
     {
         :job_name => "node",
-        :target_groups => hosts
+        :target_groups => hosts.map { |host| "#{host}:9100" }
     },
     {
         :job_name => "docker",
-        :target_groups => hosts
+        :target_groups => hosts.map { |host| "#{host}:9104" }
     },
     {
         :job_name => "statsd",
-        :target_groups => metrics_hosts
+        :target_groups => metrics_hosts.map { |host| "#{host}:9102" }
     }
 ]
 
