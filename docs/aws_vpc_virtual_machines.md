@@ -2,19 +2,24 @@
 
 ### AWS - Amazon Web Services
 
-- AWS IAM - Identity and Access Management
+### Prerequisites
 
+**AWS IAM** - Identity and Access Management
+   
 An active IAM account with developer group access permissions.
-
+   
 The Access Key ID and Access Key Secret will be used for the AWS CLI.
 
-- The AWS Command Line Interface unified tool to manage AWS services.
+**The AWS Command Line Interface** unified tool to manage AWS services.
+
 - [AWS CLI Install Docs](http://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 - [AWS CLI Usage Docs](http://docs.aws.amazon.com/cli/latest/index.html)
 
 Post install `~/.aws/` should be set up with config and credentials files.
 
 Check the `~./aws/config` file is set to the correct aws region.
+
+**JQ**
 
 The [jq](https://stedolan.github.io/jq/) binary is also required.
 
@@ -101,8 +106,8 @@ Update [kitchen/data_bags/network/prd_aws_ridesharemarket.json](./../app/kitchen
 - AWS instance id
 - AWS Public IP
 - AWS Private IP
-- `aws ec2 describe-instances --instance-id $VPC_BASTION_INSTANCE | grep 'InstanceId\|PublicIpAddress\|PrivateIpAddress'`
 - `aws ec2 describe-instances --instance-id $VPC_DB_INSTANCE | grep 'InstanceId\|PublicIpAddress\|PrivateIpAddress'`
+- `aws ec2 describe-instances --instance-id $VPC_BASTION_INSTANCE | grep 'InstanceId\|PublicIpAddress\|PrivateIpAddress'`
 
 Update developer workstation */etc/hosts*
 
@@ -130,7 +135,7 @@ Update Chef Server with network data bag
 
 - [vpn](./vpn.md)
 
-## Bootstrap Servers
+## Bootstrap DB Server
 
 **Bootstrap includes:**
 

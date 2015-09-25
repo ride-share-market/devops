@@ -34,7 +34,7 @@
 - Run all cookbooks
 - `sudo -u root -i chef-client`
 - Run selected cookbooks
-- `sudo -u root -i chef-client --override-runlist firehol-prd`
+- `sudo -u root -i chef-client --override-runlist network-hosts-prd`
 
 ### Node Run List Management
 - `knife node list`
@@ -44,8 +44,7 @@
 ### Trumpet (Data)
 
 - `knife node run_list add trumpet docker-wrapper-prd`
-- `knife node run_list add trumpet docker-prometheus`
-- `knife node run_list add trumpet docker-grafana`
+- `knife node run_list add trumpet docker-prometheus-prd`
 - `knife node run_list add trumpet docker-relk-prd`
 - `knife node run_list add trumpet docker-lumberjack`
 - `knife node run_list add trumpet docker-lumberjack-prd::node_exporter`
@@ -56,6 +55,8 @@
 - `knife node run_list add trumpet docker-scripts-prd`
 - `knife node run_list add trumpet docker-scripts-prd::ci_server`
 - `knife node run_list add trumpet cron-jobs::ci_server`
+
+knife node run_list add trumpet docker-scripts-prd docker-scripts-prd::ci_server cron-jobs::ci_server
 
 # Todo: single line run_list add
 
@@ -69,6 +70,8 @@
 - `knife node run_list add mandolin docker-prometheus::container-exporter`
 - `knife node run_list add mandolin docker-scripts-prd`
 - `knife node run_list add mandolin docker-scripts-prd::app_server`
+
+knife node run_list add mandolin docker-wrapper-prd docker-lumberjack docker-lumberjack::ssl docker-lumberjack-prd::node_exporter docker-prometheus::node-exporter docker-prometheus::container-exporter docker-scripts-prd docker-scripts-prd::app_server
 
 # Todo: single line run_list add
 

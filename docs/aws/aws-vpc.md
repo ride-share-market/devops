@@ -16,7 +16,7 @@ As you proceed update the various IDs used from the output of each command.
 ### Modify VPC attributes (instance with public IP will get an amazon dns record)
 - `aws ec2 modify-vpc-attribute --vpc-id $VPC_ID --enable-dns-hostnames '{"Value":true}'`
 
-### From the new VPC get the ID of the auto created **Main route table**
+### From the new VPC get the ID of the auto created **default Main route table**
 
 - `aws ec2 describe-route-tables | jq ".RouteTables[] | select(.VpcId == \"$VPC_ID\")" | jq '.RouteTableId'`
 
@@ -24,7 +24,7 @@ As you proceed update the various IDs used from the output of each command.
 - `export VPC_MAIN_ROUTETABLE=rtb-xxxxxx`
 
 ### Tag the Main Route Table
-- `aws ec2 create-tags --resources $VPC_MAIN_ROUTETABLE --tags Key=Name,Value=rsm-prd-main-RT`
+- `aws ec2 create-tags --resources $VPC_MAIN_ROUTETABLE --tags Key=Name,Value=rsm-prd-default-RT`
 
 ### From the new VPC get the ID of the auto created **default security group**
 

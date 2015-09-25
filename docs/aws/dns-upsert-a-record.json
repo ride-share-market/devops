@@ -1,10 +1,23 @@
 {
-  "Comment": "Add DNS A record",
+  "Comment": "Upsert ridesharemarket.com DNS A records",
   "Changes": [
     {
       "Action": "UPSERT",
       "ResourceRecordSet": {
         "Name": "mandolin.ridesharemarket.com",
+        "Type": "A",
+        "TTL": 300,
+        "ResourceRecords": [
+          {
+            "Value": "xxx.xxx.xxx.xxx"
+          }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "trumpet.ridesharemarket.com",
         "Type": "A",
         "TTL": 300,
         "ResourceRecords": [
