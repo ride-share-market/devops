@@ -29,7 +29,7 @@ prd_hosts["hosts"].each { |host|
 
 }
 
-node["docker-prometheus"]["scrape_configs"] = [
+node.default["docker-prometheus"]["scrape_configs"] = [
     {
         :job_name => "node",
         :target_groups => hosts
