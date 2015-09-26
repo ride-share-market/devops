@@ -163,9 +163,13 @@ Update Chef Server with network data bag
 
 ## Destroy
 
-- Destroy Digital Ocean instance.
+- Destroy AWSn instance.
 - Delete Chef Node.
 - Delete Chef Client.
 - Remove .ssh/known_hosts entries.
 - `./devops.rb server_delete mandolin`
 - `./devops.rb server_delete trumpet`
+
+## Backup
+
+Details on how to create from scratch the backup process is detailed in [backup.md](./aws/backup.md).
