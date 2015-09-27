@@ -55,6 +55,7 @@
 - `knife node run_list add trumpet docker-scripts-prd`
 - `knife node run_list add trumpet docker-scripts-prd::ci_server`
 - `knife node run_list add trumpet cron-jobs::ci_server`
+- `knife node run_list add trumpet cron-jobs::mongodb_backup`
 
 knife node run_list add trumpet docker-scripts-prd docker-scripts-prd::ci_server cron-jobs::ci_server
 

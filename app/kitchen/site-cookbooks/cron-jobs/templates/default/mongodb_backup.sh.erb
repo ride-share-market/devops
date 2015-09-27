@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+
+BACKUP_DIR=/opt/backup/mongodb
+DATE_TIME_NOW=$(date '+%Y-%m-%d_%H-%M-%S')
+DATABASE_NAME=rsm
+
+for COLLECTION in users rideshares; do
+    CMD="sudo docker exec rsm-mongodb mongodump --db $DATABASE_NAME --collection $COLLECTION --out ${BACKUP_DIR}/mongodump_${DATE_TIME_NOW}"
+    echo "==> $CMD"
+    $CMD
+done
+
+CMD="sudo tar -czf ${BACKUP_DIR}/mongodump_${DATE_TIME_NOW}.tar.gz ${BACKUP_DIR}/mongodump_${DATE_TIME_NOW}"
+echo "==> $CMD"
+$CMD
+
+CMD="sudo docker exec rsm-mongodb rm -rf ${BACKUP_DIR}/mongodump_${DATE_TIME_NOW}"
+echo "==> $CMD"
+$CMD
+
+# Restore
+
+# Production data to Development - rsm to rsm-dev
+# Example:
+# mongorestore --collection users --db rsm-dev --drop /opt/backup/mongodb/opt/backup/mongodb/mongodump_2015-09-27_07-00-16/rsm/users.bson
+# mongorestore --collection rideshares --db rsm-dev --drop /opt/backup/mongodb/opt/backup/mongodb/mongodump_2015-09-27_07-00-16/rsm/rideshares.bson
