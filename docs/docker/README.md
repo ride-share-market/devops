@@ -14,11 +14,18 @@
 
 ### Kernel Upgrade
 
-Issue: All images and containers disappeared after host kernel upgrade
+Issue: All images and containers disappeared after host reboot into an upgraded/new kernel.
 
-Solution: Inside the VM install the aufs kernel module that docker requires but can be lost during kernel upgrades. 
+Solution: Inside the VM install the aufs kernel module that docker requires but can be lost during kernel upgrades.
 
-Not sure why the package manager misses this dependency.
+*Not sure why the package manager misses this dependency*.
+ 
+Option 1: Before reboot
+
+- Install the linux-image-extra package for the new (to be rebooted into) kernal
+- `sudo apt-get -y install linux-image-extra-3.xx.x-xx-generic`
+
+Option 2: After reboot
 
 - `sudo apt-get -y install linux-image-extra-$(uname -r)`
 - `sudo init 6`
