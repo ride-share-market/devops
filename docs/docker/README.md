@@ -23,6 +23,9 @@ Solution: Inside the VM install the aufs kernel module that docker requires but 
 Option 1: Before reboot
 
 - Install the linux-image-extra package for the new (to be rebooted into) kernal
+- If the system requires a reboot, check which new kernel version is requiring the reboot:
+- `cat /var/run/reboot-required.pkgs`
+- Install the linux-image-extra package for that version:
 - `sudo apt-get -y install linux-image-extra-3.xx.x-xx-generic`
 
 Option 2: After reboot
