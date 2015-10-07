@@ -43,6 +43,8 @@ docker_container "rsm-logstash" do
            "rsm-elasticsearch:rsm-elasticsearch"
        ]
   port [
+           "1514:1514",
+           "1514:1514/udp",
            "9876:9876",
            "9877:9877"
        ]

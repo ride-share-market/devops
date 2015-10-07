@@ -8,7 +8,7 @@ default["logstash"]["settings"]["rabbitmq_user"] = "rsm-logstash"
 
 default["logstash"]["settings"]["rules"] = [
     # "100_input_auth.conf",
-    # "100_input_syslog.conf",
+    "100_input_syslog.conf",
     # "100_input_firehol.conf",
     # "100_input_mail.conf",
     # "100_input_logstash.conf",
