@@ -7,6 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 package "zlib1g-dev"
+package "make"
 
 remote_file node["netdata"]["options"]["filename"] do
   action :create_if_missing
