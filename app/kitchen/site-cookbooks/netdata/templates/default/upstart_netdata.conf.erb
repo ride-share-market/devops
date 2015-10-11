@@ -1,0 +1,11 @@
+description "Manage Netdata"
+
+start on virtual-filesystems
+stop on runlevel [06]
+
+#respawn
+#respawn limit 10 5
+
+script
+    exec <%= @options["path"] %>/netdata.start >> /var/log/netdata.log 2>&1
+end script
